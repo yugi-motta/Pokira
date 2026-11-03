@@ -16,7 +16,7 @@ npm run build
 npx astro check
 ```
 
-The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. Search runs in the browser without a request. Artist pages show every recorded announcement, newest first, and reveal more entries in groups of eight.
+The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. The homepage never embeds X posts: it shows permitted local card images when available and a restrained card-name reference otherwise. Search runs in the browser without a request. Artist pages show every recorded announcement, newest first, and reveal more entries in groups of eight.
 
 ## One-message update
 
@@ -53,7 +53,7 @@ Evidence shape:
 }
 ```
 
-`imageFiles` is optional. Without reuse permission, keep it absent. The site displays the original post through X's official embed and a direct link. It does not download image URLs from X, scrape around access limits, or infer a license from public availability. Local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. Multiple images per post are supported. The original image files are never committed by the CLI.
+`imageFiles` is optional. Without reuse permission, keep it absent. The homepage uses a typographic card-name reference; the artist profile displays the original post through X's official embed and a direct link. The site does not download image URLs from X, scrape around access limits, or infer a license from public availability. Local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. Multiple images per post are supported. The original image files are never committed by the CLI.
 
 For a new artist, the CLI derives a stable ID from their handle if none is supplied. To keep existing URLs permanent, do not change an ID once published. The image record stores its permission evidence. A typographic initial appears in the profile header when an X profile photo cannot be reused.
 

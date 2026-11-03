@@ -1,7 +1,6 @@
 ---
 import { artists, newest } from '../lib/content';
 import { copy, pathFor, type Lang } from '../lib/i18n';
-import PostEmbed from './PostEmbed.astro';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -30,15 +29,35 @@ const t = copy[lang];
       <article class="artist-entry" data-search={search} data-name={artist.handle.toLowerCase()} data-order={index}>
         <a class="artist-link" href={pathFor(lang, artist.id)} aria-label={`${artist.name} @${artist.handle}`}>
           <div class="artist-preview">
-            {posts.slice(0, 2).map((post) => (
-              <div class="preview-piece"><PostEmbed artist={artist} post={post} lang={lang} compact /></div>
-            ))}
+            {posts.slice(0, 3).map((post) => {
+              const image = post.images[0];
+              return (
+                <div class:list={['preview-piece', { 'preview-piece--image': !!image }]}>
+                  {image ? (
+                    <img
+                      src={image.src}
+                      srcset={image.variants.map((variant) => `${variant.src} ${variant.width}w`).join(', ')}
+                      sizes="(max-width: 520px) 72vw, (max-width: 800px) 34vw, 18vw"
+                      width={image.width}
+                      height={image.height}
+                      alt={image.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div class="card-reference">
+                      <span class="card-reference-kind">{post.kind === 'pocket' ? 'TCG POCKET' : 'POKÉMON CARD GAME'}</span>
+                      <span class="card-reference-name">{post.pokemon.join(' / ')}</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
           <div class="artist-text">
             <div><h2>{artist.name}</h2><span class="artist-handle">@{artist.handle}</span></div>
             <span class="artist-arrow" aria-hidden="true">↗</span>
           </div>
-          <div class="artist-tags">{posts.slice(0, 3).map((post) => <span>{post.pokemon.join(' · ')}</span>)}</div>
         </a>
       </article>
     );
