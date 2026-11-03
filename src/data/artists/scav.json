@@ -1,0 +1,30 @@
+{
+  "id": "scav",
+  "name": "Scav",
+  "handle": "scavvvvv",
+  "announcements": [
+    {
+      "tweetId": "1954115864070132140",
+      "date": "2025-08-09",
+      "pokemon": [
+        "ニョロゾ"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/n6b9e4d6df2f6",
+      "images": [],
+      "url": "https://x.com/scavvvvv/status/1954115864070132140"
+    },
+    {
+      "tweetId": "1952294718509039668",
+      "date": "2025-08-04",
+      "pokemon": [
+        "ビリリダマ",
+        "マルマイン"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/n0cb05af7d51c",
+      "images": [],
+      "url": "https://x.com/scavvvvv/status/1952294718509039668"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "pokira",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run validate && astro build",
+    "preview": "astro preview",
+    "validate": "node --import tsx scripts/validate.ts",
+    "add-tweet": "node --import tsx scripts/add-tweet.ts"
+  },
+  "dependencies": {
+    "astro": "^7.4.5",
+    "sharp": "^0.35.5",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^26.6.6",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

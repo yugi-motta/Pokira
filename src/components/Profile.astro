@@ -1,0 +1,49 @@
+---
+import type { Artist } from '../lib/content';
+import { newest, tweetUrl } from '../lib/content';
+import { copy, pathFor, type Lang } from '../lib/i18n';
+import PostEmbed from './PostEmbed.astro';
+
+interface Props { artist: Artist; lang: Lang; }
+const { artist, lang } = Astro.props;
+const t = copy[lang];
+const posts = newest(artist.announcements);
+---
+<a class="back-link" href={pathFor(lang)}><span aria-hidden="true">←</span> {t.back}</a>
+<header class="profile-header">
+  <div class="profile-avatar" aria-hidden="true">{artist.name.slice(0, 1)}</div>
+  <div class="profile-identity">
+    <p class="eyebrow">ILLUSTRATOR / {String(posts.length).padStart(2, '0')}</p>
+    <h1>{artist.name}</h1>
+    {artist.romanizedName && <p class="romanized">{artist.romanizedName}</p>}
+    <a href={`https://x.com/${artist.handle}`} target="_blank" rel="noopener noreferrer" class="x-profile">@{artist.handle} <span aria-hidden="true">↗</span><span class="sr-only"> {t.profile}</span></a>
+  </div>
+</header>
+<div class="section-heading"><h2>{t.announcements}</h2><span>{String(posts.length).padStart(2, '0')}</span></div>
+<div id="announcement-list" class="announcement-list">
+  {posts.map((post, index) => (
+    <article class="announcement" data-index={index} hidden={index >= 8}>
+      <div class="announcement-index">{String(index + 1).padStart(2, '0')}</div>
+      <div class="announcement-body">
+        <div class="announcement-topline">
+          <time datetime={post.date}>{post.date.replaceAll('-', '.')}</time>
+          <span>{post.kind === 'pocket' ? t.pocket : t.physical}</span>
+        </div>
+        <h3>{post.pokemon.length ? post.pokemon.join(' · ') : t.artwork}</h3>
+        <PostEmbed artist={artist} post={post} lang={lang} />
+        <a class="original-link" href={tweetUrl(artist, post)} target="_blank" rel="noopener noreferrer">{t.original} <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+  ))}
+</div>
+{posts.length > 8 && <button id="show-more" class="show-more" type="button">{t.showMore} <span aria-hidden="true">↓</span></button>}
+<script>
+  const more = document.querySelector<HTMLButtonElement>('#show-more');
+  let shown = 8;
+  more?.addEventListener('click', () => {
+    const entries = [...document.querySelectorAll<HTMLElement>('.announcement')];
+    entries.slice(shown, shown + 8).forEach((entry) => entry.hidden = false);
+    shown += 8;
+    if (shown >= entries.length) more.remove();
+  });
+</script>

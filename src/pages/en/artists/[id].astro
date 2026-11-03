@@ -1,0 +1,13 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Profile from '../../../components/Profile.astro';
+import { artists } from '../../../lib/content';
+import { copy } from '../../../lib/i18n';
+export function getStaticPaths() {
+  return artists.map((artist) => ({ params: { id: artist.id }, props: { artist } }));
+}
+const { artist } = Astro.props;
+---
+<Base lang="en" title={artist.name} description={copy.en.artistMeta(artist.name)} artistId={artist.id}>
+  <Profile artist={artist} lang="en" />
+</Base>

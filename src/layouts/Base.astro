@@ -1,0 +1,58 @@
+---
+import { copy, pathFor, type Lang } from '../lib/i18n';
+import '../styles/global.css';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  artistId?: string;
+}
+const { lang, title, description, artistId } = Astro.props;
+const t = copy[lang];
+const fullTitle = title ? `${title} — ${t.siteTitle}` : t.siteTitle;
+const metaDescription = description || t.siteDescription;
+const alternate = pathFor(lang === 'ja' ? 'en' : 'ja', artistId);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f8f6" />
+    <meta name="description" content={metaDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical.href} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="alternate" hreflang={lang === 'ja' ? 'en' : 'ja'} href={new URL(alternate, Astro.site).href} />
+    <link rel="alternate" hreflang={lang} href={canonical.href} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>Pokira<span class="wordmark-dot">.</span></a>
+        <nav class="language-nav" aria-label={t.language}>
+          <a href={pathFor('ja', artistId)} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
+          <span aria-hidden="true">/</span>
+          <a href={pathFor('en', artistId)} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
+        </nav>
+      </header>
+      <main><slot /></main>
+      <footer class="site-footer">
+        <span>Pokira © {new Date().getFullYear()}</span>
+        <p>{t.unofficial}</p>
+      </footer>
+    </div>
+    <script is:inline>
+      document.querySelectorAll('[data-lang]').forEach((link) => {
+        link.addEventListener('click', () => localStorage.setItem('pokira-lang', link.dataset.lang));
+      });
+      if (location.pathname === '/' && localStorage.getItem('pokira-lang') === 'en') location.replace('/en/');
+    </script>
+  </body>
+</html>

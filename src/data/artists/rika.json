@@ -1,0 +1,41 @@
+{
+  "id": "rika",
+  "name": "___rika",
+  "handle": "0__rika__0",
+  "announcements": [
+    {
+      "tweetId": "1962445796831625701",
+      "date": "2025-09-01",
+      "pokemon": [
+        "ラティアス",
+        "ラティオス"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/n7a72b868b774",
+      "images": [],
+      "url": "https://x.com/0__rika__0/status/1962445796831625701"
+    },
+    {
+      "tweetId": "1952556664844132755",
+      "date": "2025-08-05",
+      "pokemon": [
+        "エーフィ"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/n0cb05af7d51c",
+      "images": [],
+      "url": "https://x.com/0__rika__0/status/1952556664844132755"
+    },
+    {
+      "tweetId": "1897243414766539223",
+      "date": "2025-03-05",
+      "pokemon": [
+        "クレセリア"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/n05ea8f4afa94",
+      "images": [],
+      "url": "https://x.com/0__rika__0/status/1897243414766539223"
+    }
+  ]
+}

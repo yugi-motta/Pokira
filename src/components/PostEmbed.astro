@@ -1,0 +1,32 @@
+---
+import type { Announcement, Artist } from '../lib/content';
+import { tweetUrl } from '../lib/content';
+import { copy, type Lang } from '../lib/i18n';
+
+interface Props { artist: Artist; post: Announcement; lang: Lang; compact?: boolean; }
+const { artist, post, lang, compact = false } = Astro.props;
+const t = copy[lang];
+const url = tweetUrl(artist, post);
+const embedUrl = `https://platform.twitter.com/embed/Tweet.html?id=${post.tweetId}&theme=light&dnt=true`;
+---
+<div class:list={['post-visual', { compact }]}>
+  {post.images.length ? (
+    <>
+      <div class="local-images">
+        {post.images.map((image) => (
+          <img src={image.src} srcset={image.variants.map((variant) => `${variant.src} ${variant.width}w`).join(', ')} sizes="(max-width: 520px) 82vw, (max-width: 800px) 80vw, 600px" width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />
+        ))}
+      </div>
+      {!compact && <details class="embed-details"><summary>{t.originalEmbed}</summary><iframe src={embedUrl} title={`${artist.name}: ${t.originalEmbed}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></details>}
+    </>
+  ) : (
+    <iframe
+      src={embedUrl}
+      title={`${artist.name}: ${post.pokemon.join('・') || t.artwork}`}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen
+    ></iframe>
+  )}
+  {!compact && <a class="post-fallback" href={url} target="_blank" rel="noopener noreferrer">{t.viewPost} ↗</a>}
+</div>

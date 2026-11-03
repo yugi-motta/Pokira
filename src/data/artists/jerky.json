@@ -1,0 +1,51 @@
+{
+  "id": "jerky",
+  "name": "Jerky",
+  "handle": "bananajerky",
+  "announcements": [
+    {
+      "tweetId": "1930560646485041201",
+      "date": "2025-06-05",
+      "pokemon": [
+        "アローラベトベトン"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/ne5405ac13901",
+      "images": [],
+      "url": "https://x.com/bananajerky/status/1930560646485041201"
+    },
+    {
+      "tweetId": "1919679411596755232",
+      "date": "2025-05-06",
+      "pokemon": [
+        "オドリドリ"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/ne5405ac13901",
+      "images": [],
+      "url": "https://x.com/bananajerky/status/1919679411596755232"
+    },
+    {
+      "tweetId": "1919677314889044120",
+      "date": "2025-05-06",
+      "pokemon": [
+        "サーフゴー"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/nc7b186708b77",
+      "images": [],
+      "url": "https://x.com/bananajerky/status/1919677314889044120"
+    },
+    {
+      "tweetId": "1871034890797633769",
+      "date": "2024-12-23",
+      "pokemon": [
+        "ウッウ"
+      ],
+      "kind": "pocket",
+      "source": "https://note.com/mobile_slime/n/n4bf93b8bb6c9",
+      "images": [],
+      "url": "https://x.com/bananajerky/status/1871034890797633769"
+    }
+  ]
+}
