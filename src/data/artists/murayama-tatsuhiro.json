@@ -4,6 +4,7 @@
   "handle": "ovopack",
   "announcements": [
     {
+      "url": "https://x.com/ovopack/status/2051171151859306797",
       "tweetId": "2051171151859306797",
       "date": "2026-05-04",
       "pokemon": [
@@ -11,10 +12,10 @@
       ],
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/nf2ebeb90f16f",
-      "images": [],
-      "url": "https://x.com/ovopack/status/2051171151859306797"
+      "images": []
     },
     {
+      "url": "https://x.com/ovopack/status/1863444599664238819",
       "tweetId": "1863444599664238819",
       "date": "2024-12-02",
       "pokemon": [
@@ -22,8 +23,18 @@
       ],
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/na9624acd6739",
-      "images": [],
-      "url": "https://x.com/ovopack/status/1863444599664238819"
+      "images": []
+    },
+    {
+      "url": "https://x.com/ovopack/status/1451777364011016198",
+      "tweetId": "1451777364011016198",
+      "date": "2021-10-23",
+      "pokemon": [
+        "ピカチュウ"
+      ],
+      "kind": "physical",
+      "source": "https://note.com/pokeboon/n/n8aaaf7e364dc",
+      "images": []
     }
   ]
 }

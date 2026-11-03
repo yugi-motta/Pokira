@@ -66,6 +66,6 @@ No runtime server is needed. Cloudflare Pages and public GitHub repositories hav
 
 ## Content verification
 
-The starter records contain four artists and eleven original X post URLs. Their authors, dates, and announced cards were cross-checked against the linked contemporary [roundups](https://note.com/mobile_slime). Each record includes the specific roundup URL under `source`. No card art has been copied into this repository.
+The starter records contain four artists and twelve original X post URLs across physical TCG and TCG Pocket. Their authors, dates, and announced cards were cross-checked against the linked [roundups](https://note.com/mobile_slime) and [physical-card announcement collection](https://note.com/pokeboon/n/n8aaaf7e364dc). Each record includes its specific verification URL under `source`. No card art has been copied into this repository.
 
 The validation command checks schema shape, unique IDs, unique handles, unique tweet IDs, dates against X's snowflake timestamp, and local image paths. The production build runs validation first.
