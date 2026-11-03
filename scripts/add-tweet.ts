@@ -64,6 +64,9 @@ const inferredKind = /ポケポケ|Trading Card Game Pocket/i.test(postText)
     ? 'physical'
     : undefined;
 const kind = evidence.kind || inferredKind;
+if (!evidencePath && !/担当|描かせ|描きま|illustrat|作画/i.test(postText)) {
+  throw new Error('The post text does not verify that its author illustrated the card. Ask Codex to review the post and supply evidence.');
+}
 if (!kind) throw new Error('Cannot verify whether this is a physical card or TCG Pocket announcement. Supply kind in evidence JSON.');
 if (!evidence.source && !official) throw new Error('X oEmbed is unavailable. Supply a public verification source URL in evidence JSON.');
 if (evidence.imageFiles?.some((image) => !image.permission.trim())) throw new Error('Every local image requires permission evidence.');
