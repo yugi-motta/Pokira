@@ -12,7 +12,14 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/n6b9e4d6df2f6",
       "images": [],
-      "url": "https://x.com/scavvvvv/status/1954115864070132140"
+      "url": "https://x.com/scavvvvv/status/1954115864070132140",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/Gx5qBUTaMAAlQup.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     },
     {
       "tweetId": "1952294718509039668",
@@ -24,7 +31,20 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/n0cb05af7d51c",
       "images": [],
-      "url": "https://x.com/scavvvvv/status/1952294718509039668"
+      "url": "https://x.com/scavvvvv/status/1952294718509039668",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GxfvYuvboAEbUIj.jpg",
+          "width": 734,
+          "height": 1024
+        },
+        {
+          "src": "https://pbs.twimg.com/media/GxfvYu7bkAApTBb.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     }
-  ]
+  ],
+  "avatar": "https://pbs.twimg.com/profile_images/1983543272946778113/jYsaCb2m_400x400.jpg"
 }

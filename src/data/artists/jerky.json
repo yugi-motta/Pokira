@@ -12,7 +12,14 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/ne5405ac13901",
       "images": [],
-      "url": "https://x.com/bananajerky/status/1930560646485041201"
+      "url": "https://x.com/bananajerky/status/1930560646485041201",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/Gsq6mqybMAA2Kj0.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     },
     {
       "tweetId": "1919679411596755232",
@@ -23,7 +30,29 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/ne5405ac13901",
       "images": [],
-      "url": "https://x.com/bananajerky/status/1919679411596755232"
+      "url": "https://x.com/bananajerky/status/1919679411596755232",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GqQSL69bkAA6-2I.jpg",
+          "width": 734,
+          "height": 1024
+        },
+        {
+          "src": "https://pbs.twimg.com/media/GqQSPJSbAAAXZqD.jpg",
+          "width": 734,
+          "height": 1024
+        },
+        {
+          "src": "https://pbs.twimg.com/media/GqQSPJubAAM51BW.jpg",
+          "width": 734,
+          "height": 1024
+        },
+        {
+          "src": "https://pbs.twimg.com/media/GqQSPKAbAAYbKDA.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     },
     {
       "tweetId": "1919677314889044120",
@@ -34,7 +63,14 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/nc7b186708b77",
       "images": [],
-      "url": "https://x.com/bananajerky/status/1919677314889044120"
+      "url": "https://x.com/bananajerky/status/1919677314889044120",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GqQQL3obwAAkWd-.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     },
     {
       "tweetId": "1871034890797633769",
@@ -45,7 +81,15 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/n4bf93b8bb6c9",
       "images": [],
-      "url": "https://x.com/bananajerky/status/1871034890797633769"
+      "url": "https://x.com/bananajerky/status/1871034890797633769",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GfdAUJUawAAcr1r.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     }
-  ]
+  ],
+  "avatar": "https://pbs.twimg.com/profile_images/953563835373314048/CiZIHfwI_400x400.jpg"
 }

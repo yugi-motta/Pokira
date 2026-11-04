@@ -13,7 +13,19 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/n7a72b868b774",
       "images": [],
-      "url": "https://x.com/0__rika__0/status/1962445796831625701"
+      "url": "https://x.com/0__rika__0/status/1962445796831625701",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GzwCDJBbsAA8zAF.jpg",
+          "width": 734,
+          "height": 1024
+        },
+        {
+          "src": "https://pbs.twimg.com/media/GzwCDI6aQAAEOct.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     },
     {
       "tweetId": "1952556664844132755",
@@ -24,7 +36,14 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/n0cb05af7d51c",
       "images": [],
-      "url": "https://x.com/0__rika__0/status/1952556664844132755"
+      "url": "https://x.com/0__rika__0/status/1952556664844132755",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/Gxjf77-agAADd2d.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     },
     {
       "tweetId": "1897243414766539223",
@@ -35,7 +54,15 @@
       "kind": "pocket",
       "source": "https://note.com/mobile_slime/n/n05ea8f4afa94",
       "images": [],
-      "url": "https://x.com/0__rika__0/status/1897243414766539223"
+      "url": "https://x.com/0__rika__0/status/1897243414766539223",
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GlRc01haEAAz9Cz.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
     }
-  ]
+  ],
+  "avatar": "https://pbs.twimg.com/profile_images/1484459320553005059/haloZ-x5_400x400.jpg"
 }

@@ -16,7 +16,7 @@ npm run build
 npx astro check
 ```
 
-The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. The homepage never embeds X posts: it shows permitted local card images when available and a restrained card-name reference otherwise. Search runs in the browser without a request. Artist pages show every recorded announcement, newest first, and reveal more entries in groups of eight.
+The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. The homepage shows artist profile photos and card thumbnails from the original X posts, without embedding tweets. Search runs in the browser without a request. Artist pages show every recorded announcement, newest first, and reveal more entries in groups of eight.
 
 ## One-message update
 
@@ -43,6 +43,7 @@ Evidence shape:
   "pokemon": ["Verified Pokémon name"],
   "kind": "physical",
   "source": "https://x.com/artist/status/1234567890123456789",
+  "mediaIndices": [0, 1],
   "imageFiles": [
     {
       "path": "/absolute/path/to/permitted-card-image.jpg",
@@ -53,7 +54,7 @@ Evidence shape:
 }
 ```
 
-`imageFiles` is optional. Without reuse permission, keep it absent. The homepage uses a typographic card-name reference; the artist profile displays the original post through X's official embed and a direct link. The site does not download image URLs from X, scrape around access limits, or infer a license from public availability. Local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. Multiple images per post are supported. The original image files are never committed by the CLI.
+`mediaIndices` is optional and selects card images from the original post when it also contains sketches or promotional material. The CLI reads public X embed media and profile-photo URLs; the homepage displays those X-hosted images and links to the artist profile, where the original post is embedded and linked. `imageFiles` is optional. Without reuse permission, keep it absent. The site does not scrape around access limits or infer a license to store copies from public availability. Permitted local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. The original image files are never committed by the CLI.
 
 For a new artist, the CLI derives a stable ID from their handle if none is supplied. To keep existing URLs permanent, do not change an ID once published. The image record stores its permission evidence. A typographic initial appears in the profile header when an X profile photo cannot be reused.
 
@@ -67,6 +68,6 @@ No runtime server is needed. Cloudflare Pages and public GitHub repositories hav
 
 ## Content verification
 
-The starter records contain four artists and twelve original X post URLs across physical TCG and TCG Pocket. Their authors, dates, and announced cards were cross-checked against the linked [roundups](https://note.com/mobile_slime) and [physical-card announcement collection](https://note.com/pokeboon/n/n8aaaf7e364dc). Each record includes its specific verification URL under `source`. No card art has been copied into this repository.
+The starter records contain four artists and twelve original X post URLs across physical TCG and TCG Pocket. Their authors, dates, and announced cards were cross-checked against the linked [roundups](https://note.com/mobile_slime) and [physical-card announcement collection](https://note.com/pokeboon/n/n8aaaf7e364dc). Each record includes its specific verification URL under `source`. Card thumbnails and avatars are served from X's image CDN; no card art has been copied into this repository.
 
 The validation command checks schema shape, unique IDs, unique handles, unique tweet IDs, dates against X's snowflake timestamp, and local image paths. The production build runs validation first.

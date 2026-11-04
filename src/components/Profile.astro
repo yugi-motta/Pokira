@@ -11,7 +11,7 @@ const posts = newest(artist.announcements);
 ---
 <a class="back-link" href={pathFor(lang)}><span aria-hidden="true">←</span> {t.back}</a>
 <header class="profile-header">
-  <div class="profile-avatar" aria-hidden="true">{artist.name.slice(0, 1)}</div>
+  <div class="profile-avatar" aria-hidden="true">{artist.avatar ? <img src={artist.avatar} width="88" height="88" alt="" /> : artist.name.slice(0, 1)}</div>
   <div class="profile-identity">
     <p class="eyebrow">ILLUSTRATOR / {String(posts.length).padStart(2, '0')}</p>
     <h1>{artist.name}</h1>

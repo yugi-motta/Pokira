@@ -6,64 +6,53 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = copy[lang];
 ---
-<section class="intro">
-  <div class="eyebrow">POKÉMON TCG ILLUSTRATORS <span aria-hidden="true">/</span> INDEX</div>
-  <h1>{t.directory}<span class="small-count">{String(artists.length).padStart(2, '0')}</span></h1>
-  <p>{t.siteDescription}</p>
+<section class="directory" aria-label={t.directory}>
+  <h1 class="sr-only">{t.directory}</h1>
+  <div class="directory-controls">
+    <label class="search-wrap">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+      <span class="sr-only">{t.searchLabel}</span>
+      <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
+      <kbd>/</kbd>
+    </label>
+    <button id="sort-toggle" class="sort-toggle" type="button" aria-pressed="false" aria-label={t.sort}>A–Z <span aria-hidden="true">↕</span></button>
+  </div>
+  <div id="artist-grid" class="artist-grid">
+    {artists.map((artist, index) => {
+      const posts = newest(artist.announcements);
+      const previews: { media: { src: string; width: number; height: number } }[] = posts
+        .filter((post) => post.media.length || post.images.length)
+        .map((post) => ({ media: post.images[0] || post.media[0] }));
+      for (const post of posts) {
+        for (const media of (post.images.length ? post.images.slice(1) : post.media.slice(1))) {
+          if (previews.length >= 3) break;
+          previews.push({ media });
+        }
+        if (previews.length >= 3) break;
+      }
+      const search = [artist.name, artist.romanizedName, artist.handle, ...posts.flatMap((post) => post.pokemon)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
+      return (
+        <article class="artist-entry" data-search={search} data-name={artist.handle.toLowerCase()} data-order={index}>
+          <a class="artist-link" href={pathFor(lang, artist.id)} aria-label={`${artist.name} @${artist.handle} — ${posts.slice(0, 3).flatMap((post) => post.pokemon).join('、')}`}>
+            <div class="artist-heading">
+              {artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}
+              <div class="artist-identity"><h2>{artist.name}</h2><span>@{artist.handle}</span></div>
+              <span class="artist-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div class="artist-artworks" aria-hidden="true">
+              {previews.slice(0, 3).map(({ media }) => (
+                <div class="artwork-thumb"><img src={media.src.startsWith('https://') ? `${media.src}?format=jpg&name=small` : media.src} width={media.width} height={media.height} alt="" loading="lazy" decoding="async" /></div>
+              ))}
+              {!previews.length && posts.slice(0, 3).map((post) => <div class="artwork-thumb artwork-thumb--text">{post.pokemon.join(' / ')}</div>)}
+            </div>
+          </a>
+        </article>
+      );
+    })}
+  </div>
+  <p id="no-results" class="no-results" hidden>{t.noResults}</p>
+  <span id="result-count" class="sr-only" aria-live="polite">{artists.length}</span>
 </section>
-<section class="directory-controls" aria-label={t.directory}>
-  <label class="search-wrap">
-    <span class="sr-only">{t.searchLabel}</span>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
-    <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
-    <kbd>/</kbd>
-  </label>
-  <button id="sort-toggle" class="sort-toggle" type="button" aria-pressed="false"><span aria-hidden="true">↕</span> {t.sort}</button>
-</section>
-<div class="directory-heading"><span>{t.all}</span><span id="result-count">{String(artists.length).padStart(2, '0')}</span></div>
-<div id="artist-grid" class="artist-grid">
-  {artists.map((artist, index) => {
-    const posts = newest(artist.announcements);
-    const search = [artist.name, artist.romanizedName, artist.handle, ...posts.flatMap((p) => p.pokemon)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
-    return (
-      <article class="artist-entry" data-search={search} data-name={artist.handle.toLowerCase()} data-order={index}>
-        <a class="artist-link" href={pathFor(lang, artist.id)} aria-label={`${artist.name} @${artist.handle}`}>
-          <div class="artist-preview">
-            {posts.slice(0, 3).map((post) => {
-              const image = post.images[0];
-              return (
-                <div class:list={['preview-piece', { 'preview-piece--image': !!image }]}>
-                  {image ? (
-                    <img
-                      src={image.src}
-                      srcset={image.variants.map((variant) => `${variant.src} ${variant.width}w`).join(', ')}
-                      sizes="(max-width: 520px) 72vw, (max-width: 800px) 34vw, 18vw"
-                      width={image.width}
-                      height={image.height}
-                      alt={image.alt}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div class="card-reference">
-                      <span class="card-reference-kind">{post.kind === 'pocket' ? 'TCG POCKET' : 'POKÉMON CARD GAME'}</span>
-                      <span class="card-reference-name">{post.pokemon.join(' / ')}</span>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <div class="artist-text">
-            <div><h2>{artist.name}</h2><span class="artist-handle">@{artist.handle}</span></div>
-            <span class="artist-arrow" aria-hidden="true">↗</span>
-          </div>
-        </a>
-      </article>
-    );
-  })}
-</div>
-<p id="no-results" class="no-results" hidden>{t.noResults}</p>
 <script>
   const input = document.querySelector<HTMLInputElement>('#artist-search');
   const grid = document.querySelector<HTMLElement>('#artist-grid');
@@ -80,7 +69,7 @@ const t = copy[lang];
       card.hidden = !match;
       if (match) visible++;
     });
-    if (count) count.textContent = String(visible).padStart(2, '0');
+    if (count) count.textContent = String(visible);
     if (noResults) noResults.hidden = visible !== 0;
   };
   input?.addEventListener('input', update);

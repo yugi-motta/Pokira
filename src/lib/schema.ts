@@ -12,6 +12,12 @@ const imageSchema = z.object({
   permission: z.string().min(1)
 });
 
+const xMediaSchema = z.object({
+  src: z.url().regex(/^https:\/\/pbs\.twimg\.com\/media\//),
+  width: z.number().int().positive(),
+  height: z.number().int().positive()
+});
+
 export const announcementSchema = z.object({
   url: z.url(),
   tweetId: z.string().regex(/^\d{15,20}$/),
@@ -19,7 +25,8 @@ export const announcementSchema = z.object({
   pokemon: z.array(z.string().min(1)),
   kind: z.enum(['physical', 'pocket']),
   source: z.url(),
-  images: z.array(imageSchema)
+  images: z.array(imageSchema),
+  media: z.array(xMediaSchema).default([])
 });
 
 export const artistSchema = z.object({
@@ -27,7 +34,7 @@ export const artistSchema = z.object({
   name: z.string().min(1),
   romanizedName: z.string().min(1).optional(),
   handle: z.string().regex(/^[A-Za-z0-9_]{1,15}$/),
-  avatar: z.string().optional(),
+  avatar: z.url().regex(/^https:\/\/pbs\.twimg\.com\/profile_images\//).optional(),
   announcements: z.array(announcementSchema).min(1)
 });
 
