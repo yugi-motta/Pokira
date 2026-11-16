@@ -4,6 +4,42 @@
   "handle": "0__rika__0",
   "announcements": [
     {
+      "url": "https://x.com/0__rika__0/status/2117590262323310838",
+      "tweetId": "2117590262323310838",
+      "date": "2026-11-03",
+      "pokemon": [
+        "ブラッキー"
+      ],
+      "kind": "pocket",
+      "source": "https://x.com/0__rika__0/status/2117590262323310838",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/HWMxHqHawAAxXGg.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/0__rika__0/status/2094403160786043289",
+      "tweetId": "2094403160786043289",
+      "date": "2026-08-31",
+      "pokemon": [
+        "ハクリュー"
+      ],
+      "kind": "pocket",
+      "source": "https://x.com/0__rika__0/status/2094403160786043289",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/HRDQktxaQAAnovy.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
+    },
+    {
       "tweetId": "1962445796831625701",
       "date": "2025-09-01",
       "pokemon": [

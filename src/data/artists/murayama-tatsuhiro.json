@@ -45,6 +45,60 @@
       ]
     },
     {
+      "url": "https://x.com/ovopack/status/1669590662885543936",
+      "tweetId": "1669590662885543936",
+      "date": "2023-06-16",
+      "pokemon": [
+        "ブースター"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/ovopack/status/1669590662885543936",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/FyuONhfagAIvfjb.jpg",
+          "width": 859,
+          "height": 1200
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/ovopack/status/1667052636066185217",
+      "tweetId": "1667052636066185217",
+      "date": "2023-06-09",
+      "pokemon": [
+        "コジオ"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/ovopack/status/1667052636066185217",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/FyKOnzGaYAAio7m.jpg",
+          "width": 859,
+          "height": 1200
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/ovopack/status/1632020950391865345",
+      "tweetId": "1632020950391865345",
+      "date": "2023-03-04",
+      "pokemon": [
+        "コライドン"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/ovopack/status/1632020950391865345",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/FqYaYymaEAMxFhS.jpg",
+          "width": 859,
+          "height": 1200
+        }
+      ]
+    },
+    {
       "url": "https://x.com/ovopack/status/1451777364011016198",
       "tweetId": "1451777364011016198",
       "date": "2021-10-23",

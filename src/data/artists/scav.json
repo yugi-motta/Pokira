@@ -44,6 +44,48 @@
           "height": 1024
         }
       ]
+    },
+    {
+      "url": "https://x.com/scavvvvv/status/1684860777017364481",
+      "tweetId": "1684860777017364481",
+      "date": "2023-07-28",
+      "pokemon": [
+        "デルビル"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/scavvvvv/status/1684860777017364481",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/F2HT8ShaIAAKzBo.jpg",
+          "width": 859,
+          "height": 1200
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/scavvvvv/status/1669883983428194306",
+      "tweetId": "1669883983428194306",
+      "date": "2023-06-17",
+      "pokemon": [
+        "ズバット",
+        "ゴルバット"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/scavvvvv/status/1669883983428194306",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/FyyeoRJakAAmfKf.jpg",
+          "width": 645,
+          "height": 900
+        },
+        {
+          "src": "https://pbs.twimg.com/media/FyyeoROaYAI1guZ.jpg",
+          "width": 645,
+          "height": 900
+        }
+      ]
     }
   ],
   "avatar": "https://pbs.twimg.com/profile_images/1983543272946778113/jYsaCb2m_400x400.jpg"
