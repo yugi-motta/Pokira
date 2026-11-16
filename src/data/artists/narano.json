@@ -1,0 +1,54 @@
+{
+  "id": "narano",
+  "name": "Narano",
+  "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/48082",
+  "japaneseName": "ならの",
+  "handle": "Nara_lalana",
+  "avatar": "https://pbs.twimg.com/profile_images/1394763996729729025/_yrVA_kS_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/Nara_lalana/status/2122246124765683788",
+      "tweetId": "2122246124765683788",
+      "date": "2026-11-16",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/Nara_lalana/status/2122246124765683788",
+      "images": [],
+      "media": [
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXO7l4waIAAmbg2.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXO7l4tbQAAqv7Z.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXO7l4nboAARMou.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXO7l2WagAE9Zzl.jpg",
+          "width": 959
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXO7l2da8AASAPw.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXO7l43bMAENN1z.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ],
+  "instagram": "nara_lalana",
+  "instagramSource": "https://www.instagram.com/nara_lalana/"
+}

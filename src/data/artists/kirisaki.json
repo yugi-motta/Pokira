@@ -1,0 +1,54 @@
+{
+  "id": "kirisaki",
+  "name": "kirisAki",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/swshp/SWSH001/",
+  "japaneseName": "きりさき",
+  "handle": "kirisAki_29",
+  "instagram": "kirisaki29",
+  "instagramSource": "https://www.instagram.com/kirisaki29/",
+  "avatar": "https://pbs.twimg.com/profile_images/2018741768494456832/shSeOIIG_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/kirisAki_29/status/2121905920557109301",
+      "tweetId": "2121905920557109301",
+      "date": "2026-11-15",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/kirisAki_29/status/2121905920557109301",
+      "images": [],
+      "media": [
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKGLfRbYAAq_WA.jpg",
+          "width": 859
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXKGLfTbYAAtrYl.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXKGLfOacAA5Yc6.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXKGLfga0AA7gOZ.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXKGLffbsAA7mBt.jpg",
+          "width": 748
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKGLfgbEAAFdXA.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "mashu",
+  "name": "mashu",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/rsv10pt5/89/",
+  "handle": "mu_mashu",
+  "instagram": "mu_mashu",
+  "instagramSource": "https://x.com/mu_mashu",
+  "avatar": "https://pbs.twimg.com/profile_images/1412703474949660675/xaHY366W_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/mu_mashu/status/2121577192660574522",
+      "tweetId": "2121577192660574522",
+      "date": "2026-11-14",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/mu_mashu/status/2121577192660574522",
+      "images": [],
+      "media": [
+        {
+          "height": 1117,
+          "src": "https://pbs.twimg.com/media/HXFbMxmbQAErMSe.jpg",
+          "width": 800
+        },
+        {
+          "height": 1117,
+          "src": "https://pbs.twimg.com/media/HXFbMxga4AAOb_2.jpg",
+          "width": 800
+        },
+        {
+          "height": 1117,
+          "src": "https://pbs.twimg.com/media/HXFbMxnaMAAE3BW.jpg",
+          "width": 800
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFbMxQaQAA55cc.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFbMxPbkAEej5x.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFbMxVbIAEIPns.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ]
+}

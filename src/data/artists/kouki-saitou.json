@@ -1,0 +1,54 @@
+{
+  "id": "kouki-saitou",
+  "name": "Kouki Saitou",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/ex9/62",
+  "japaneseName": "斉藤コーキ",
+  "handle": "Kouglof0513",
+  "instagram": "kouglof0513",
+  "instagramSource": "https://www.instagram.com/kouglof0513/",
+  "avatar": "https://pbs.twimg.com/profile_images/918396013454401537/kOXxCg2Y_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/Kouglof0513/status/2121180176772124847",
+      "tweetId": "2121180176772124847",
+      "date": "2026-11-13",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/Kouglof0513/status/2121180176772124847",
+      "images": [],
+      "media": [
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HW_xY7JboAAVXPC.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HW_xb1EaIAA0pmz.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HW_xchWbkAAOCUT.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HW_xei6awAIgCzM.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HW_xghba0AAXKjo.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HW_xhd4acAAx5-c.jpg",
+          "width": 748
+        }
+      ]
+    }
+  ]
+}

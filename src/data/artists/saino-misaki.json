@@ -1,0 +1,51 @@
+{
+  "id": "saino-misaki",
+  "name": "saino misaki",
+  "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/45712",
+  "handle": "saino_m",
+  "avatar": "https://pbs.twimg.com/profile_images/2118576066763915264/b0QFAGgk_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/saino_m/status/2121557846630502677",
+      "tweetId": "2121557846630502677",
+      "date": "2026-11-14",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/saino_m/status/2121557846630502677",
+      "images": [],
+      "media": [
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFJm6XbAAAHv8h.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFJm6baEAA7hUy.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFJm6ebIAAT8K4.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFJm6da8AAt0Fn.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFJm6eaIAA6CBk.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFJm6baAAEMiF2.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ]
+}

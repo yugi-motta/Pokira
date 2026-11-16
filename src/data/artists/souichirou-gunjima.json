@@ -1,0 +1,52 @@
+{
+  "id": "souichirou-gunjima",
+  "name": "Souichirou Gunjima",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/swsh12/96/",
+  "japaneseName": "軍島曹一郎",
+  "handle": "gunjima",
+  "avatar": "https://pbs.twimg.com/profile_images/875378869603229696/4MpyzTBs_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/gunjima/status/2121912090579611692",
+      "tweetId": "2121912090579611692",
+      "date": "2026-11-15",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/gunjima/status/2121912090579611692",
+      "images": [],
+      "media": [
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKJmtSbAAADJ0p.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKJnxsaoAAZHHT.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKJoxjbQAAXU_w.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKJqJUbwAAGsyw.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKJrOza0AEuJTE.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXKJsdZasAAlZLQ.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ]
+}

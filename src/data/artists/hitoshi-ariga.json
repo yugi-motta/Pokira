@@ -1,0 +1,54 @@
+{
+  "id": "hitoshi-ariga",
+  "name": "Hitoshi Ariga",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/xy9/67/",
+  "japaneseName": "ありがひとし",
+  "handle": "ariga_megamix",
+  "instagram": "arigamegamix",
+  "instagramSource": "https://potofu.me/ariga-megamix",
+  "avatar": "https://pbs.twimg.com/profile_images/1778601064419483648/vIWoF4If_x96.png",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/ariga_megamix/status/2121266650213437465",
+      "tweetId": "2121266650213437465",
+      "date": "2026-11-13",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/ariga_megamix/status/2121266650213437465",
+      "images": [],
+      "media": [
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXA7JbCaoAAb8-i.jpg",
+          "width": 751
+        },
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXA7RATa4AEraTE.jpg",
+          "width": 734
+        },
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXA7Ug8asAA8DaY.jpg",
+          "width": 734
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXA7vrubYAAr16u.jpg",
+          "width": 748
+        },
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXA-_veb0AACxJc.jpg",
+          "width": 734
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXA_BT2aIAAFZsS.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ]
+}

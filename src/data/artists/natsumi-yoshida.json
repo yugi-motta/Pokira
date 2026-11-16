@@ -1,0 +1,54 @@
+{
+  "id": "natsumi-yoshida",
+  "name": "Natsumi Yoshida",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/svp/133",
+  "japaneseName": "ヨシダナツミ",
+  "handle": "natsumi_color",
+  "instagram": "natsumi_color",
+  "instagramSource": "https://asobisystem.com/wp-content/uploads/2022/07/ASOBISYSTEM-%E3%83%A8%E3%82%B7%E3%83%80%E3%83%8A%E3%83%84%E3%83%9F.pdf",
+  "avatar": "https://pbs.twimg.com/profile_images/2008733070820831232/ReRHxvNp_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/natsumi_color/status/2121439453524926645",
+      "tweetId": "2121439453524926645",
+      "date": "2026-11-14",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/natsumi_color/status/2121439453524926645",
+      "images": [],
+      "media": [
+        {
+          "height": 838,
+          "src": "https://pbs.twimg.com/media/HXDd6zda4AA2455.jpg",
+          "width": 600
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXDd6zzakAAjiZW.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXDd6z3aYAAyKxO.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXDd6z6bcAAEK-m.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXDd6zxaIAA0M2t.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXDd6zxa8AAPbWR.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ]
+}

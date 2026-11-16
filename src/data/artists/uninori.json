@@ -1,0 +1,52 @@
+{
+  "id": "uninori",
+  "name": "Uninori",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/sv8pt5/3/",
+  "japaneseName": "雲丹海苔",
+  "handle": "uninori550",
+  "avatar": "https://pbs.twimg.com/profile_images/1816079322748444675/pz5Jv29m_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/uninori550/status/2121522234502337000",
+      "tweetId": "2121522234502337000",
+      "date": "2026-11-14",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/uninori550/status/2121522234502337000",
+      "images": [],
+      "media": [
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEpMmybIAAAUK6.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEpMm3a4AANQgT.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEpMm3aMAAAIFU.jpg",
+          "width": 859
+        },
+        {
+          "height": 949,
+          "src": "https://pbs.twimg.com/media/HXEpMm3bgAAVYsY.jpg",
+          "width": 680
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEpMm6aAAAJtw5.jpg",
+          "width": 859
+        },
+        {
+          "height": 920,
+          "src": "https://pbs.twimg.com/media/HXEpMm6bEAAhMfE.jpg",
+          "width": 660
+        }
+      ]
+    }
+  ]
+}

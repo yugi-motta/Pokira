@@ -1,0 +1,54 @@
+{
+  "id": "kariya",
+  "name": "Kariya",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/sv04/9/",
+  "japaneseName": "かりや",
+  "handle": "KRY_aia",
+  "instagram": "kry_aia",
+  "instagramSource": "https://x.com/KRY_aia",
+  "avatar": "https://pbs.twimg.com/profile_images/1344640473848168450/uunZHW-s_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/KRY_aia/status/2121590863386317071",
+      "tweetId": "2121590863386317071",
+      "date": "2026-11-14",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/KRY_aia/status/2121590863386317071",
+      "images": [],
+      "media": [
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXFnpDracAAGdY6.jpg",
+          "width": 734
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFnpDvbsAAZLWv.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFnpDxagAElCuL.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFnpDsacAAxBn3.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFnpDrbIAEmD6G.jpg",
+          "width": 859
+        },
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXFnpD1bYAACT2Y.jpg",
+          "width": 734
+        }
+      ]
+    }
+  ]
+}

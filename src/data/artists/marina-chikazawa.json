@@ -1,0 +1,54 @@
+{
+  "id": "marina-chikazawa",
+  "name": "MARINA Chikazawa",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/me04/111/",
+  "japaneseName": "近澤マリナ",
+  "handle": "MarinaChikazawa",
+  "instagram": "marina_chikazawa",
+  "instagramSource": "https://x.com/MarinaChikazawa",
+  "avatar": "https://pbs.twimg.com/profile_images/788791188971134976/K9tKyVrj_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/MarinaChikazawa/status/2121164161962914186",
+      "tweetId": "2121164161962914186",
+      "date": "2026-11-13",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/MarinaChikazawa/status/2121164161962914186",
+      "images": [],
+      "media": [
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HW_VTabakAAArnc.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HW_VV99bUAAS1zL.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HW_VY0ebwAI0MXC.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HW_VaVpacAAEY_O.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HW_VfhRa8AA8M6d.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HW_Vge0awAAwLNU.jpg",
+          "width": 859
+        }
+      ]
+    }
+  ]
+}

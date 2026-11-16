@@ -1,0 +1,52 @@
+{
+  "id": "yoko-hishida",
+  "name": "Yoko Hishida",
+  "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/49887/",
+  "japaneseName": "ひしだようこ",
+  "handle": "choro_o",
+  "avatar": "https://pbs.twimg.com/profile_images/2102692614676115457/w12DxQD4_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/choro_o/status/2121509403044331931",
+      "tweetId": "2121509403044331931",
+      "date": "2026-11-14",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/choro_o/status/2121509403044331931",
+      "images": [],
+      "media": [
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEbttBaAAAc-SZ.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEbuNtaUAA4Sk1.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEb0jXbIAAdT-5.jpg",
+          "width": 859
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXEb2LEbcAAmext.jpg",
+          "width": 859
+        },
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXEb3XqbMAEyXUS.jpg",
+          "width": 734
+        },
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXEcCZiaAAAQYiD.jpg",
+          "width": 734
+        }
+      ]
+    }
+  ]
+}

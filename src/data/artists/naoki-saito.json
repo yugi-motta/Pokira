@@ -1,0 +1,54 @@
+{
+  "id": "naoki-saito",
+  "name": "Naoki Saito",
+  "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/bw2/4",
+  "japaneseName": "さいとうなおき",
+  "handle": "_NaokiSaito",
+  "instagram": "_naokisaito",
+  "instagramSource": "https://saito-naoki.com/",
+  "avatar": "https://pbs.twimg.com/profile_images/1548891497138774016/9r_aU1Yw_x96.png",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/_NaokiSaito/status/2122115156272681378",
+      "tweetId": "2122115156272681378",
+      "date": "2026-11-15",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/_NaokiSaito/status/2122115156272681378",
+      "images": [],
+      "media": [
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXNB3HEbAAAQjGp.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXNCC9Xb0AA0FqM.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXNCLdebYAA2-cW.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXNCNzGaEAABoBX.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXNCYQjaMAAtDb8.jpg",
+          "width": 748
+        },
+        {
+          "height": 1044,
+          "src": "https://pbs.twimg.com/media/HXNCmkObUAAN5Qy.jpg",
+          "width": 748
+        }
+      ]
+    }
+  ]
+}

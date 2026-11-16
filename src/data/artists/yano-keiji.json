@@ -1,0 +1,54 @@
+{
+  "id": "yano-keiji",
+  "name": "Yano Keiji",
+  "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/45869",
+  "japaneseName": "矢野恵司",
+  "handle": "yano_keiji",
+  "instagram": "keiji_yano_",
+  "instagramSource": "https://www.instagram.com/keiji_yano_/",
+  "avatar": "https://pbs.twimg.com/profile_images/1265892242264227840/dZCzU-SA_x96.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/yano_keiji/status/2121577060867199395",
+      "tweetId": "2121577060867199395",
+      "date": "2026-11-14",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/yano_keiji/status/2121577060867199395",
+      "images": [],
+      "media": [
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXFbFZrawAA3N7Q.jpg",
+          "width": 734
+        },
+        {
+          "height": 1024,
+          "src": "https://pbs.twimg.com/media/HXFbFZhboAA8vS6.jpg",
+          "width": 734
+        },
+        {
+          "height": 1199,
+          "src": "https://pbs.twimg.com/media/HXFbFZgbYAALI9V.jpg",
+          "width": 859
+        },
+        {
+          "height": 838,
+          "src": "https://pbs.twimg.com/media/HXFbFZgbAAALNgs.jpg",
+          "width": 600
+        },
+        {
+          "height": 838,
+          "src": "https://pbs.twimg.com/media/HXFbFZfbgAAR4tJ.jpg",
+          "width": 600
+        },
+        {
+          "height": 838,
+          "src": "https://pbs.twimg.com/media/HXFbFZkaUAE-c8g.jpg",
+          "width": 600
+        }
+      ]
+    }
+  ]
+}
