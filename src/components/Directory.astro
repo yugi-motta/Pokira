@@ -46,7 +46,7 @@ const t = copy[lang];
             </div>
             <div class="artist-artworks" aria-hidden="true">
               {previews.slice(0, 6).map(({ media }) => (
-                <div class="artwork-thumb"><img src={media.src.startsWith('https://') ? `${media.src}?format=jpg&name=small` : media.src} width={media.width} height={media.height} alt="" loading="lazy" decoding="async" /></div>
+                <div class="artwork-thumb" style={`aspect-ratio:${media.width}/${media.height}`}><img src={media.src.startsWith('https://') ? `${media.src}?format=jpg&name=small` : media.src} width={media.width} height={media.height} alt="" loading="lazy" decoding="async" /></div>
               ))}
               {!previews.length && posts.slice(0, 6).map((post) => <div class="artwork-thumb artwork-thumb--text">{post.pokemon.join(' / ')}</div>)}
             </div>
@@ -65,7 +65,17 @@ const t = copy[lang];
   const noResults = document.querySelector<HTMLElement>('#no-results');
   const cards = [...document.querySelectorAll<HTMLElement>('.artist-entry')];
   const strips = [...document.querySelectorAll<HTMLElement>('.artist-artworks')];
+  document.querySelectorAll<HTMLImageElement>('.artwork-thumb img').forEach((image) => {
+    const thumb = image.parentElement;
+    const settle = () => thumb?.classList.add(image.naturalWidth ? 'is-loaded' : 'is-error');
+    if (image.complete) settle();
+    else {
+      image.addEventListener('load', settle, { once: true });
+      image.addEventListener('error', settle, { once: true });
+    }
+  });
   const updateStrip = (strip: HTMLElement) => {
+    strip.dataset.before = String(strip.scrollLeft > 2);
     strip.dataset.more = String(strip.scrollLeft + strip.clientWidth < strip.scrollWidth - 2);
   };
   strips.forEach((strip) => {

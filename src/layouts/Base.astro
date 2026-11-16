@@ -20,6 +20,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f5f5f7" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try {
+        const theme = localStorage.getItem('pokira-theme');
+        if (theme === 'dark') {
+          document.documentElement.dataset.theme = 'dark';
+          document.querySelector('meta[name="theme-color"]').content = '#121214';
+        }
+      } catch {}
+    </script>
     <link rel="icon" href="/pokira-logo-hiragana.png" type="image/png" />
     <meta name="description" content={metaDescription} />
     <meta property="og:type" content="website" />
@@ -44,10 +54,28 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
           <kbd>/</kbd>
         </label>
-        <nav class="language-nav" aria-label={t.language}>
-          <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
-          <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
-        </nav>
+        <div class="site-menu">
+          <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-menu-panel">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M7 12h13M4 17h16" /></svg>
+          </button>
+          <div id="site-menu-panel" class="menu-panel" hidden>
+            <div class="menu-group">
+              <span class="menu-label">{t.language}</span>
+              <nav class="menu-options" aria-label={t.language}>
+                <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
+                <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
+              </nav>
+            </div>
+            <div class="menu-group">
+              <span class="menu-label">{t.theme}</span>
+              <div class="menu-options" role="group" aria-label={t.theme}>
+                <button type="button" data-theme-choice="light" aria-pressed="true">{t.light}</button>
+                <button type="button" data-theme-choice="dark" aria-pressed="false">{t.dark}</button>
+              </div>
+            </div>
+            <button class="suggestion-trigger" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog">{t.suggestArtist}<span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
       </header>
       <main><slot /></main>
       <footer class="site-footer">
@@ -56,10 +84,40 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       </footer>
     </div>
     <script is:inline>
-      document.querySelectorAll('[data-lang]').forEach((link) => {
-        link.addEventListener('click', () => localStorage.setItem('pokira-lang', link.dataset.lang));
+      const menuButton = document.querySelector('.menu-toggle');
+      const menuPanel = document.querySelector('#site-menu-panel');
+      const closeMenu = () => {
+        menuPanel.hidden = true;
+        menuButton.setAttribute('aria-expanded', 'false');
+      };
+      menuButton.addEventListener('click', () => {
+        const willOpen = menuPanel.hidden;
+        menuPanel.hidden = !willOpen;
+        menuButton.setAttribute('aria-expanded', String(willOpen));
       });
-      if (location.pathname === '/' && localStorage.getItem('pokira-lang') === 'en') location.replace('/en/');
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.site-menu')) closeMenu();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !menuPanel.hidden) { closeMenu(); menuButton.focus(); }
+      });
+      menuPanel.querySelector('.suggestion-trigger').addEventListener('click', closeMenu);
+      const syncTheme = () => {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        document.querySelectorAll('[data-theme-choice]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === (dark ? 'dark' : 'light'))));
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#121214' : '#f5f5f7';
+      };
+      syncTheme();
+      document.querySelectorAll('[data-theme-choice]').forEach((button) => button.addEventListener('click', () => {
+        const theme = button.dataset.themeChoice;
+        document.documentElement.dataset.theme = theme;
+        try { localStorage.setItem('pokira-theme', theme); } catch {}
+        syncTheme();
+      }));
+      document.querySelectorAll('[data-lang]').forEach((link) => link.addEventListener('click', () => {
+        try { localStorage.setItem('pokira-lang', link.dataset.lang); } catch {}
+      }));
+      try { if (location.pathname === '/' && localStorage.getItem('pokira-lang') === 'en') location.replace('/en/'); } catch {}
     </script>
   </body>
 </html>

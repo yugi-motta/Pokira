@@ -26,7 +26,11 @@ export const copy = {
     invalidXLink: '有効なXのリンクを入力してください。',
     linkMismatch: '投稿は同じ作家のXアカウントから選んでください。',
     unofficial: '非公式の独立したプロジェクトです。Pokémon および関連会社とは関係ありません。',
-    language: '言語を選択'
+    language: '言語',
+    menu: 'メニュー',
+    theme: 'テーマ',
+    light: 'ライト',
+    dark: 'ダーク'
   },
   en: {
     siteTitle: 'Pokira',
@@ -53,7 +57,11 @@ export const copy = {
     invalidXLink: 'Enter a valid X link.',
     linkMismatch: "The post must be from the artist's X account.",
     unofficial: 'Independent, unofficial project. Not affiliated with Pokémon or its associated companies.',
-    language: 'Select language'
+    language: 'Language',
+    menu: 'Menu',
+    theme: 'Appearance',
+    light: 'Light',
+    dark: 'Dark'
   }
 } as const;
 
