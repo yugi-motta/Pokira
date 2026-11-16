@@ -45,7 +45,10 @@ try {
 
 type Evidence = {
   artistName?: string;
+  cardCredit?: string;
+  creditSource?: string;
   artistId?: string;
+  japaneseName?: string;
   romanizedName?: string;
   handle?: string;
   date?: string;
@@ -73,12 +76,13 @@ if (existingByHandle && existingById && existingByHandle.data.id !== existingByI
 if (existingById?.data.handle && existingById.data.handle.toLowerCase() !== handle.toLowerCase()) {
   throw new Error('The artist ID already belongs to a different X handle.');
 }
-if (existingById && !existingById.data.handle && (!evidence.artistName || evidence.artistName !== existingById.data.name || !evidence.source)) {
-  throw new Error('Adding X to an Instagram-only artist requires the verified artistId, matching artistName, and source in evidence.');
+if (existingById && !existingById.data.handle && (evidence.cardCredit !== existingById.data.name || !evidence.source)) {
+  throw new Error('Adding X to an Instagram-only artist requires the verified artistId, matching cardCredit, and source in evidence.');
 }
 const existing = existingByHandle || existingById;
-const name = existing?.data.name || official?.author_name || syndication?.user?.name || evidence.artistName;
-if (!name) throw new Error('Artist name is unavailable. Supply artistName in evidence JSON.');
+const name = existing?.data.name || evidence.cardCredit;
+if (!name) throw new Error('The printed card credit is required for a new artist. Supply cardCredit in evidence JSON.');
+if (!existing && (!evidence.creditSource || !URL.canParse(evidence.creditSource))) throw new Error('Supply a verifiable creditSource URL for the printed card credit.');
 if (evidence.artistName && official?.author_name && evidence.artistName !== official.author_name && !existing) {
   throw new Error('Artist name conflicts with official X oEmbed.');
 }
@@ -143,8 +147,9 @@ try {
     if (!largest) throw new Error(`Could not optimize image: ${file}`);
     images.push({ ...largest, variants, alt: image.alt, permission: image.permission });
   }
-  const artist: Artist = existing ? structuredClone(existing.data) : { id, name, handle, gallery: [], announcements: [] };
+  const artist: Artist = existing ? structuredClone(existing.data) : { id, name, creditSource: evidence.creditSource!, handle, gallery: [], announcements: [] };
   artist.handle = handle;
+  if (evidence.japaneseName && !artist.japaneseName) artist.japaneseName = evidence.japaneseName;
   if (evidence.romanizedName && !('romanizedName' in artist)) Object.assign(artist, { romanizedName: evidence.romanizedName });
   if (!artist.avatar && syndication?.user?.profile_image_url_https) {
     artist.avatar = syndication.user.profile_image_url_https.replace('_normal.', '_400x400.');

@@ -24,7 +24,7 @@ const t = copy[lang];
         }
         if (previews.length >= 6) break;
       }
-      const search = [artist.name, artist.romanizedName, artist.handle, artist.instagram, ...posts.flatMap((post) => post.pokemon)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
+      const search = [artist.name, artist.japaneseName, artist.romanizedName, artist.handle, artist.instagram, ...posts.flatMap((post) => post.pokemon)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
       return (
         <article id={artist.id} class="artist-entry" data-search={search}>
           <div class="artist-content">
@@ -32,10 +32,15 @@ const t = copy[lang];
               {artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}
               <div class="artist-identity">
                 <h2>{artist.name}</h2>
-                <span>@{artist.handle || artist.instagram}</span>
                 <nav class="artist-socials" aria-label={`${artist.name} ${t.socialProfiles}`}>
-                  {artist.handle && <a href={`https://x.com/${artist.handle}`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onX}`}>X</a>}
-                  {artist.instagram && <a href={`https://www.instagram.com/${artist.instagram}/`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onInstagram}`}>Instagram</a>}
+                  {artist.handle && <a href={`https://x.com/${artist.handle}`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onX}: @${artist.handle}`}>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.94Zm-1.29 19.5h2.04L6.48 3.24H4.29Z" /></svg>
+                    <span>@{artist.handle}</span>
+                  </a>}
+                  {artist.instagram && <a href={`https://www.instagram.com/${artist.instagram}/`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onInstagram}: @${artist.instagram}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" /><circle cx="12" cy="12" r="4" /><circle cx="17.8" cy="6.3" r="1" fill="currentColor" stroke="none" /></svg>
+                    <span>@{artist.instagram}</span>
+                  </a>}
                 </nav>
               </div>
             </div>

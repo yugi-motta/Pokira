@@ -32,6 +32,8 @@ export const announcementSchema = z.object({
 export const artistSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
+  creditSource: z.url(),
+  japaneseName: z.string().min(1).optional(),
   romanizedName: z.string().min(1).optional(),
   handle: z.string().regex(/^[A-Za-z0-9_]{1,15}$/).optional(),
   instagram: z.string().regex(/^(?!.*\.\.)(?!.*\.$)[A-Za-z0-9._]{1,30}$/).optional(),
