@@ -10,7 +10,7 @@ const t = copy[lang];
 <section class="directory" aria-label={t.directory}>
   <h1 class="sr-only">{t.directory}</h1>
   <div id="artist-grid" class="artist-grid">
-    {artists.map((artist, index) => {
+    {artists.map((artist) => {
       const posts = newest(artist.announcements);
       const previews: { media: { src: string; width: number; height: number } }[] = posts
         .filter((post) => post.media.length || post.images.length)
@@ -24,7 +24,7 @@ const t = copy[lang];
       }
       const search = [artist.name, artist.romanizedName, artist.handle, ...posts.flatMap((post) => post.pokemon)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
       return (
-        <article class="artist-entry" data-search={search} data-name={artist.handle.toLowerCase()} data-order={index}>
+        <article class="artist-entry" data-search={search}>
           <a class="artist-link" href={`https://x.com/${artist.handle}`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} @${artist.handle} — ${t.profile}`}>
             <div class="artist-heading">
               {artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}
@@ -48,10 +48,8 @@ const t = copy[lang];
 </section>
 <script>
   const input = document.querySelector<HTMLInputElement>('#artist-search');
-  const grid = document.querySelector<HTMLElement>('#artist-grid');
   const count = document.querySelector<HTMLElement>('#result-count');
   const noResults = document.querySelector<HTMLElement>('#no-results');
-  const sort = document.querySelector<HTMLButtonElement>('#sort-toggle');
   const cards = [...document.querySelectorAll<HTMLElement>('.artist-entry')];
   const strips = [...document.querySelectorAll<HTMLElement>('.artist-artworks')];
   const updateStrip = (strip: HTMLElement) => {
@@ -80,13 +78,5 @@ const t = copy[lang];
       event.preventDefault();
       input?.focus();
     }
-  });
-  sort?.addEventListener('click', () => {
-    const active = sort.getAttribute('aria-pressed') !== 'true';
-    sort.setAttribute('aria-pressed', String(active));
-    cards.sort((a, b) => active
-      ? (a.dataset.name || '').localeCompare(b.dataset.name || '')
-      : Number(a.dataset.order) - Number(b.dataset.order));
-    cards.forEach((card) => grid?.appendChild(card));
   });
 </script>

@@ -35,21 +35,26 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <body>
     <div class="site-shell">
       <header class="site-header">
-        <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>Pokira<span class="wordmark-dot">.</span></a>
-        <div class="header-controls">
-          <label class="search-wrap">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
-            <span class="sr-only">{t.searchLabel}</span>
-            <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
-            <kbd>/</kbd>
-          </label>
-          <button id="sort-toggle" class="sort-toggle" type="button" aria-pressed="false" aria-label={t.sort}>A–Z <span aria-hidden="true">↕</span></button>
-          <nav class="language-nav" aria-label={t.language}>
-            <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
-            <span aria-hidden="true">/</span>
-            <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
-          </nav>
-        </div>
+        <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>
+          <svg class="brand-mark" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect x="5" y="7" width="22" height="28" rx="4.5" transform="rotate(-12 5 7)" fill="#e54b47" />
+            <rect x="10" y="4" width="22" height="28" rx="4.5" fill="#1d1d1f" />
+            <path d="M13.5 18h15" stroke="white" stroke-width="1.6" />
+            <circle cx="21" cy="18" r="5.2" fill="#1d1d1f" stroke="white" stroke-width="1.6" />
+            <circle cx="21" cy="18" r="1.8" fill="white" />
+          </svg>
+          <span class="wordmark-name">Pokira<span class="wordmark-dot">.</span></span>
+        </a>
+        <label class="search-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+          <span class="sr-only">{t.searchLabel}</span>
+          <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
+          <kbd>/</kbd>
+        </label>
+        <nav class="language-nav" aria-label={t.language}>
+          <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
+          <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
+        </nav>
       </header>
       <main><slot /></main>
       <footer class="site-footer">
