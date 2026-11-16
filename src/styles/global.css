@@ -16,7 +16,7 @@ h1,h2,h3,p{margin-top:0}
 .brand-mark{display:block;flex:none;width:32px;height:32px}
 .wordmark-dot{color:#dd3732}
 .language-nav{justify-self:end;display:flex;align-items:center;gap:2px;padding:3px;border:1px solid #e8e8ed;border-radius:999px;background:#fff;font-size:11px;font-weight:650;letter-spacing:.02em}
-.language-nav a{display:block;padding:7px 10px;border-radius:999px;color:#8e8e93;line-height:1}
+.language-nav a{display:block;padding:7px 10px;border-radius:999px;color:#8e8e93;line-height:1;white-space:nowrap}
 .language-nav a[aria-current]{background:#ececef;color:#1d1d1f}
 main{flex:1}
 .directory{padding:0 0 72px}
@@ -74,4 +74,5 @@ main{flex:1}
 @media(max-width:700px){.site-header{grid-template-columns:minmax(0,1fr) minmax(0,220px) minmax(0,1fr);gap:8px}.search-wrap kbd{display:none}}
 @media(max-width:480px){.site-header{grid-template-columns:minmax(0,1fr) minmax(120px,160px) minmax(0,1fr)}.brand-mark{width:29px;height:29px}.wordmark{gap:5px;font-size:20px}.search-wrap{gap:6px;padding:0 11px}.search-wrap svg{width:15px;height:15px}.search-wrap input{font-size:12px}.language-nav{gap:0;padding:2px;font-size:9px}.language-nav a{padding:6px 5px}}
 @media(max-width:420px){.wordmark-name{display:none}}
+@media(max-width:360px){.site-header{grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
