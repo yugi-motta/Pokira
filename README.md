@@ -1,6 +1,6 @@
 # Pokira
 
-A static Japanese-first directory of Pokémon TCG illustrators and their original X announcements. Built with Astro, TypeScript, file-based JSON, and CSS. No database, CMS, paid API, or image service is required.
+A Japanese-first directory of Pokémon TCG illustrators and their original X announcements. Built with Astro, TypeScript, file-based JSON, and CSS. A Cloudflare Pages Function handles artist suggestions once email delivery is configured.
 
 **Live site:** https://pokira.pages.dev/  
 **Source:** https://github.com/yugi-motta/Pokira
@@ -16,7 +16,7 @@ npm run build
 npx astro check
 ```
 
-The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. The homepage shows artist profile photos and card thumbnails from the original X posts, without embedding tweets. Search runs in the browser without a request. Artist pages show every recorded announcement, newest first, and reveal more entries in groups of eight.
+The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. Each artist card opens that artist's X profile in a new tab. On phones, its six card thumbnails scroll horizontally. Search runs in the browser without a request.
 
 ## One-message update
 
@@ -54,9 +54,9 @@ Evidence shape:
 }
 ```
 
-`mediaIndices` is optional and selects card images from the original post when it also contains sketches or promotional material. The CLI reads public X embed media and profile-photo URLs; the homepage displays those X-hosted images and links to the artist profile, where the original post is embedded and linked. `imageFiles` is optional. Without reuse permission, keep it absent. The site does not scrape around access limits or infer a license to store copies from public availability. Permitted local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. The original image files are never committed by the CLI.
+`mediaIndices` is optional and selects card images from the original post when it also contains sketches or promotional material. The CLI reads public X embed media and profile-photo URLs; the homepage displays those X-hosted images and links to the artist's X profile. Original post URLs remain in the records for verification. `imageFiles` is optional. Without reuse permission, keep it absent. The site does not scrape around access limits or infer a license to store copies from public availability. Permitted local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. The original image files are never committed by the CLI.
 
-For a new artist, the CLI derives a stable ID from their handle if none is supplied. To keep existing URLs permanent, do not change an ID once published. The image record stores its permission evidence. A typographic initial appears in the profile header when an X profile photo cannot be reused.
+For a new artist, the CLI derives a stable ID from their handle if none is supplied. Keep IDs stable so existing records and old links remain consistent. The image record stores its permission evidence. A typographic initial appears in the directory when an X profile photo cannot be reused.
 
 ## Deploy on Cloudflare Pages for free
 
@@ -64,10 +64,24 @@ The project is deployed at [pokira.pages.dev](https://pokira.pages.dev/) from th
 
 To recreate the deployment in another account: create a free public GitHub repository, select **Import an existing Git repository** in Cloudflare Pages, choose the repository, set those build values and environment variable, then deploy.
 
-No runtime server is needed. Cloudflare Pages and public GitHub repositories have free tiers, subject to their published limits and terms. X embeds depend on X being available in the visitor's browser; direct post links remain visible if an embed fails.
+Cloudflare Pages serves the directory and runs the suggestion endpoint. Card images depend on X's public image CDN being available in the visitor's browser.
+
+## Artist suggestions
+
+The small form below the directory accepts optional visitor name and email, plus a required artist X profile and an original X post showing the artist's work. Both links must be HTTPS X/Twitter URLs from the same handle. The Pages Function at `functions/api/suggestions.ts` validates them and sends a plain-text email through Resend.
+
+The inbox does not exist yet, so email delivery is intentionally unconfigured. Until setup is complete, the endpoint returns `503` and the form tells visitors that the inbox is not ready; it never claims a suggestion was sent. When the address is ready, verify a sending domain with Resend and add these production runtime variables in Cloudflare Pages **Settings → Variables and Secrets**, then redeploy:
+
+```text
+SUGGESTIONS_TO_EMAIL=your-real-inbox@example.com
+SUGGESTIONS_FROM_EMAIL=Pokira <suggestions@your-verified-domain.example>
+RESEND_API_KEY=re_your_secret_key
+```
+
+The values in `.env.example` are placeholders only. Keep the API key in Cloudflare Secrets, not in Git. The form will begin sending as soon as the three real values are present.
 
 ## Content verification
 
-The starter records contain four artists and twelve original X post URLs across physical TCG and TCG Pocket. Their authors, dates, and announced cards were cross-checked against the linked [roundups](https://note.com/mobile_slime) and [physical-card announcement collection](https://note.com/pokeboon/n/n8aaaf7e364dc). Each record includes its specific verification URL under `source`. Card thumbnails and avatars are served from X's image CDN; no card art has been copied into this repository.
+The records contain four artists and nineteen original X post URLs across physical TCG and TCG Pocket. Each record includes its specific verification URL under `source`. Card thumbnails and avatars are served from X's image CDN; no card art has been copied into this repository.
 
 The validation command checks schema shape, unique IDs, unique handles, unique tweet IDs, dates against X's snowflake timestamp, and local image paths. The production build runs validation first.

@@ -6,13 +6,12 @@ interface Props {
   lang: Lang;
   title?: string;
   description?: string;
-  artistId?: string;
 }
-const { lang, title, description, artistId } = Astro.props;
+const { lang, title, description } = Astro.props;
 const t = copy[lang];
 const fullTitle = title ? `${title} — ${t.siteTitle}` : t.siteTitle;
 const metaDescription = description || t.siteDescription;
-const alternate = pathFor(lang === 'ja' ? 'en' : 'ja', artistId);
+const alternate = pathFor(lang === 'ja' ? 'en' : 'ja');
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
@@ -38,9 +37,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <header class="site-header">
         <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>Pokira<span class="wordmark-dot">.</span></a>
         <nav class="language-nav" aria-label={t.language}>
-          <a href={pathFor('ja', artistId)} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
+          <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
           <span aria-hidden="true">/</span>
-          <a href={pathFor('en', artistId)} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
+          <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
         </nav>
       </header>
       <main><slot /></main>
