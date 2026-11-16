@@ -9,15 +9,6 @@ const t = copy[lang];
 ---
 <section class="directory" aria-label={t.directory}>
   <h1 class="sr-only">{t.directory}</h1>
-  <div class="directory-controls">
-    <label class="search-wrap">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
-      <span class="sr-only">{t.searchLabel}</span>
-      <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
-      <kbd>/</kbd>
-    </label>
-    <button id="sort-toggle" class="sort-toggle" type="button" aria-pressed="false" aria-label={t.sort}>A–Z <span aria-hidden="true">↕</span></button>
-  </div>
   <div id="artist-grid" class="artist-grid">
     {artists.map((artist, index) => {
       const posts = newest(artist.announcements);

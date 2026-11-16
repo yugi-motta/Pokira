@@ -36,11 +36,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <div class="site-shell">
       <header class="site-header">
         <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>Pokira<span class="wordmark-dot">.</span></a>
-        <nav class="language-nav" aria-label={t.language}>
-          <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
-          <span aria-hidden="true">/</span>
-          <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
-        </nav>
+        <div class="header-controls">
+          <label class="search-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+            <span class="sr-only">{t.searchLabel}</span>
+            <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
+            <kbd>/</kbd>
+          </label>
+          <button id="sort-toggle" class="sort-toggle" type="button" aria-pressed="false" aria-label={t.sort}>A–Z <span aria-hidden="true">↕</span></button>
+          <nav class="language-nav" aria-label={t.language}>
+            <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
+            <span aria-hidden="true">/</span>
+            <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
+          </nav>
+        </div>
       </header>
       <main><slot /></main>
       <footer class="site-footer">
