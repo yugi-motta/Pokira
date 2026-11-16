@@ -37,7 +37,6 @@ const t = copy[lang];
             <div class="artist-heading">
               {artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}
               <div class="artist-identity"><h2>{artist.name}</h2><span>@{artist.handle}</span></div>
-              <span class="artist-arrow" aria-hidden="true">↗</span>
             </div>
             <div class="artist-artworks" aria-hidden="true">
               {previews.slice(0, 3).map(({ media }) => (
@@ -45,6 +44,7 @@ const t = copy[lang];
               ))}
               {!previews.length && posts.slice(0, 3).map((post) => <div class="artwork-thumb artwork-thumb--text">{post.pokemon.join(' / ')}</div>)}
             </div>
+            <span class="artist-arrow" aria-hidden="true">↗</span>
           </a>
         </article>
       );
