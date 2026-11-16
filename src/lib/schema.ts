@@ -33,9 +33,15 @@ export const artistSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
   romanizedName: z.string().min(1).optional(),
-  handle: z.string().regex(/^[A-Za-z0-9_]{1,15}$/),
+  handle: z.string().regex(/^[A-Za-z0-9_]{1,15}$/).optional(),
+  instagram: z.string().regex(/^(?!.*\.\.)(?!.*\.$)[A-Za-z0-9._]{1,30}$/).optional(),
   avatar: z.url().regex(/^https:\/\/pbs\.twimg\.com\/profile_images\//).optional(),
-  announcements: z.array(announcementSchema).min(1)
+  gallery: z.array(imageSchema).default([]),
+  announcements: z.array(announcementSchema).default([])
+}).superRefine((artist, ctx) => {
+  if (!artist.handle && !artist.instagram) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'An X or Instagram profile is required.' });
+  if (artist.announcements.length && !artist.handle) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'X announcements require an X handle.' });
+  if (!artist.announcements.length && !artist.gallery.length) ctx.addIssue({ code: 'custom', path: ['gallery'], message: 'Artists without X announcements need permitted gallery images.' });
 });
 
 export type Artist = z.infer<typeof artistSchema>;

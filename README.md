@@ -16,7 +16,7 @@ npm run build
 npx astro check
 ```
 
-The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. Each artist card opens that artist's X profile in a new tab. On phones, its six card thumbnails scroll horizontally. Search runs in the browser without a request.
+The generated site is in `dist/`. Each artist record lives in `src/data/artists/<stable-id>.json`. Both language routes and homepage previews are generated from these records. Artist cards show separate X and Instagram links when those profiles are present; the card itself does not navigate. On phones, its six card thumbnails scroll horizontally. Search runs in the browser without a request.
 
 ## One-message update
 
@@ -54,7 +54,9 @@ Evidence shape:
 }
 ```
 
-`mediaIndices` is optional and selects card images from the original post when it also contains sketches or promotional material. The CLI reads public X embed media and profile-photo URLs; the homepage displays those X-hosted images and links to the artist's X profile. Original post URLs remain in the records for verification. `imageFiles` is optional. Without reuse permission, keep it absent. The site does not scrape around access limits or infer a license to store copies from public availability. Permitted local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. The original image files are never committed by the CLI.
+`mediaIndices` is optional and selects card images from the original post when it also contains sketches or promotional material. The CLI reads public X embed media and profile-photo URLs; the homepage displays those X-hosted images and a separate X profile link. Original post URLs remain in the records for verification. `imageFiles` is optional. Without reuse permission, keep it absent. The site does not scrape around access limits or infer a license to store copies from public availability. Permitted local images are generated at up to 480, 960, and 1440 pixels wide, encoded as WebP, and stored in `public/images/announcements/`. The original image files are never committed by the CLI.
+
+Profile links are independent of card evidence. An artist record may have an X `handle`, an Instagram `instagram` handle, or both; at least one is required. Add an Instagram handle only after verifying the artist owns that account. Artists without X announcements need permitted local `gallery` images so their directory card has artwork. The four current records have verified X handles only; no Instagram accounts have been added without verification. Old artist URLs lead to the corresponding directory card so visitors can choose a profile.
 
 For a new artist, the CLI derives a stable ID from their handle if none is supplied. Keep IDs stable so existing records and old links remain consistent. The image record stores its permission evidence. A typographic initial appears in the directory when an X profile photo cannot be reused.
 
@@ -84,4 +86,4 @@ The values in `.env.example` are placeholders only. Keep the API key in Cloudfla
 
 The records contain four artists and nineteen original X post URLs across physical TCG and TCG Pocket. Each record includes its specific verification URL under `source`. Card thumbnails and avatars are served from X's image CDN; no card art has been copied into this repository.
 
-The validation command checks schema shape, unique IDs, unique handles, unique tweet IDs, dates against X's snowflake timestamp, and local image paths. The production build runs validation first.
+The validation command checks schema shape, unique IDs, unique X and Instagram handles, unique tweet IDs, dates against X's snowflake timestamp, and local image paths. The production build runs validation first.

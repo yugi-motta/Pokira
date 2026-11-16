@@ -65,7 +65,18 @@ const handle = officialHandle || syndicationHandle || evidence.handle;
 if (!handle || handle.toLowerCase() !== inputHandle.toLowerCase()) {
   throw new Error('Cannot verify the original author. Supply an evidence JSON with the verified handle, or retry when X oEmbed is available.');
 }
-const existing = records.find(({ data }) => data.handle.toLowerCase() === handle.toLowerCase());
+const existingByHandle = records.find(({ data }) => data.handle?.toLowerCase() === handle.toLowerCase());
+const existingById = evidence.artistId && records.find(({ data }) => data.id === evidence.artistId);
+if (existingByHandle && existingById && existingByHandle.data.id !== existingById.data.id) {
+  throw new Error('The X handle and artist ID point to different records.');
+}
+if (existingById?.data.handle && existingById.data.handle.toLowerCase() !== handle.toLowerCase()) {
+  throw new Error('The artist ID already belongs to a different X handle.');
+}
+if (existingById && !existingById.data.handle && (!evidence.artistName || evidence.artistName !== existingById.data.name || !evidence.source)) {
+  throw new Error('Adding X to an Instagram-only artist requires the verified artistId, matching artistName, and source in evidence.');
+}
+const existing = existingByHandle || existingById;
 const name = existing?.data.name || official?.author_name || syndication?.user?.name || evidence.artistName;
 if (!name) throw new Error('Artist name is unavailable. Supply artistName in evidence JSON.');
 if (evidence.artistName && official?.author_name && evidence.artistName !== official.author_name && !existing) {
@@ -132,7 +143,8 @@ try {
     if (!largest) throw new Error(`Could not optimize image: ${file}`);
     images.push({ ...largest, variants, alt: image.alt, permission: image.permission });
   }
-  const artist: Artist = existing ? structuredClone(existing.data) : { id, name, handle, announcements: [] };
+  const artist: Artist = existing ? structuredClone(existing.data) : { id, name, handle, gallery: [], announcements: [] };
+  artist.handle = handle;
   if (evidence.romanizedName && !('romanizedName' in artist)) Object.assign(artist, { romanizedName: evidence.romanizedName });
   if (!artist.avatar && syndication?.user?.profile_image_url_https) {
     artist.avatar = syndication.user.profile_image_url_https.replace('_normal.', '_400x400.');
