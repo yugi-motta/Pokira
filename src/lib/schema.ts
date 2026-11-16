@@ -37,11 +37,13 @@ export const artistSchema = z.object({
   romanizedName: z.string().min(1).optional(),
   handle: z.string().regex(/^[A-Za-z0-9_]{1,15}$/).optional(),
   instagram: z.string().regex(/^(?!.*\.\.)(?!.*\.$)[A-Za-z0-9._]{1,30}$/).optional(),
+  instagramSource: z.url().optional(),
   avatar: z.url().regex(/^https:\/\/pbs\.twimg\.com\/profile_images\//).optional(),
   gallery: z.array(imageSchema).default([]),
   announcements: z.array(announcementSchema).default([])
 }).superRefine((artist, ctx) => {
   if (!artist.handle && !artist.instagram) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'An X or Instagram profile is required.' });
+  if (artist.instagram && !artist.instagramSource) ctx.addIssue({ code: 'custom', path: ['instagramSource'], message: 'Instagram profiles need identity evidence.' });
   if (artist.announcements.length && !artist.handle) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'X announcements require an X handle.' });
   if (!artist.announcements.length && !artist.gallery.length) ctx.addIssue({ code: 'custom', path: ['gallery'], message: 'Artists without X announcements need permitted gallery images.' });
 });
