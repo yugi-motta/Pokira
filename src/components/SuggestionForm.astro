@@ -4,9 +4,15 @@ import { copy, type Lang } from '../lib/i18n';
 interface Props { lang: Lang; }
 const t = copy[Astro.props.lang];
 ---
-<details class="suggestion-panel">
-  <summary>{t.suggestArtist}<span aria-hidden="true">＋</span></summary>
-  <form id="suggestion-form" action="/api/suggestions" method="post"
+<div class="suggestion-panel">
+  <button class="suggestion-trigger" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog">{t.suggestArtist}<span aria-hidden="true">＋</span></button>
+  <dialog id="suggestion-dialog" class="suggestion-dialog" aria-labelledby="suggestion-title">
+    <div class="suggestion-dialog-inner">
+      <button class="suggestion-close" type="button" aria-label={t.closeSuggestion}>
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg>
+      </button>
+      <h2 id="suggestion-title">{t.suggestArtist}</h2>
+      <form id="suggestion-form" action="/api/suggestions" method="post"
     data-invalid-link={t.invalidXLink}
     data-link-mismatch={t.linkMismatch}
     data-sending={t.sendingSuggestion}
@@ -21,14 +27,33 @@ const t = copy[Astro.props.lang];
     </div>
     <label class="suggestion-trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
     <div class="suggestion-actions"><button type="submit">{t.sendSuggestion} <span aria-hidden="true">↗</span></button><p id="suggestion-status" role="status" aria-live="polite"></p></div>
-  </form>
-</details>
+      </form>
+    </div>
+  </dialog>
+</div>
 <script>
+  const trigger = document.querySelector<HTMLButtonElement>('.suggestion-trigger');
+  const dialog = document.querySelector<HTMLDialogElement>('#suggestion-dialog');
+  const closeButton = dialog?.querySelector<HTMLButtonElement>('.suggestion-close');
   const form = document.querySelector<HTMLFormElement>('#suggestion-form');
   const status = document.querySelector<HTMLElement>('#suggestion-status');
   const artistInput = form?.querySelector<HTMLInputElement>('[name="artistUrl"]');
   const tweetInput = form?.querySelector<HTMLInputElement>('[name="tweetUrl"]');
   const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  let previousOverflow = '';
+  trigger?.addEventListener('click', () => {
+    if (!dialog) return;
+    previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialog.showModal();
+  });
+  const closeDialog = () => dialog?.close();
+  closeButton?.addEventListener('click', closeDialog);
+  dialog?.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
+  dialog?.addEventListener('close', () => {
+    document.body.style.overflow = previousOverflow;
+    trigger?.focus();
+  });
   const handleFrom = (value: string, post: boolean) => {
     try {
       const url = new URL(value.trim());
