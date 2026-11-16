@@ -52,8 +52,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <kbd>/</kbd>
         </label>
         <nav class="language-nav" aria-label={t.language}>
-          <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">JP</a>
-          <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">EN</a>
+          <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
+          <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
         </nav>
       </header>
       <main><slot /></main>
