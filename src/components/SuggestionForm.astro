@@ -20,8 +20,8 @@ const t = copy[Astro.props.lang];
     <div class="suggestion-fields">
       <label>{t.yourName}<span>{t.optional}</span><input name="name" type="text" autocomplete="name" maxlength="120" /></label>
       <label>{t.yourEmail}<span>{t.optional}</span><input name="email" type="email" autocomplete="email" maxlength="254" /></label>
-      <label>{t.artistXLink}<input name="artistUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://x.com/artist" maxlength="500" required /></label>
-      <label>{t.artistPostLink}<input name="tweetUrl" type="url" inputmode="url" placeholder="https://x.com/artist/status/…" maxlength="500" required /></label>
+      <label>{t.artistXLink}<input name="artistUrl" type="url" inputmode="url" autocomplete="url" maxlength="500" required /></label>
+      <label>{t.artistPostLink}<input name="postUrl" type="url" inputmode="url" autocomplete="url" maxlength="500" required /></label>
     </div>
     <label class="suggestion-trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
     <div class="suggestion-actions"><button type="submit">{t.sendSuggestion} <span aria-hidden="true">↗</span></button><p id="suggestion-status" role="status" aria-live="polite"></p></div>
@@ -35,7 +35,7 @@ const t = copy[Astro.props.lang];
   const form = document.querySelector<HTMLFormElement>('#suggestion-form');
   const status = document.querySelector<HTMLElement>('#suggestion-status');
   const artistInput = form?.querySelector<HTMLInputElement>('[name="artistUrl"]');
-  const tweetInput = form?.querySelector<HTMLInputElement>('[name="tweetUrl"]');
+  const postInput = form?.querySelector<HTMLInputElement>('[name="postUrl"]');
   const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
   let previousOverflow = '';
   trigger?.addEventListener('click', () => {
@@ -51,24 +51,33 @@ const t = copy[Astro.props.lang];
     document.body.style.overflow = previousOverflow;
     document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus();
   });
-  const handleFrom = (value: string, post: boolean) => {
+  const socialLink = (value: string, post: boolean) => {
     try {
       const url = new URL(value.trim());
-      if (url.protocol !== 'https:' || !['x.com', 'www.x.com', 'twitter.com', 'www.twitter.com'].includes(url.hostname.toLowerCase())) return null;
-      const match = url.pathname.match(post ? /^\/([A-Za-z0-9_]{1,15})\/status\/\d{15,20}\/?$/ : /^\/([A-Za-z0-9_]{1,15})\/?$/);
-      return match?.[1].toLowerCase() || null;
+      if (url.protocol !== 'https:' || url.username || url.password || url.port) return null;
+      const host = url.hostname.toLowerCase();
+      if (['x.com', 'www.x.com', 'twitter.com', 'www.twitter.com', 'mobile.twitter.com'].includes(host)) {
+        const match = url.pathname.match(post ? /^\/([A-Za-z0-9_]{1,15})\/status\/\d{15,20}\/?$/ : /^\/([A-Za-z0-9_]{1,15})\/?$/);
+        return match ? { platform: 'x', handle: match[1].toLowerCase() } : null;
+      }
+      if (['instagram.com', 'www.instagram.com', 'm.instagram.com'].includes(host)) {
+        if (post) return /^\/(?:p|reel|reels|tv)\/[A-Za-z0-9_-]{5,30}\/?$/.test(url.pathname) ? { platform: 'instagram' } : null;
+        const match = url.pathname.match(/^\/((?!.*\.\.)(?!.*\.$)[A-Za-z0-9._]{1,30})\/?$/);
+        return match && !['p', 'reel', 'reels', 'tv'].includes(match[1].toLowerCase()) ? { platform: 'instagram', handle: match[1].toLowerCase() } : null;
+      }
+      return null;
     } catch { return null; }
   };
-  for (const field of [artistInput, tweetInput]) field?.addEventListener('input', () => field.setCustomValidity(''));
+  for (const field of [artistInput, postInput]) field?.addEventListener('input', () => field.setCustomValidity(''));
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (!artistInput || !tweetInput || !button || !status) return;
+    if (!artistInput || !postInput || !button || !status) return;
     status.textContent = '';
-    const artistHandle = handleFrom(artistInput.value, false);
-    const postHandle = handleFrom(tweetInput.value, true);
-    if (!artistHandle) artistInput.setCustomValidity(form.dataset.invalidLink || '');
-    if (!postHandle) tweetInput.setCustomValidity(form.dataset.invalidLink || '');
-    else if (artistHandle && artistHandle !== postHandle) tweetInput.setCustomValidity(form.dataset.linkMismatch || '');
+    const artist = socialLink(artistInput.value, false);
+    const post = socialLink(postInput.value, true);
+    if (!artist) artistInput.setCustomValidity(form.dataset.invalidLink || '');
+    if (!post) postInput.setCustomValidity(form.dataset.invalidLink || '');
+    else if (artist?.platform === 'x' && post.platform === 'x' && artist.handle !== post.handle) postInput.setCustomValidity(form.dataset.linkMismatch || '');
     if (!form.reportValidity()) return;
     button.disabled = true;
     status.textContent = form.dataset.sending || '';

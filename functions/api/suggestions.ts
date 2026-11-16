@@ -9,13 +9,26 @@ const result = (status: number, code: string) => new Response(JSON.stringify({ c
   headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }
 });
 
-const xLink = (value: string, post: boolean) => {
+const socialLink = (value: string, post: boolean) => {
   try {
     const url = new URL(value);
-    if (url.protocol !== 'https:' || !['x.com', 'www.x.com', 'twitter.com', 'www.twitter.com'].includes(url.hostname.toLowerCase())) return null;
-    const match = url.pathname.match(post ? /^\/([A-Za-z0-9_]{1,15})\/status\/(\d{15,20})\/?$/ : /^\/([A-Za-z0-9_]{1,15})\/?$/);
-    if (!match) return null;
-    return { handle: match[1].toLowerCase(), url: `https://x.com/${match[1]}${post ? `/status/${match[2]}` : ''}` };
+    if (url.protocol !== 'https:' || url.username || url.password || url.port) return null;
+    const host = url.hostname.toLowerCase();
+    if (['x.com', 'www.x.com', 'twitter.com', 'www.twitter.com', 'mobile.twitter.com'].includes(host)) {
+      const match = url.pathname.match(post ? /^\/([A-Za-z0-9_]{1,15})\/status\/(\d{15,20})\/?$/ : /^\/([A-Za-z0-9_]{1,15})\/?$/);
+      if (!match) return null;
+      return { platform: 'X', handle: match[1].toLowerCase(), url: `https://x.com/${match[1]}${post ? `/status/${match[2]}` : ''}` };
+    }
+    if (['instagram.com', 'www.instagram.com', 'm.instagram.com'].includes(host)) {
+      if (post) {
+        const match = url.pathname.match(/^\/(p|reel|reels|tv)\/([A-Za-z0-9_-]{5,30})\/?$/);
+        return match ? { platform: 'Instagram', handle: '', url: `https://www.instagram.com/${match[1]}/${match[2]}/` } : null;
+      }
+      const match = url.pathname.match(/^\/((?!.*\.\.)(?!.*\.$)[A-Za-z0-9._]{1,30})\/?$/);
+      if (!match || ['p', 'reel', 'reels', 'tv'].includes(match[1].toLowerCase())) return null;
+      return { platform: 'Instagram', handle: match[1].toLowerCase(), url: `https://www.instagram.com/${match[1].toLowerCase()}/` };
+    }
+    return null;
   } catch { return null; }
 };
 
@@ -40,11 +53,12 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
   const name = read('name');
   const email = read('email');
   const artistUrl = read('artistUrl');
-  const tweetUrl = read('tweetUrl');
-  const artist = xLink(artistUrl, false);
-  const tweet = xLink(tweetUrl, true);
-  if (name.length > 120 || email.length > 254 || artistUrl.length > 500 || tweetUrl.length > 500 ||
-    (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) || !artist || !tweet || artist.handle !== tweet.handle) {
+  const postUrl = read('postUrl') || read('tweetUrl');
+  const artist = socialLink(artistUrl, false);
+  const post = socialLink(postUrl, true);
+  if (name.length > 120 || email.length > 254 || artistUrl.length > 500 || postUrl.length > 500 ||
+    (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) || !artist || !post ||
+    (artist.platform === 'X' && post.platform === 'X' && artist.handle !== post.handle)) {
     return result(400, 'invalid');
   }
 
@@ -56,14 +70,14 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
   const text = [
     `Name: ${name || 'Not provided'}`,
     `Email: ${email || 'Not provided'}`,
-    `Artist X profile: ${artist.url}`,
-    `Artwork announcement: ${tweet.url}`
+    `Artist ${artist.platform} profile: ${artist.url}`,
+    `Artwork ${post.platform} post: ${post.url}`
   ].join('\n');
   try {
     const sent = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to: [to], subject: `Pokira artist suggestion: @${artist.handle}`, text })
+      body: JSON.stringify({ from, to: [to], subject: `Pokira artist suggestion: ${artist.platform} @${artist.handle}`, text })
     });
     return sent.ok ? result(200, 'sent') : result(502, 'failed');
   } catch { return result(502, 'failed'); }
