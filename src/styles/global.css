@@ -160,7 +160,7 @@ html[data-theme=dark] .search-clear{background:#38383e;color:#ccc}
 .profile-count{font-size:12px;color:#8e8e93;margin:12px 0 0}
 .card-gallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px 12px}
 .gallery-card{display:block;align-self:start;min-width:0;padding:0;text-align:left;border:0;background:transparent;color:inherit;transition:transform .22s ease}
-.gallery-card:hover:not(:disabled){transform:translateY(-4px)}
+
 .gallery-card:disabled{cursor:default}
 .gallery-card .artwork-thumb{display:block;width:100%;aspect-ratio:63/88;box-shadow:0 3px 8px rgba(0,0,0,.05)}
 .gallery-card-name,.gallery-card-set{display:block;white-space:normal;overflow-wrap:anywhere;line-height:1.45}
@@ -203,7 +203,7 @@ html[data-theme=dark] .gallery-controls input,html[data-theme=dark] .gallery-con
 @media(prefers-reduced-motion:reduce){.js .gallery-card{animation:none!important;opacity:1}}
 
 .artist-entry .artwork-thumb img{-webkit-user-drag:none;user-select:none}
-.gallery-card{transition:transform .22s ease,translate .22s ease}.gallery-card:hover:not(:disabled){translate:0 -4px}
+
 
 /* A floating print, with stable geometry and an immediate thumbnail preview. */
 .card-viewer{inset:0;margin:0;width:100%;max-width:none;height:100%;max-height:none;padding:24px 18px;border:0;border-radius:0;background:transparent;color:#fff;box-shadow:none;overflow:auto;cursor:zoom-out}
@@ -302,11 +302,11 @@ html[data-theme=dark] .filter-actions .filter-reset:hover{background:#41414a}
 .card-viewer[data-closing=true]::backdrop{animation:viewer-backdrop-out .32s ease both}
 @keyframes viewer-backdrop-out{from{opacity:1}to{opacity:0}}
 .viewer-content{width:min(100%,calc((100dvh - 2 * var(--viewer-gap)) * var(--viewer-ratio,.71590909)));transform-origin:0 0}
-.viewer-image-wrap{cursor:default;transform:perspective(1600px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}
-.viewer-glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse at var(--glare-x,50%) var(--glare-y,50%),#fff9,transparent 65%),linear-gradient(130deg,transparent 30%,#fff6 49%,transparent 68%);mix-blend-mode:screen;opacity:var(--glare-opacity,0);transition:opacity .25s ease}
+.viewer-image-wrap{cursor:default}
+.artwork-glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse at var(--glare-x,50%) var(--glare-y,50%),#fff9,transparent 65%),linear-gradient(130deg,transparent 30%,#fff6 49%,transparent 68%);mix-blend-mode:screen;opacity:var(--glare-opacity,0);transition:opacity .25s ease}
 @media(max-width:700px){.card-gallery{gap:18px 12px}}
 @media(max-width:480px){.site-shell--wide{padding-inline:16px}.card-gallery{gap:16px 10px}.gallery-toolbar{gap:8px;margin-bottom:22px}}
-@media(prefers-reduced-motion:reduce){.viewer-image-wrap{transform:none!important}.viewer-glare{display:none}}
+@media(prefers-reduced-motion:reduce){.gallery-card .artwork-thumb{transform:none!important}.artwork-glare{display:none}}
 
 .filter-fields label:last-child{grid-column:1/-1}
 
@@ -346,3 +346,8 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 @media(max-width:700px){.artist-grid{grid-template-columns:minmax(0,1fr);gap:12px}.directory .artist-content{padding:18px}.directory .artist-artworks{width:calc(100% + 36px);margin-inline:-18px;padding-inline:18px}}
 @media(max-width:640px){.illustrator-profile .profile-header{grid-template-columns:84px minmax(0,1fr);column-gap:16px}.profile-header .profile-avatar{width:84px;height:84px;grid-row:1/span 2}.profile-count-row{grid-column:1/-1;grid-row:3}}
 @media(max-width:480px){.site-shell,.site-shell--wide{padding-inline:16px}.directory .artist-content{padding:15px}.directory .artist-artworks{width:calc(100% + 30px);margin-inline:-15px;padding-inline:15px}}
+
+/* Tilt the illustration surface while its button keeps a stable hit area. */
+.gallery-card{position:relative}
+.gallery-card.is-tilting{z-index:2}
+.gallery-card .artwork-thumb{transform:perspective(1600px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}

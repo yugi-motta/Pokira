@@ -50,7 +50,7 @@ const pokemonLabels=[...new Map(cards.flatMap(c=>(c.pokemon||[]).map(p=>[p.id,p.
   <p class="catalog-attribution">{catalog.source && <><a href={catalog.source} target="_blank" rel="noopener noreferrer">The Art of Pokémon</a> · </>}<a href="https://tcgdex.dev/" target="_blank" rel="noopener noreferrer">TCGdex</a> · <a href="https://www.pokemon-card.com/card-search/" target="_blank" rel="noopener noreferrer">Pokémon</a></p>
   <dialog tabindex="-1" class="card-viewer" aria-label={t.closeCard}>
     <div class="viewer-content">
-      <div class="viewer-image-wrap"><img class="viewer-preview" alt="" draggable="false" /><img class="viewer-image" alt="" draggable="false" /><span class="viewer-glare" aria-hidden="true"></span></div>
+      <div class="viewer-image-wrap"><img class="viewer-preview" alt="" draggable="false" /><img class="viewer-image" alt="" draggable="false" /></div>
     </div>
   </dialog>
   <SuggestionForm lang={lang} />

@@ -8,5 +8,6 @@ const { card } = Astro.props;
 <button class="gallery-card" type="button" data-card={JSON.stringify(card)} aria-label={card.name} disabled={!card.image}>
   <span style={`aspect-ratio:${card.imageWidth || 600}/${card.imageHeight || 825}`} class:list={['artwork-thumb', !card.image && 'is-error']}>
     {card.image && <img {...responsiveCardImages(card)} width="245" height="337" alt={card.name} loading="lazy" decoding="async" />}
+    <span class="artwork-glare" aria-hidden="true"></span>
   </span>
 </button>

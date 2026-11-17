@@ -52,6 +52,7 @@ function makeCard(card: CatalogCard) {
   const button=document.createElement('button');button.type='button';button.className='gallery-card';button.dataset.card=JSON.stringify(card);button.setAttribute('aria-label',card.name);
   const thumb=document.createElement('span');thumb.className='artwork-thumb';thumb.style.aspectRatio=`${card.imageWidth || 600}/${card.imageHeight || 825}`;
   const image=document.createElement('img');const sources=responsiveCardImages(card);image.src=sources.src;if(sources.srcset)image.srcset=sources.srcset;image.sizes=sources.sizes;image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
+  const glare=document.createElement('span');glare.className='artwork-glare';glare.setAttribute('aria-hidden','true');thumb.append(glare);
   button.append(thumb);return button;
 }
 async function renderCards() {
@@ -63,7 +64,7 @@ async function renderCards() {
     const cards=await loadCatalog();if(version!==renderVersion)return;
     const filtered=filterCards(cards,cardQuery?.value||'','',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,hideTCG:display.tcg===false,locale:root.dataset.lang});
     const fragment=document.createDocumentFragment();filtered.slice(0,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
-    gallery.replaceChildren(fragment);animateCards(gallery);settleImages(gallery);
+    resetThumbnailTilt();gallery.replaceChildren(fragment);animateCards(gallery);settleImages(gallery);
     if(more)more.hidden=filtered.length<=visibleLimit;
     status.textContent=`${filtered.length.toLocaleString(root.dataset.lang)} ${filtered.length===1?root.dataset.countSingular:root.dataset.countLabel}`;
   }catch{status.textContent=more?.dataset.failed||root.dataset.failed||'';}
@@ -128,7 +129,31 @@ const surface=dialog?.querySelector<HTMLElement>('.viewer-image-wrap');
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let flight:Animation|null=null;
 let sourceThumb:HTMLElement|null=null;
-const neutralTilt=()=>{surface?.style.setProperty('--tilt-x','0deg');surface?.style.setProperty('--tilt-y','0deg');surface?.style.setProperty('--glare-opacity','0');};
+const finePointer=matchMedia('(hover:hover) and (pointer:fine)');
+let hoveredCard:HTMLButtonElement|null=null;
+let hoveredSurface:HTMLElement|null=null;
+let pointerFrame=0;let point={x:0,y:0};
+function resetThumbnailTilt(){
+ if(pointerFrame){cancelAnimationFrame(pointerFrame);pointerFrame=0;}
+ hoveredSurface?.style.setProperty('--tilt-x','0deg');hoveredSurface?.style.setProperty('--tilt-y','0deg');hoveredSurface?.style.setProperty('--glare-opacity','0');
+ hoveredCard?.classList.remove('is-tilting');hoveredCard=null;hoveredSurface=null;
+}
+// Delegate to the gallery so filtered and newly loaded illustrations work too.
+gallery?.addEventListener('pointermove',event=>{
+ if(event.pointerType==='touch'||reducedMotion.matches||!finePointer.matches||dialog?.open){resetThumbnailTilt();return;}
+ const button=(event.target as HTMLElement).closest<HTMLButtonElement>('.gallery-card');
+ if(!button||button.disabled){resetThumbnailTilt();return;}
+ if(button!==hoveredCard){resetThumbnailTilt();hoveredCard=button;hoveredSurface=button.querySelector<HTMLElement>('.artwork-thumb');button.classList.add('is-tilting');}
+ point={x:event.clientX,y:event.clientY};if(pointerFrame)return;
+ pointerFrame=requestAnimationFrame(()=>{
+  pointerFrame=0;if(!hoveredCard||!hoveredSurface||!hoveredCard.isConnected)return;
+  const rect=hoveredCard.getBoundingClientRect();const x=Math.max(0,Math.min(1,(point.x-rect.left)/rect.width));const y=Math.max(0,Math.min(1,(point.y-rect.top)/rect.height));
+  hoveredSurface.style.setProperty('--tilt-x',`${(.5-y)*12}deg`);hoveredSurface.style.setProperty('--tilt-y',`${(x-.5)*12}deg`);
+  hoveredSurface.style.setProperty('--glare-x',`${x*100}%`);hoveredSurface.style.setProperty('--glare-y',`${y*100}%`);hoveredSurface.style.setProperty('--glare-opacity','.18');
+ });
+});
+gallery?.addEventListener('pointerout',event=>{if(hoveredCard&&!hoveredCard.contains(event.relatedTarget as Node|null))resetThumbnailTilt();});
+gallery?.addEventListener('pointerleave',resetThumbnailTilt);
 function sourceTransform(){
  if(!sourceThumb||!flightElement)return 'none';
  const from=sourceThumb.getBoundingClientRect(),to=flightElement.getBoundingClientRect();
@@ -142,7 +167,7 @@ gallery?.addEventListener('click', event => {
  const thumbnail=button.querySelector<HTMLImageElement>('img');
  const ratio=thumbnail?.naturalWidth?thumbnail.naturalWidth/thumbnail.naturalHeight:(card.imageWidth||600)/(card.imageHeight||825);
  surface.style.aspectRatio=String(ratio);dialog.style.setProperty('--viewer-ratio',String(ratio));
- neutralTilt();delete dialog.dataset.ready;
+ resetThumbnailTilt();
  viewerImage.classList.remove('is-loaded');viewerImage.alt=card.name;
  viewerPreview.src=thumbnail?.currentSrc || imageURL(card);
  viewerImage.onload=()=>viewerImage.classList.add('is-loaded');viewerImage.onerror=()=>viewerImage.classList.remove('is-loaded');
@@ -152,13 +177,12 @@ gallery?.addEventListener('click', event => {
  const from=sourceTransform();button.classList.add('is-expanded');
  if(!reducedMotion.matches){
   flight=flightElement.animate([{transform:from},{transform:'none'}],{duration:480,easing:'cubic-bezier(.2,.8,.2,1)'});
-  void flight.finished.then(()=>{if(dialog.open&&!dialog.dataset.closing)dialog.dataset.ready='true';}).catch(()=>{});
- }else dialog.dataset.ready='true';
+ }
  dialog.focus({preventScroll:true});
 });
 const close=()=>{
  if(!dialog?.open||dialog.dataset.closing||!flightElement)return;
- dialog.dataset.closing='true';delete dialog.dataset.ready;neutralTilt();
+ dialog.dataset.closing='true';
  const current=getComputedStyle(flightElement).transform;flight?.cancel();
  const finish=()=>{dialog.close();delete dialog.dataset.closing;};
  if(reducedMotion.matches){finish();return;}
@@ -166,25 +190,12 @@ const close=()=>{
  flight=flightElement.animate(visible?[{transform:current},{transform:sourceTransform()}]:[{opacity:1},{opacity:0}],{duration:320,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
  void flight.finished.then(finish).catch(finish);
 };
-// A subtle perspective tilt and moving reflection, for fine pointers only.
-let pointerFrame=0;let point={x:0,y:0};
-flightElement?.addEventListener('pointermove',event=>{
- if(event.pointerType==='touch'||!dialog?.dataset.ready||reducedMotion.matches||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
- point={x:event.clientX,y:event.clientY};if(pointerFrame)return;
- pointerFrame=requestAnimationFrame(()=>{
-  pointerFrame=0;if(!flightElement||!surface||!dialog?.dataset.ready)return;
-  const rect=flightElement.getBoundingClientRect();const x=Math.max(0,Math.min(1,(point.x-rect.left)/rect.width));const y=Math.max(0,Math.min(1,(point.y-rect.top)/rect.height));
-  surface.style.setProperty('--tilt-x',`${(.5-y)*8}deg`);surface.style.setProperty('--tilt-y',`${(x-.5)*8}deg`);
-  surface.style.setProperty('--glare-x',`${x*100}%`);surface.style.setProperty('--glare-y',`${y*100}%`);surface.style.setProperty('--glare-opacity','.18');
- });
-});
-flightElement?.addEventListener('pointerleave',neutralTilt);
 let pointerStart={x:0,y:0};
 dialog?.addEventListener('pointerdown',event=>{pointerStart={x:event.clientX,y:event.clientY};});
 dialog?.addEventListener('click',event=>{if(Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)<8)close();});
 dialog?.addEventListener('cancel',event=>{event.preventDefault();close();});
 dialog?.addEventListener('close',()=>{
- flight?.cancel();flight=null;neutralTilt();document.body.style.overflow=previousOverflow;
+ flight?.cancel();flight=null;document.body.style.overflow=previousOverflow;
  lastTrigger?.classList.remove('is-expanded');
  if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src');lastTrigger?.focus({preventScroll:true});
 });
