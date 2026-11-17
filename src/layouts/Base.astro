@@ -48,12 +48,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>
           <img class="brand-logo" src="/pokira-logo-hiragana.png" width="2172" height="724" alt="" decoding="async" />
         </a>
-        <label class="search-wrap">
+        <div class="search-wrap">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
-          <span class="sr-only">{t.searchLabel}</span>
+          <label class="sr-only" for="artist-search">{t.searchLabel}</label>
           <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
-          <kbd>/</kbd>
-        </label>
+          <button class="search-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button>
+        </div>
         <div class="site-menu">
           <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-menu-panel">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M7 12h13M4 17h16" /></svg>
@@ -87,11 +87,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       const menuButton = document.querySelector('.menu-toggle');
       const menuPanel = document.querySelector('#site-menu-panel');
       const closeMenu = () => {
-        menuPanel.hidden = true;
+        menuPanel.dataset.closing = 'true';
+        setTimeout(() => { if (menuButton.getAttribute('aria-expanded') === 'false') menuPanel.hidden = true; delete menuPanel.dataset.closing; }, 160);
         menuButton.setAttribute('aria-expanded', 'false');
       };
       menuButton.addEventListener('click', () => {
-        const willOpen = menuPanel.hidden;
+        const willOpen = menuButton.getAttribute('aria-expanded') !== 'true';
+        if (!willOpen) { closeMenu(); return; }
+        delete menuPanel.dataset.closing;
         menuPanel.hidden = !willOpen;
         menuButton.setAttribute('aria-expanded', String(willOpen));
       });

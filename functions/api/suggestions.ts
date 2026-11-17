@@ -52,13 +52,11 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
 
   const name = read('name');
   const email = read('email');
-  const artistUrl = read('artistUrl');
+  const illustratorName = read('illustratorName');
   const postUrl = read('postUrl') || read('tweetUrl');
-  const artist = socialLink(artistUrl, false);
   const post = socialLink(postUrl, true);
-  if (name.length > 120 || email.length > 254 || artistUrl.length > 500 || postUrl.length > 500 ||
-    (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) || !artist || !post ||
-    (artist.platform === 'X' && post.platform === 'X' && artist.handle !== post.handle)) {
+  if (name.length > 120 || email.length > 254 || !illustratorName || illustratorName.length > 120 || postUrl.length > 500 ||
+    (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) || !post) {
     return result(400, 'invalid');
   }
 
@@ -70,14 +68,14 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
   const text = [
     `Name: ${name || 'Not provided'}`,
     `Email: ${email || 'Not provided'}`,
-    `Artist ${artist.platform} profile: ${artist.url}`,
+    `Illustrator name: ${illustratorName}`,
     `Artwork ${post.platform} post: ${post.url}`
   ].join('\n');
   try {
     const sent = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to: [to], subject: `Pokira artist suggestion: ${artist.platform} @${artist.handle}`, text })
+      body: JSON.stringify({ from, to: [to], subject: `Pokira illustrator suggestion: ${illustratorName.replace(/[\r\n]/g, " ")}`, text })
     });
     return sent.ok ? result(200, 'sent') : result(502, 'failed');
   } catch { return result(502, 'failed'); }

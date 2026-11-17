@@ -20,7 +20,7 @@ const t = copy[Astro.props.lang];
     <div class="suggestion-fields">
       <label>{t.yourName}<span>{t.optional}</span><input name="name" type="text" autocomplete="name" maxlength="120" /></label>
       <label>{t.yourEmail}<span>{t.optional}</span><input name="email" type="email" autocomplete="email" maxlength="254" /></label>
-      <label>{t.artistXLink}<input name="artistUrl" type="url" inputmode="url" autocomplete="url" maxlength="500" required /></label>
+      <label>{t.artistXLink}<input name="illustratorName" type="text" autocomplete="off" maxlength="120" required /></label>
       <label>{t.artistPostLink}<input name="postUrl" type="url" inputmode="url" autocomplete="url" maxlength="500" required /></label>
     </div>
     <label class="suggestion-trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
@@ -34,7 +34,7 @@ const t = copy[Astro.props.lang];
   const closeButton = dialog?.querySelector<HTMLButtonElement>('.suggestion-close');
   const form = document.querySelector<HTMLFormElement>('#suggestion-form');
   const status = document.querySelector<HTMLElement>('#suggestion-status');
-  const artistInput = form?.querySelector<HTMLInputElement>('[name="artistUrl"]');
+  const artistInput = form?.querySelector<HTMLInputElement>('[name="illustratorName"]');
   const postInput = form?.querySelector<HTMLInputElement>('[name="postUrl"]');
   const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
   let previousOverflow = '';
@@ -44,7 +44,12 @@ const t = copy[Astro.props.lang];
     document.body.style.overflow = 'hidden';
     dialog.showModal();
   });
-  const closeDialog = () => dialog?.close();
+  const closeDialog = () => {
+    if (!dialog || dialog.dataset.closing) return;
+    dialog.dataset.closing = 'true';
+    setTimeout(() => { dialog.close(); delete dialog.dataset.closing; }, 180);
+  };
+  dialog?.addEventListener('cancel', (event) => { event.preventDefault(); closeDialog(); });
   closeButton?.addEventListener('click', closeDialog);
   dialog?.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
   dialog?.addEventListener('close', () => {
@@ -73,11 +78,8 @@ const t = copy[Astro.props.lang];
     event.preventDefault();
     if (!artistInput || !postInput || !button || !status) return;
     status.textContent = '';
-    const artist = socialLink(artistInput.value, false);
     const post = socialLink(postInput.value, true);
-    if (!artist) artistInput.setCustomValidity(form.dataset.invalidLink || '');
     if (!post) postInput.setCustomValidity(form.dataset.invalidLink || '');
-    else if (artist?.platform === 'x' && post.platform === 'x' && artist.handle !== post.handle) postInput.setCustomValidity(form.dataset.linkMismatch || '');
     if (!form.reportValidity()) return;
     button.disabled = true;
     status.textContent = form.dataset.sending || '';
