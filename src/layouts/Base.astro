@@ -11,7 +11,8 @@ const { lang, title, description } = Astro.props;
 const t = copy[lang];
 const fullTitle = title ? `${title} — ${t.siteTitle}` : t.siteTitle;
 const metaDescription = description || t.siteDescription;
-const alternate = pathFor(lang === 'ja' ? 'en' : 'ja');
+const pagePath = Astro.url.pathname.replace(/^\/en(?=\/)/, '');
+const alternate = `${lang === 'ja' ? '/en' : ''}${pagePath}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
@@ -48,12 +49,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>
           <img class="brand-logo" src="/pokira-logo-hiragana.png" width="2172" height="724" alt="" decoding="async" />
         </a>
-        <div class="search-wrap">
+        <form class="search-wrap" action={pathFor(lang)} method="get">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
           <label class="sr-only" for="artist-search">{t.searchLabel}</label>
-          <input id="artist-search" type="search" placeholder={t.search} autocomplete="off" />
+          <input id="artist-search" name="q" type="search" placeholder={t.search} autocomplete="off" />
           <button class="search-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button>
-        </div>
+        </form>
         <div class="site-menu">
           <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-menu-panel">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="menu-line menu-line-top" d="M4 7h16" /><path class="menu-line menu-line-middle" d="M4 12h16" /><path class="menu-line menu-line-bottom" d="M4 17h16" /></svg>
@@ -62,8 +63,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             <div class="menu-group">
               <span class="menu-label">{t.language}</span>
               <nav class="menu-options" aria-label={t.language}>
-                <a href={pathFor('ja')} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
-                <a href={pathFor('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
+                <a href={pagePath} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
+                <a href={`/en${pagePath}`} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
               </nav>
             </div>
             <div class="menu-group">

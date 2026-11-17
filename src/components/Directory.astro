@@ -1,6 +1,8 @@
 ---
-import { artists, newest } from '../lib/content';
+import { artists } from '../lib/content';
 import { copy, type Lang } from '../lib/i18n';
+import { catalogFor, cardImage, artistPath } from '../lib/cards';
+import SocialLinks from './SocialLinks.astro';
 import SuggestionForm from './SuggestionForm.astro';
 
 interface Props { lang: Lang; }
@@ -11,44 +13,25 @@ const t = copy[lang];
   <h1 class="sr-only">{t.directory}</h1>
   <div id="artist-grid" class="artist-grid">
     {artists.map((artist, index) => {
-      const posts = newest(artist.announcements).sort((a, b) => Number(b.tweetId === artist.featuredTweetId) - Number(a.tweetId === artist.featuredTweetId));
-      const previews: { media: { src: string; width: number; height: number } }[] = [
-        ...artist.gallery.map((media) => ({ media })),
-        ...posts.filter((post) => post.media.length || post.images.length)
-          .map((post) => ({ media: post.images[0] || post.media[0] }))
-      ];
-      for (const post of posts) {
-        for (const media of (post.images.length ? post.images.slice(1) : post.media.slice(1))) {
-          if (previews.length >= 6) break;
-          previews.push({ media });
-        }
-        if (previews.length >= 6) break;
-      }
-      const search = [artist.name, artist.japaneseName, artist.romanizedName, artist.handle, artist.instagram, ...posts.flatMap((post) => post.pokemon)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
+      const cards = catalogFor(artist.id, lang).cards;
+      const previews = cards.filter(card => card.image).slice(0, 6);
+      const profile = artistPath(lang, artist.id);
+      const search = [artist.name, artist.japaneseName, artist.romanizedName, artist.handle, artist.instagram, ...cards.map(card => card.name)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
       return (
         <article id={artist.id} class="artist-entry" style={`--entry-delay:${Math.min(index, 8) * 90}ms`} data-search={search}>
           <div class="artist-content">
             <div class="artist-heading">
-              {artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}
+              <a class="artist-avatar-link" href={profile} aria-label={artist.name}>{artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}</a>
               <div class="artist-identity">
-                <h2>{artist.name}</h2>
-                <nav class="artist-socials" aria-label={`${artist.name} ${t.socialProfiles}`}>
-                  {artist.handle && <a href={`https://x.com/${artist.handle}`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onX}: ${artist.handle}`}>
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.94Zm-1.29 19.5h2.04L6.48 3.24H4.29Z" /></svg>
-                    <span>{artist.handle}</span>
-                  </a>}
-                  {artist.instagram && <a href={`https://www.instagram.com/${artist.instagram}/`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onInstagram}: ${artist.instagram}`}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" /><circle cx="12" cy="12" r="4" /><circle cx="17.8" cy="6.3" r="1" fill="currentColor" stroke="none" /></svg>
-                    <span>{artist.instagram}</span>
-                  </a>}
-                </nav>
+                <h2><a href={profile}>{artist.name}</a></h2>
+                <SocialLinks artist={artist} lang={lang} />
               </div>
             </div>
-            <div class="artist-artworks" aria-hidden="true">
-              {previews.slice(0, 6).map(({ media }) => (
-                <div class="artwork-thumb" style={`aspect-ratio:${media.width}/${media.height}`}><img src={media.src.startsWith('https://') ? `${media.src}?format=jpg&name=small` : media.src} width={media.width} height={media.height} alt="" loading="lazy" decoding="async" /></div>
+            <div class="artist-artworks">
+              {previews.map((card) => (
+                <a href={profile} class="artwork-thumb" style="aspect-ratio:245/337" aria-label={`${artist.name} · ${card.name}`}><img src={cardImage(card)} width="245" height="337" alt={card.name} loading="lazy" decoding="async" /><span class="image-unavailable" aria-hidden="true">{card.name}</span></a>
               ))}
-              {!previews.length && posts.slice(0, 6).map((post) => <div class="artwork-thumb artwork-thumb--text">{post.pokemon.join(' / ')}</div>)}
+              {!previews.length && <a href={profile} class="catalog-empty">{cards.length ? t.noCatalogImages : t.noCatalogCards}</a>}
             </div>
           </div>
         </article>
@@ -103,6 +86,7 @@ const t = copy[lang];
   };
   const clear = document.querySelector<HTMLButtonElement>('.search-clear');
   input?.addEventListener('input', () => { update(); if (clear) clear.hidden = !input.value; });
+  if (input) { input.value = new URLSearchParams(location.search).get('q') || ''; if (clear) clear.hidden = !input.value; update(); }
   clear?.addEventListener('click', () => { if (input) { input.value = ''; update(); clear.hidden = true; input.focus(); } });
   document.addEventListener('keydown', (event) => {
     if (event.key === '/' && document.activeElement !== input && !['INPUT','TEXTAREA'].includes((document.activeElement as HTMLElement)?.tagName)) {

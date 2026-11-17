@@ -1,0 +1,506 @@
+{
+  "updatedAt": "2026-11-17T01:53:35.823Z",
+  "artists": [
+    {
+      "artist": "Amelicart",
+      "language": "en",
+      "cards": 20,
+      "missingImages": 3,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Amelicart"
+      ]
+    },
+    {
+      "artist": "Amelicart",
+      "language": "ja",
+      "cards": 19,
+      "missingImages": 10,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Amelicart"
+      ]
+    },
+    {
+      "artist": "Hitoshi Ariga",
+      "language": "en",
+      "cards": 180,
+      "missingImages": 11,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Hitoshi Ariga"
+      ]
+    },
+    {
+      "artist": "Hitoshi Ariga",
+      "language": "ja",
+      "cards": 95,
+      "missingImages": 65,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Hitoshi Ariga"
+      ]
+    },
+    {
+      "artist": "Jerky",
+      "language": "en",
+      "cards": 59,
+      "missingImages": 3,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Jerky"
+      ]
+    },
+    {
+      "artist": "Jerky",
+      "language": "ja",
+      "cards": 54,
+      "missingImages": 26,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Jerky"
+      ]
+    },
+    {
+      "artist": "Kariya",
+      "language": "en",
+      "cards": 23,
+      "missingImages": 3,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Kariya"
+      ]
+    },
+    {
+      "artist": "Kariya",
+      "language": "ja",
+      "cards": 17,
+      "missingImages": 7,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Kariya"
+      ]
+    },
+    {
+      "artist": "kirisAki",
+      "language": "en",
+      "cards": 213,
+      "missingImages": 16,
+      "missingDates": 0,
+      "matchedCredits": [
+        "kirisAki"
+      ]
+    },
+    {
+      "artist": "kirisAki",
+      "language": "ja",
+      "cards": 101,
+      "missingImages": 67,
+      "missingDates": 0,
+      "matchedCredits": [
+        "kirisAki"
+      ]
+    },
+    {
+      "artist": "Kouki Saitou",
+      "language": "en",
+      "cards": 726,
+      "missingImages": 75,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Kouki Saitou"
+      ]
+    },
+    {
+      "artist": "Kouki Saitou",
+      "language": "ja",
+      "cards": 187,
+      "missingImages": 100,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Kouki Saitou"
+      ]
+    },
+    {
+      "artist": "Ligton",
+      "language": "en",
+      "cards": 23,
+      "missingImages": 2,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Ligton"
+      ]
+    },
+    {
+      "artist": "Ligton",
+      "language": "ja",
+      "cards": 22,
+      "missingImages": 8,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Ligton"
+      ]
+    },
+    {
+      "artist": "LINNE",
+      "language": "en",
+      "cards": 12,
+      "missingImages": 1,
+      "missingDates": 0,
+      "matchedCredits": [
+        "LINNE"
+      ]
+    },
+    {
+      "artist": "LINNE",
+      "language": "ja",
+      "cards": 11,
+      "missingImages": 6,
+      "missingDates": 0,
+      "matchedCredits": [
+        "LINNE"
+      ]
+    },
+    {
+      "artist": "MARINA Chikazawa",
+      "language": "en",
+      "cards": 25,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "MARINA Chikazawa"
+      ]
+    },
+    {
+      "artist": "MARINA Chikazawa",
+      "language": "ja",
+      "cards": 26,
+      "missingImages": 15,
+      "missingDates": 0,
+      "matchedCredits": [
+        "MARINA Chikazawa"
+      ]
+    },
+    {
+      "artist": "mashu",
+      "language": "en",
+      "cards": 23,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "mashu"
+      ]
+    },
+    {
+      "artist": "mashu",
+      "language": "ja",
+      "cards": 18,
+      "missingImages": 14,
+      "missingDates": 0,
+      "matchedCredits": [
+        "mashu"
+      ]
+    },
+    {
+      "artist": "Mitsuhiro Arita",
+      "language": "en",
+      "cards": 742,
+      "missingImages": 34,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Mitsuhiro Arita"
+      ]
+    },
+    {
+      "artist": "Mitsuhiro Arita",
+      "language": "ja",
+      "cards": 230,
+      "missingImages": 196,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Mitsuhiro Arita"
+      ]
+    },
+    {
+      "artist": "Naoki Saito",
+      "language": "en",
+      "cards": 312,
+      "missingImages": 22,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Naoki Saito"
+      ]
+    },
+    {
+      "artist": "Naoki Saito",
+      "language": "ja",
+      "cards": 121,
+      "missingImages": 90,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Naoki Saito"
+      ]
+    },
+    {
+      "artist": "Narano",
+      "language": "en",
+      "cards": 10,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Narano"
+      ]
+    },
+    {
+      "artist": "Narano",
+      "language": "ja",
+      "cards": 12,
+      "missingImages": 8,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Narano"
+      ]
+    },
+    {
+      "artist": "Natsumi Yoshida",
+      "language": "en",
+      "cards": 21,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Natsumi Yoshida"
+      ]
+    },
+    {
+      "artist": "Natsumi Yoshida",
+      "language": "ja",
+      "cards": 22,
+      "missingImages": 12,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Natsumi Yoshida"
+      ]
+    },
+    {
+      "artist": "rika",
+      "language": "en",
+      "cards": 30,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "rika"
+      ]
+    },
+    {
+      "artist": "rika",
+      "language": "ja",
+      "cards": 26,
+      "missingImages": 11,
+      "missingDates": 0,
+      "matchedCredits": [
+        "rika"
+      ]
+    },
+    {
+      "artist": "Ryota Murayama",
+      "language": "en",
+      "cards": 72,
+      "missingImages": 7,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Ryota Murayama"
+      ]
+    },
+    {
+      "artist": "Ryota Murayama",
+      "language": "ja",
+      "cards": 43,
+      "missingImages": 22,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Ryota Murayama"
+      ]
+    },
+    {
+      "artist": "saino misaki",
+      "language": "en",
+      "cards": 59,
+      "missingImages": 7,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Saino Misaki",
+        "saino misaki"
+      ]
+    },
+    {
+      "artist": "saino misaki",
+      "language": "ja",
+      "cards": 46,
+      "missingImages": 13,
+      "missingDates": 0,
+      "matchedCredits": [
+        "saino misaki"
+      ]
+    },
+    {
+      "artist": "Scav",
+      "language": "en",
+      "cards": 53,
+      "missingImages": 3,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Scav"
+      ]
+    },
+    {
+      "artist": "Scav",
+      "language": "ja",
+      "cards": 42,
+      "missingImages": 11,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Scav"
+      ]
+    },
+    {
+      "artist": "Souichirou Gunjima",
+      "language": "en",
+      "cards": 160,
+      "missingImages": 22,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Souichirou Gunjima"
+      ]
+    },
+    {
+      "artist": "Souichirou Gunjima",
+      "language": "ja",
+      "cards": 108,
+      "missingImages": 43,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Souichirou Gunjima"
+      ]
+    },
+    {
+      "artist": "Taiga Kayama",
+      "language": "en",
+      "cards": 20,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Taiga Kayama"
+      ]
+    },
+    {
+      "artist": "Taiga Kayama",
+      "language": "ja",
+      "cards": 13,
+      "missingImages": 5,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Taiga Kayama"
+      ]
+    },
+    {
+      "artist": "Uninori",
+      "language": "en",
+      "cards": 28,
+      "missingImages": 2,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Uninori"
+      ]
+    },
+    {
+      "artist": "Uninori",
+      "language": "ja",
+      "cards": 26,
+      "missingImages": 16,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Uninori"
+      ]
+    },
+    {
+      "artist": "USGMEN",
+      "language": "en",
+      "cards": 9,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "USGMEN"
+      ]
+    },
+    {
+      "artist": "USGMEN",
+      "language": "ja",
+      "cards": 6,
+      "missingImages": 3,
+      "missingDates": 0,
+      "matchedCredits": [
+        "USGMEN"
+      ]
+    },
+    {
+      "artist": "Yano Keiji",
+      "language": "en",
+      "cards": 11,
+      "missingImages": 1,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Yano Keiji"
+      ]
+    },
+    {
+      "artist": "Yano Keiji",
+      "language": "ja",
+      "cards": 11,
+      "missingImages": 4,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Yano Keiji"
+      ]
+    },
+    {
+      "artist": "Yoko Hishida",
+      "language": "en",
+      "cards": 7,
+      "missingImages": 0,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Yoko Hishida"
+      ]
+    },
+    {
+      "artist": "Yoko Hishida",
+      "language": "ja",
+      "cards": 6,
+      "missingImages": 5,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Yoko Hishida"
+      ]
+    },
+    {
+      "artist": "Yoshinobu Saito",
+      "language": "en",
+      "cards": 66,
+      "missingImages": 6,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Yoshinobu Saito"
+      ]
+    },
+    {
+      "artist": "Yoshinobu Saito",
+      "language": "ja",
+      "cards": 53,
+      "missingImages": 53,
+      "missingDates": 0,
+      "matchedCredits": [
+        "Yoshinobu Saito"
+      ]
+    }
+  ]
+}

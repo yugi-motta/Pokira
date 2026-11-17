@@ -1,0 +1,8 @@
+---
+import Base from '../../../layouts/Base.astro';
+import IllustratorProfile from '../../../components/IllustratorProfile.astro';
+import { artists } from '../../../lib/content';
+export function getStaticPaths() { return artists.map(artist => ({ params: { id: artist.id }, props: { artist } })); }
+const { artist } = Astro.props;
+---
+<Base lang="en" title={artist.name} description={`Explore Pokémon cards illustrated by ${artist.name}, their profile and social links.`}><IllustratorProfile artist={artist} lang="en" /></Base>

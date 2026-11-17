@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "refresh:cards": "node --import tsx scripts/refresh-cards.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
     "build": "npm run validate && astro build",
     "preview": "astro preview",
     "validate": "node --import tsx scripts/validate.ts",

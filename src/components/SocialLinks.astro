@@ -1,0 +1,17 @@
+---
+import type { Artist } from '../lib/schema';
+import { copy, type Lang } from '../lib/i18n';
+interface Props { artist: Artist; lang: Lang; }
+const { artist, lang } = Astro.props;
+const t = copy[lang];
+---
+                <nav class="artist-socials" aria-label={`${artist.name} ${t.socialProfiles}`}>
+                  {artist.handle && <a href={`https://x.com/${artist.handle}`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onX}: ${artist.handle}`}>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.94Zm-1.29 19.5h2.04L6.48 3.24H4.29Z" /></svg>
+                    <span>{artist.handle}</span>
+                  </a>}
+                  {artist.instagram && <a href={`https://www.instagram.com/${artist.instagram}/`} target="_blank" rel="noopener noreferrer" aria-label={`${artist.name} ${t.onInstagram}: ${artist.instagram}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" /><circle cx="12" cy="12" r="4" /><circle cx="17.8" cy="6.3" r="1" fill="currentColor" stroke="none" /></svg>
+                    <span>{artist.instagram}</span>
+                  </a>}
+                </nav>

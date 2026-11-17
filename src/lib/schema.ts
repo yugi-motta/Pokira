@@ -39,6 +39,7 @@ export const artistSchema = z.object({
   instagram: z.string().regex(/^(?!.*\.\.)(?!.*\.$)[A-Za-z0-9._]{1,30}$/).optional(),
   instagramSource: z.url().optional(),
   avatar: z.url().regex(/^https:\/\/pbs\.twimg\.com\/profile_images\//).optional(),
+  tcgdexAliases: z.array(z.string().min(1)).optional(),
   featuredTweetId: z.string().regex(/^\d{15,20}$/).optional(),
   gallery: z.array(imageSchema).default([]),
   announcements: z.array(announcementSchema).default([])
