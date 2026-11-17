@@ -26,7 +26,7 @@ const t = copy[lang];
       }
       const search = [artist.name, artist.japaneseName, artist.romanizedName, artist.handle, artist.instagram, ...posts.flatMap((post) => post.pokemon)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
       return (
-        <article id={artist.id} class="artist-entry" style={`--entry-delay:${Math.min(index, 8) * 35}ms`} data-search={search}>
+        <article id={artist.id} class="artist-entry" style={`--entry-delay:${Math.min(index, 8) * 90}ms`} data-search={search}>
           <div class="artist-content">
             <div class="artist-heading">
               {artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}
@@ -64,7 +64,7 @@ const t = copy[lang];
   const count = document.querySelector<HTMLElement>('#result-count');
   const noResults = document.querySelector<HTMLElement>('#no-results');
   const cards = [...document.querySelectorAll<HTMLElement>('.artist-entry')];
-  const strips = [...document.querySelectorAll<HTMLElement>('.artist-artworks')];
+  const strips = [...document.querySelectorAll<HTMLElement>('.artist-artworks, .artist-socials')];
   document.querySelectorAll<HTMLImageElement>('.artwork-thumb img').forEach((image) => {
     const thumb = image.parentElement;
     const settle = () => thumb?.classList.add(image.naturalWidth ? 'is-loaded' : 'is-error');
@@ -82,7 +82,12 @@ const t = copy[lang];
     updateStrip(strip);
     strip.addEventListener('scroll', () => updateStrip(strip), { passive: true });
   });
+  const stripObserver = new ResizeObserver(() => strips.forEach(updateStrip));
+  strips.forEach((strip) => stripObserver.observe(strip));
   window.addEventListener('resize', () => strips.forEach(updateStrip));
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelector('.directory')?.classList.add('is-ready');
+  }));
   const normalize = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
   const update = () => {
     const query = normalize(input?.value || '');
@@ -94,6 +99,7 @@ const t = copy[lang];
     });
     if (count) count.textContent = String(visible);
     if (noResults) noResults.hidden = visible !== 0;
+    requestAnimationFrame(() => strips.forEach(updateStrip));
   };
   const clear = document.querySelector<HTMLButtonElement>('.search-clear');
   input?.addEventListener('input', () => { update(); if (clear) clear.hidden = !input.value; });
