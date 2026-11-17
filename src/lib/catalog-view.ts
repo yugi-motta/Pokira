@@ -1,7 +1,7 @@
 import { compatibleFacts, type MatchFacts } from './card-identity';
 import { compareCards, cardDate } from './card-order';
 export type ImageDetails = { id: string; name: string; number: string; setName: string; releaseDate: string | null; language: 'en'|'ja' };
-export type ViewCard = {id:string;number:string;name:string;image:string|null;illustrator:string;rarity:string|null;language:'en'|'ja';setId:string;setName:string;releaseDate:string|null;matchingKey?:string|null;matchFacts?:MatchFacts;imageDetails?:ImageDetails;sortReleaseDate?:string|null;sortNumber?:string;editionIds?:string[];otherLanguageOnly?:boolean};
+export type ViewCard = {kind?:'physical'|'pocket';pokemon?:{id:number;name:string}[];id:string;number:string;name:string;image:string|null;illustrator:string;rarity:string|null;language:'en'|'ja';setId:string;setName:string;releaseDate:string|null;matchingKey?:string|null;matchFacts?:MatchFacts;imageDetails?:ImageDetails;sortReleaseDate?:string|null;sortNumber?:string;editionIds?:string[];otherLanguageOnly?:boolean};
 function counterparts(card: ViewCard, candidates: ViewCard[]): ViewCard[] {
   let matches=candidates.filter(c=>c.id===card.id&&c.illustrator===card.illustrator);
   if(!matches.length&&(card.matchingKey||card.matchFacts)){
@@ -39,8 +39,8 @@ export function visibleCatalog(primary: ViewCard[], alternate: ViewCard[], reque
     }];
   }).sort(compareCards);
 }
-export function filterCards(cards: ViewCard[], query: string, setId: string, rarity: string, order: string) {
+export function filterCards(cards: ViewCard[], query: string, setId: string, rarity: string, order: string, options:{pokemonId?:string;hidePocket?:boolean;locale?:string}={}) {
   const q=query.normalize('NFKC').toLocaleLowerCase().trim();
-  const filtered=cards.filter(c=>(!q||`${c.name} ${c.imageDetails?.name||''} ${c.number}`.normalize('NFKC').toLocaleLowerCase().includes(q))&&(!setId||c.setId===setId)&&(!rarity||c.rarity===rarity));
-  return filtered.sort((a,b)=>order==='oldest' ? (cardDate(a)||'9999').localeCompare(cardDate(b)||'9999')||a.number.localeCompare(b.number,'en',{numeric:true})||a.id.localeCompare(b.id) : order==='name' ? a.name.localeCompare(b.name)||compareCards(a,b) : order==='number' ? a.number.localeCompare(b.number,'en',{numeric:true})||compareCards(a,b):compareCards(a,b));
+  const filtered=cards.filter(c=>(!q||`${c.name} ${c.imageDetails?.name||''} ${c.number}`.normalize('NFKC').toLocaleLowerCase().includes(q))&&(!setId||c.setId===setId)&&(!rarity||c.rarity===rarity)&&(!options.pokemonId||c.pokemon?.some(p=>String(p.id)===options.pokemonId))&&(!options.hidePocket||c.kind!=='pocket'));
+  return filtered.sort((a,b)=>order==='pokemon' ? Number(!a.pokemon?.length)-Number(!b.pokemon?.length)||(a.pokemon?.map(p=>p.name).join(' / ')||'').localeCompare(b.pokemon?.map(p=>p.name).join(' / ')||'',options.locale)||compareCards(a,b) : order==='oldest' ? (cardDate(a)||'9999').localeCompare(cardDate(b)||'9999')||a.number.localeCompare(b.number,'en',{numeric:true})||a.id.localeCompare(b.id) : order==='name' ? a.name.localeCompare(b.name)||compareCards(a,b) : order==='number' ? a.number.localeCompare(b.number,'en',{numeric:true})||compareCards(a,b):compareCards(a,b));
 }

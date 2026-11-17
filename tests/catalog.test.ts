@@ -1,4 +1,5 @@
 import test from 'node:test';
+import type {CatalogCard} from '../src/lib/cards';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { compareCards } from '../src/lib/card-order';
@@ -17,15 +18,29 @@ test('every listed illustrator has both complete sorted language snapshots with 
     assert.deepEqual(cards,[...cards].sort(compareCards));
   }}
 });
-test('built homepage uses six latest available images, links to profiles, and has no card viewer',()=>{
-  for(const lang of ['en','ja']){
-    const html=readFileSync(`dist/${lang==='en'?'en/':''}index.html`,'utf8');assert.ok(!html.includes('class="card-viewer"'));assert.ok(!html.includes('https://pbs.twimg.com/media/'));
-    for(const {artist,index} of snapshots){const cards=visibleCatalog(index.catalogs[lang],index.catalogs[lang==='en'?'ja':'en']);const expected=cards.filter(c=>c.image).slice(0,6);const article=html.split(`id="${artist.id}"`)[1].split('</article>')[0];assert.equal((article.match(/class="artwork-thumb"/g)||[]).length,expected.length);for(const card of expected)assert.ok(article.includes(`${card.image}/low.webp`));assert.ok(article.includes(`${lang==='en'?'/en':''}/${artist.id}/`));
-    }
+function builtCards(id:string,lang:string):CatalogCard[]{return JSON.parse(readFileSync(`dist/api/artists/${id}/${lang}/all.json`,'utf8')).cards;}
+test('home previews use Japanese thumbnails and profile links without a viewer',()=>{
+ for(const lang of ['en','ja']){
+  const html=readFileSync(`dist/${lang==='en'?'en/':''}index.html`,'utf8');assert.ok(!html.includes('class="card-viewer"'));
+  for(const {artist} of snapshots){const expected=builtCards(artist.id,lang).slice(0,6);const article=html.split(`id="${artist.id}"`)[1].split('</article>')[0];
+   assert.equal((article.match(/class="artwork-thumb"/g)||[]).length,expected.length);
+   for(const card of expected)assert.ok(article.includes((card.thumbnail||`${card.image}/low.webp`).replaceAll('&','&amp;')));
+   assert.ok(article.includes(`${lang==='en'?'/en':''}/${artist.id}/`));
   }
+ }
 });
-test('all profile routes and paginated metadata preserve the complete collection',()=>{
-  for(const {artist,index} of snapshots)for(const lang of ['en','ja']){const cards=visibleCatalog(index.catalogs[lang],index.catalogs[lang==='en'?'ja':'en']);const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');assert.ok(html.includes('class="card-viewer"'));assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}assert.deepEqual(paged,cards);const all=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/all.json`,'utf8'));assert.deepEqual(all.cards,cards);assert.ok(html.includes(`data-version="${all.version}"`));assert.ok(all.version.startsWith('shared-v2:'));}
+test('all profile routes and pages preserve the Japanese collection',()=>{
+ for(const {artist} of snapshots)for(const lang of ['en','ja']){
+  const all=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/all.json`,'utf8'));const cards:CatalogCard[]=all.cards;
+  const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');
+  assert.ok(html.includes('class="card-viewer"'));assert.ok(!html.includes('viewer-close'));assert.ok(!html.includes('viewer-name'));assert.ok(!html.includes('include-other-language'));assert.ok(!html.includes('class="card-language"'));
+  assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));
+  const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}
+  assert.deepEqual(paged,cards);assert.ok(all.version.startsWith('japanese-v2:'));
+  const source:{cards:{source:string;high:string|null}[]}=JSON.parse(readFileSync(`src/data/japanese-catalog/${artist.id}.json`,'utf8'));
+  for(const card of source.cards.filter(c=>c.high)) assert.ok(cards.some(c=>c.source===card.source),`${artist.id} missing ${card.source}`);
+  for(const card of cards){assert.equal(card.language,'ja');assert.ok(card.image);assert.ok(!card.image.includes('/en/') && !card.image.includes('cdn.artofpkm.com'));}
+ }
 });
 
 test('legacy profile URLs redirect to the short routes',()=>{
@@ -45,8 +60,9 @@ test('filters and sorting apply to the complete collection',()=>{
   const oldest=filterCards(cards,'','','','oldest');assert.ok(oldest[0].releaseDate! <= oldest.at(-1)!.releaseDate!);
 });
 
-test('every illustrator has exactly the same default collection in English and Japanese',()=>{
-  for(const {artist,index} of snapshots){const en=visibleCatalog(index.catalogs.en,index.catalogs.ja,'en');const ja=visibleCatalog(index.catalogs.ja,index.catalogs.en,'ja');assert.equal(en.length,ja.length,artist.id);assert.deepEqual(en.map(c=>c.id),ja.map(c=>c.id),artist.id);assert.equal(new Set(en.flatMap(c=>c.editionIds||[])).size,en.flatMap(c=>c.editionIds||[]).length);}
+test('interface language changes text but never Japanese image membership or ordering',()=>{
+ for(const {artist} of snapshots){const en=builtCards(artist.id,'en');const ja=builtCards(artist.id,'ja');assert.deepEqual(en.map(c=>[c.id,c.image,c.thumbnail,c.fullImage]),ja.map(c=>[c.id,c.image,c.thumbnail,c.fullImage]),artist.id);assert.equal(new Set(en.map(c=>c.id)).size,en.length);assert.ok(en.every(c=>!/[\u3040-\u9fff]/u.test(c.name)),artist.id+' has an unlocalized name');}
+ const en=builtCards('usgmen','en');const ja=builtCards('usgmen','ja');assert.ok(en.length>=17);assert.ok(en.some(c=>c.name==='Bibarel ex'));assert.ok(ja.some(c=>c.name==='ビーダルex'));
 });
 
 test('known TCGdex translations survive incomplete Japanese rarity and Pokédex data',()=>{
@@ -57,11 +73,19 @@ test('known TCGdex translations survive incomplete Japanese rarity and Pokédex 
   assert.ok(card.editionIds?.includes(`ja:${ja}`));assert.equal(card.otherLanguageOnly,false);assert.ok(card.image?.includes('/ja/'));assert.equal(card.imageDetails,undefined);
  }
 });
-test('fallback badges and language controls are localized correctly',()=>{
- for(const {artist} of snapshots)for(const lang of ['en','ja']){
-  const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');
-  const badges=[...html.matchAll(/class="card-language">([^<]+)</g)].map(x=>x[1]);
-  assert.ok(badges.every(text=>text===(lang==='ja'?'英語':'JP')));
-  assert.ok(html.includes(`data-lang="${lang==='ja'?'en':'ja'}">${lang==='ja'?'英語':'JP'}</a>`));
+test('both language menus always use 日本語 / ENG',()=>{
+ for(const lang of ['en','ja']){
+  const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');
+  assert.ok(html.includes('data-lang="ja">日本語</a>'));assert.ok(html.includes('data-lang="en">ENG</a>'));
  }
+});
+
+test('Pokémon filtering groups variants and Pocket can be hidden independently',()=>{
+ const usgmen=builtCards('usgmen','en');
+ const physical=filterCards(usgmen,'','','','newest',{hidePocket:true});assert.equal(physical.length,8);assert.ok(physical.every(c=>c.kind==='physical'));
+ const goomy=filterCards(usgmen,'','','','newest',{pokemonId:'704'});assert.equal(goomy.length,1);assert.equal(goomy[0].name,'Goomy');
+ assert.equal(filterCards(usgmen,'','','','newest',{pokemonId:'704',hidePocket:true}).length,0);
+ const sorted=filterCards(usgmen,'','','','pokemon',{locale:'en'});assert.equal(sorted[0].name,'Bibarel ex');assert.equal(sorted.at(-1)?.name,'Wurmple');
+ const arita=builtCards('mitsuhiro-arita','en');const charizard=filterCards(arita,'','','','pokemon',{pokemonId:'6'});assert.ok(charizard.length>1);assert.ok(charizard.every(c=>c.pokemon?.some(p=>p.id===6)));
+ for(const lang of ['en','ja']){const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');for(const key of ['name','set','pocket'])assert.ok(html.includes(`data-display="${key}"`));assert.ok(html.includes('id="card-pokemon"'));}
 });

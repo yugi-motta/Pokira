@@ -89,3 +89,12 @@ The values in `.env.example` are placeholders only. Keep the API key in Cloudfla
 The records contain four artists and nineteen original X post URLs across physical TCG and TCG Pocket. Each record includes its specific verification URL under `source`. Card thumbnails and avatars are served from X's image CDN; no card art has been copied into this repository.
 
 The validation command checks schema shape, unique IDs, unique X and Instagram handles, unique tweet IDs, dates against X's snowflake timestamp, and local image paths. The production build runs validation first.
+
+
+### Japanese card galleries
+
+Both interfaces show the same Japanese printings. Interface language changes names and UI text only. Public Japanese printing metadata is refreshed from [The Art of Pokémon](https://www.artofpkm.com/illustrators), with source links on each profile. Images resolve to the official Japanese Pokémon card search, existing Japanese TCGdex scans, and verified original illustrator posts; restricted reference-site images are never embedded. Existing Japanese TCGdex scans supplement unresolved printings; English-only scans are never displayed. `src/data/japanese-catalog/` contains metadata, not downloaded artwork.
+
+`npm run refresh:cards` refreshes TCGdex and then runs `scripts/refresh-japanese.py` and `scripts/resolve-japanese-images.py`. The reference importer caches metadata, throttles requests, validates Japanese language markers, matches official collector numbers, and finishes all reads before replacing snapshots. GitHub Actions retains the cache and publishes only after build/tests pass. The viewer reuses the thumbnail immediately, warms the full image on hover/focus, and swaps it in without resizing or requesting a redundant PNG.
+
+Pokémon filter IDs and localized species labels use the checked-in `src/data/pokemon-species.json`, derived from [PokéAPI species names](https://github.com/PokeAPI/pokeapi/blob/master/data/v2/csv/pokemon_species_names.csv). Species filtering groups Mega/ex/V and other named variants; it also supports multi-Pokémon cards. Caption visibility and Pocket inclusion preferences are saved in the visitor’s browser.

@@ -6,7 +6,8 @@ const more = root?.querySelector<HTMLButtonElement>('.load-more');
 const status = root?.querySelector<HTMLElement>('.gallery-status');
 const dialog = root?.querySelector<HTMLDialogElement>('.card-viewer');
 const viewerImage = dialog?.querySelector<HTMLImageElement>('.viewer-image');
-const viewerImageStatus = dialog?.querySelector<HTMLElement>('.viewer-image-status');
+const viewerPreview = dialog?.querySelector<HTMLImageElement>('.viewer-preview');
+const imageURL = (card: CatalogCard, high=false) => high ? card.fullImage || `${card.image}/high.webp` : card.thumbnail || `${card.image}/low.webp`;
 let lastTrigger: HTMLElement | null = null;
 let previousOverflow = '';
 function animateCards(parent: ParentNode) {
@@ -28,9 +29,9 @@ if (social) new ResizeObserver(updateFade).observe(social);
 updateFade();
 const controls = root?.querySelector<HTMLFormElement>('.gallery-controls');
 const cardQuery = root?.querySelector<HTMLInputElement>('#card-query');
+const pokemonFilter=root?.querySelector<HTMLSelectElement>('#card-pokemon');
 const setFilter = root?.querySelector<HTMLSelectElement>('#card-set');
 const rarityFilter = root?.querySelector<HTMLSelectElement>('#card-rarity');
-const includeOther = root?.querySelector<HTMLInputElement>('#include-other-language');
 const orderFilter = root?.querySelector<HTMLSelectElement>('#card-order');
 let allCards: CatalogCard[] | null = more ? null : [...(gallery?.querySelectorAll<HTMLElement>('[data-card]') || [])].map(e=>JSON.parse(e.dataset.card!));
 let catalogRequest: Promise<CatalogCard[]> | null = null;
@@ -50,8 +51,7 @@ async function loadCatalog(): Promise<CatalogCard[]> {
 function makeCard(card: CatalogCard) {
   const button=document.createElement('button');button.type='button';button.className='gallery-card';button.dataset.card=JSON.stringify(card);button.setAttribute('aria-label',`${card.name} · ${card.setName} · ${card.number}`);
   const thumb=document.createElement('span');thumb.className='artwork-thumb';
-  const image=document.createElement('img');image.src=`${card.image}/low.webp`;image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
-  if(card.imageDetails){const badge=document.createElement('span');badge.className='card-language';badge.textContent=card.imageDetails.language==='en'?(root?.dataset.lang==='ja'?'英語':'ENG'):(root?.dataset.lang==='en'?'JP':'日本語');thumb.append(badge);}
+  const image=document.createElement('img');image.src=imageURL(card);image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
   const name=document.createElement('span');name.className='gallery-card-name';name.textContent=card.name;
   const set=document.createElement('span');set.className='gallery-card-set';set.textContent=`${card.setName} · ${card.number}`;
   button.append(thumb,name,set);return button;
@@ -63,51 +63,74 @@ async function renderCards() {
   gallery.setAttribute('aria-busy','true');status.textContent='';
   try {
     const cards=await loadCatalog();if(version!==renderVersion)return;
-    const filtered=filterCards(includeOther?.checked === false ? cards.filter(card=>!card.otherLanguageOnly) : cards,cardQuery?.value||'',setFilter?.value||'',rarityFilter?.value||'',orderFilter?.value||'newest');
+    const filtered=filterCards(cards,cardQuery?.value||'',setFilter?.value||'',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,locale:root.dataset.lang});
     const fragment=document.createDocumentFragment();filtered.slice(0,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
     gallery.replaceChildren(fragment);animateCards(gallery);settleImages(gallery);
     if(more)more.hidden=filtered.length<=visibleLimit;
-    status.textContent=`${filtered.length.toLocaleString(root.dataset.lang)} ${root.dataset.countLabel}`;
+    status.textContent=`${filtered.length.toLocaleString(root.dataset.lang)} ${filtered.length===1?root.dataset.countSingular:root.dataset.countLabel}`;
   }catch{status.textContent=more?.dataset.failed||root.dataset.failed||'';}
   finally{if(version===renderVersion){if(more){more.disabled=false;more.textContent=more.dataset.idle||'';}gallery.removeAttribute('aria-busy');}}
 }
-includeOther?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
 controls?.addEventListener('submit',event=>event.preventDefault());
 let queryTimer: ReturnType<typeof setTimeout>;
 cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(()=>{visibleLimit=24;void renderCards();},180);});
-for(const select of [setFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
+for(const select of [pokemonFilter,setFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
+const display:{name:boolean;set:boolean;pocket:boolean}={name:true,set:true,pocket:true};
+try{const saved=JSON.parse(localStorage.getItem('pokira-gallery-display')||'{}');for(const key of ['name','set','pocket'] as const)if(typeof saved[key]==='boolean')display[key]=saved[key];}catch{}
+function updateDisplay(){
+ if(gallery){gallery.dataset.showName=String(display.name);gallery.dataset.showSet=String(display.set);}
+ root?.querySelectorAll<HTMLButtonElement>('[data-display]').forEach(button=>button.setAttribute('aria-pressed',String(display[button.dataset.display as keyof typeof display])));
+}
+updateDisplay();
+root?.querySelectorAll<HTMLButtonElement>('[data-display]').forEach(button=>button.addEventListener('click',()=>{
+ const key=button.dataset.display as keyof typeof display;display[key]=!display[key];updateDisplay();
+ try{localStorage.setItem('pokira-gallery-display',JSON.stringify(display));}catch{}
+ if(key==='pocket'){visibleLimit=24;void renderCards();}
+}));
+if(!display.pocket){gallery?.querySelectorAll<HTMLElement>('[data-card]').forEach(card=>{if(JSON.parse(card.dataset.card!).kind==='pocket')card.remove();});void renderCards();}
 more?.addEventListener('click',()=>{visibleLimit+=24;void renderCards();});
+// Warm only the card the visitor is about to open, never the whole gallery.
+const warmed = new Map<string, HTMLImageElement>();
+function warmCard(event: Event) {
+  if (event instanceof PointerEvent && event.pointerType === 'touch') return;
+  const button=(event.target as HTMLElement).closest<HTMLElement>('[data-card]');
+  if (!button?.dataset.card) return;
+  if ((navigator as Navigator & {connection?:{saveData?:boolean}}).connection?.saveData) return;
+  const card: CatalogCard=JSON.parse(button.dataset.card);const url=imageURL(card,true);
+  if (warmed.has(url)) return;
+  const image=new Image();image.decoding='async';image.fetchPriority='low';image.src=url;warmed.set(url,image);
+  if (warmed.size>8) warmed.delete(warmed.keys().next().value!);
+}
+gallery?.addEventListener('pointerover',warmCard);
+gallery?.addEventListener('focusin',warmCard);
 gallery?.addEventListener('click', event => {
   const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.gallery-card');
-  if (!button?.dataset.card || !dialog || !viewerImage) return;
+  if (!button?.dataset.card || !dialog || !viewerImage || !viewerPreview) return;
   const card: CatalogCard = JSON.parse(button.dataset.card);
   if (!card.image) return;
   lastTrigger = button; previousOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
+  const wrap=viewerImage.parentElement!;
+  wrap.style.aspectRatio=`${card.imageWidth || 600} / ${card.imageHeight || 825}`;
   viewerImage.classList.remove('is-loaded'); viewerImage.alt = card.name;
-  if (viewerImageStatus) viewerImageStatus.textContent = '';
-  let triedLossless = false;
-  viewerImage.onload = () => {
-    if (!triedLossless && viewerImage.naturalWidth < 500 && viewerImage.src.endsWith('/high.webp')) { triedLossless = true; viewerImage.src = `${card.image}/high.png`; return; }
-    viewerImage.classList.add('is-loaded');
-  };
-  viewerImage.onerror = () => { if (viewerImage.src.endsWith('/high.png')) { viewerImage.src = `${card.image}/high.webp`; return; } viewerImage.classList.add('is-loaded'); if (viewerImageStatus) viewerImageStatus.textContent = dialog.dataset.error || ''; };
-  viewerImage.src = `${card.image}/high.webp`;
-  const displayed = card.imageDetails || card;
+  // The already-loaded thumbnail remains visible while the full image arrives.
+  viewerPreview.src=button.querySelector('img')?.currentSrc || imageURL(card);
+  viewerImage.onload = () => viewerImage.classList.add('is-loaded');
+  viewerImage.onerror = () => viewerImage.classList.remove('is-loaded');
+  viewerImage.fetchPriority='high';viewerImage.decoding='async';viewerImage.src=imageURL(card,true);
+  if (viewerImage.complete && viewerImage.naturalWidth) viewerImage.classList.add('is-loaded');
   const text = (selector: string, value: string) => { const el = dialog.querySelector(selector); if (el) el.textContent = value; };
-  text('#viewer-name', displayed.name); text('.viewer-set', `${displayed.setName} · ${displayed.number}`); text('.viewer-credit', card.illustrator);
-  text('.viewer-date', displayed.releaseDate ? new Intl.DateTimeFormat(root?.dataset.lang || 'en', { dateStyle:'long', timeZone:'UTC' }).format(new Date(`${displayed.releaseDate}T00:00:00Z`)) : '');
-  dialog.showModal();
-  dialog.focus({preventScroll:true});
+  text('.viewer-set', `${card.setName} · ${card.number}`);text('.viewer-credit', card.illustrator);
+  text('.viewer-date', card.releaseDate ? ' · '+new Intl.DateTimeFormat(root?.dataset.lang || 'en', {dateStyle:'medium',timeZone:'UTC'}).format(new Date(`${card.releaseDate}T00:00:00Z`)) : '');
+  dialog.showModal();dialog.focus({preventScroll:true});
 });
 const close = () => {
   if (!dialog || dialog.dataset.closing) return;
   dialog.dataset.closing = 'true';
   setTimeout(() => { dialog.close(); delete dialog.dataset.closing; }, 180);
 };
-dialog?.querySelector('.viewer-close')?.addEventListener('click', close);
-dialog?.addEventListener('click', event => { if (event.target === dialog) close(); });
+dialog?.addEventListener('click', close);
 dialog?.addEventListener('cancel', event => { event.preventDefault(); close(); });
-dialog?.addEventListener('close', () => { document.body.style.overflow = previousOverflow; viewerImage?.removeAttribute('src'); lastTrigger?.focus(); });
+dialog?.addEventListener('close', () => { document.body.style.overflow = previousOverflow; if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src'); lastTrigger?.focus(); });
 const search = document.querySelector<HTMLInputElement>('#artist-search');
 const clear = document.querySelector<HTMLButtonElement>('.search-clear');
 search?.addEventListener('input', () => { if (clear) clear.hidden = !search.value; });
