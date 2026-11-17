@@ -36,7 +36,7 @@ main{flex:1}
 .search-wrap input::placeholder{color:#8e8e93;opacity:1}
 .search-wrap kbd{color:#aaa;font-size:11px}
 .artist-grid{display:grid;grid-template-columns:1fr;gap:12px;max-width:760px;margin:0 auto}
-.artist-entry{min-width:0;background:#fff;border:1px solid #e9e9ed;border-radius:21px;box-shadow:0 3px 12px rgba(30,30,40,.025);scroll-margin-top:20px}
+.artist-entry{min-width:0;background:#fff;border:0;border-radius:21px;box-shadow:0 3px 12px rgba(30,30,40,.025);scroll-margin-top:20px}
 .artist-content{display:grid;grid-template-columns:minmax(150px,1fr) auto;align-items:center;gap:18px;padding:15px 20px}
 .artist-heading{display:flex;align-items:center;gap:13px;min-width:0}
 .artist-avatar{width:54px;height:54px;flex:none;border-radius:50%;object-fit:cover;background:#f5f5f7}
@@ -126,7 +126,7 @@ html[data-theme=dark] .artwork-thumb::before{background:linear-gradient(105deg,#
 .menu-options button[aria-pressed=true]{animation:toggle-in .22s ease}
 @keyframes toggle-in{from{transform:scale(.94)}to{transform:scale(1)}}
 :root, .artist-entry,.search-wrap,.menu-panel,.suggestion-dialog{transition:background-color .25s,color .25s,border-color .25s}
-.suggestion-close:hover{background:#e7e7ec;color:#1d1d1f;transform:rotate(90deg)}
+.suggestion-close:hover{background:#e7e7ec;color:#1d1d1f}
 html[data-theme=dark] .suggestion-close:hover{background:#45454c;color:#fff}
 .search-wrap input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
 .search-clear{display:grid;place-items:center;flex:none;width:22px;height:22px;padding:3px;border:0;border-radius:50%;background:#f0f0f3;color:#777780}
@@ -144,7 +144,7 @@ html[data-theme=dark] .search-clear{background:#38383e;color:#ccc}
 }
 /* Illustrator profiles extend the directory's existing surfaces and type. */
 .artist-avatar-link{display:flex;flex:none;border-radius:50%}
-.artist-identity h2 a:hover{opacity:.7}
+.artist-identity h2 a:hover{opacity:1;color:inherit}
 .image-unavailable{display:none;position:absolute;inset:0;align-items:center;justify-content:center;padding:10px;text-align:center;color:#8e8e93;font-size:11px;line-height:1.4}
 .is-error .image-unavailable{display:flex}
 .is-error img{visibility:hidden}
@@ -236,7 +236,7 @@ html[data-theme=dark] .gallery-controls input,html[data-theme=dark] .gallery-con
 .filter-trigger:hover{background:#ededf1}.filter-trigger:active{transform:scale(.97)}
 .filter-trigger svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
 .filter-count{min-width:18px;height:18px;border-radius:50%;background:#dedee6;font-size:10px;line-height:18px;text-align:center}
-.filter-dialog{width:min(480px,calc(100% - 32px));max-height:calc(100dvh - 32px);margin:auto;padding:0;border:1px solid #e9e9ed;border-radius:24px;background:#fff;color:#1d1d1f;overflow:auto;overscroll-behavior:contain;box-shadow:0 24px 90px #0002}
+.filter-dialog{width:min(480px,calc(100% - 32px));max-height:calc(100dvh - 32px);margin:auto;padding:0;border:0;border-radius:24px;background:#fff;color:#1d1d1f;overflow:auto;overscroll-behavior:contain;box-shadow:0 24px 90px #0002}
 .filter-dialog[open]{animation:suggestion-in .3s cubic-bezier(.16,1,.3,1) both}
 .filter-dialog::backdrop{background:#0005;backdrop-filter:blur(8px);animation:suggestion-backdrop-in .25s both}
 .filter-dialog[data-closing=true],.filter-dialog[data-closing=true]::backdrop{animation:dialog-out .18s ease both}
@@ -244,7 +244,7 @@ html[data-theme=dark] .gallery-controls input,html[data-theme=dark] .gallery-con
 .filter-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}
 .filter-header h2{margin:0;font-size:23px;letter-spacing:-.04em;font-weight:650}
 .filter-close{display:grid;place-items:center;flex:none;width:30px;height:30px;padding:5px;border:0;border-radius:50%;background:#f0f0f4;color:#777780;transition:background .2s,transform .2s}
-.filter-close:hover{background:#e3e3ea;transform:rotate(90deg)}
+.filter-close:hover{background:#e3e3ea}
 .filter-close svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
 .filter-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;margin-bottom:24px}
 .filter-fields label{display:flex;flex-direction:column;gap:7px;min-width:0;font-size:12px;font-weight:550}
@@ -306,7 +306,7 @@ html[data-theme=dark] .filter-actions .filter-reset:hover{background:#41414a}
 .artwork-glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse at var(--glare-x,50%) var(--glare-y,50%),#fff9,transparent 65%),linear-gradient(130deg,transparent 30%,#fff6 49%,transparent 68%);mix-blend-mode:screen;opacity:var(--glare-opacity,0);transition:opacity .25s ease}
 @media(max-width:700px){.card-gallery{gap:18px 12px}}
 @media(max-width:480px){.site-shell--wide{padding-inline:16px}.card-gallery{gap:16px 10px}.gallery-toolbar{gap:8px;margin-bottom:22px}}
-@media(prefers-reduced-motion:reduce){.gallery-card .artwork-thumb{transform:none!important}.artwork-glare{display:none}}
+@media(prefers-reduced-motion:reduce){.gallery-card .artwork-thumb,.viewer-image-wrap{transform:none!important}.artwork-glare{display:none}}
 
 .filter-fields label:last-child{grid-column:1/-1}
 
@@ -350,4 +350,4 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 /* Tilt the illustration surface while its button keeps a stable hit area. */
 .gallery-card{position:relative}
 .gallery-card.is-tilting{z-index:2}
-.gallery-card .artwork-thumb{transform:perspective(1600px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}
+.gallery-card .artwork-thumb,.viewer-image-wrap{transform:perspective(1600px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}

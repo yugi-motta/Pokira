@@ -76,7 +76,7 @@ cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=set
 for(const select of [pokemonFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
 const display={pocket:true,tcg:true};
 const displayKeys=['pocket','tcg'] as const;
-try{const saved=JSON.parse(localStorage.getItem('pokira-gallery-display')||'{}');for(const key of displayKeys)if(typeof saved[key]==='boolean')display[key]=saved[key];}catch{}
+try{const saved=root?.querySelector('.filter-switches')?JSON.parse(localStorage.getItem('pokira-gallery-display')||'{}'):{};for(const key of displayKeys)if(typeof saved[key]==='boolean')display[key]=saved[key];}catch{}
 const filterDialog=root?.querySelector<HTMLDialogElement>('.filter-dialog');
 const filterTrigger=root?.querySelector<HTMLButtonElement>('.filter-trigger');
 let filterOverflow='';
@@ -154,6 +154,17 @@ gallery?.addEventListener('pointermove',event=>{
 });
 gallery?.addEventListener('pointerout',event=>{if(hoveredCard&&!hoveredCard.contains(event.relatedTarget as Node|null))resetThumbnailTilt();});
 gallery?.addEventListener('pointerleave',resetThumbnailTilt);
+function resetViewerTilt(){
+ surface?.style.setProperty('--tilt-x','0deg');surface?.style.setProperty('--tilt-y','0deg');surface?.style.setProperty('--glare-opacity','0');
+}
+flightElement?.addEventListener('pointermove',event=>{
+ if(event.pointerType==='touch'||reducedMotion.matches||!finePointer.matches||!dialog?.open||dialog.dataset.closing||flight?.playState==='running'||!surface||!flightElement)return;
+ const rect=flightElement.getBoundingClientRect();
+ const x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width)),y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
+ surface.style.setProperty('--tilt-x',`${(.5-y)*8}deg`);surface.style.setProperty('--tilt-y',`${(x-.5)*8}deg`);
+ surface.style.setProperty('--glare-x',`${x*100}%`);surface.style.setProperty('--glare-y',`${y*100}%`);surface.style.setProperty('--glare-opacity','.18');
+});
+flightElement?.addEventListener('pointerleave',resetViewerTilt);
 function sourceTransform(){
  if(!sourceThumb||!flightElement)return 'none';
  const from=sourceThumb.getBoundingClientRect(),to=flightElement.getBoundingClientRect();
@@ -167,7 +178,7 @@ gallery?.addEventListener('click', event => {
  const thumbnail=button.querySelector<HTMLImageElement>('img');
  const ratio=thumbnail?.naturalWidth?thumbnail.naturalWidth/thumbnail.naturalHeight:(card.imageWidth||600)/(card.imageHeight||825);
  surface.style.aspectRatio=String(ratio);dialog.style.setProperty('--viewer-ratio',String(ratio));
- resetThumbnailTilt();
+ resetThumbnailTilt();resetViewerTilt();
  viewerImage.classList.remove('is-loaded');viewerImage.alt=card.name;
  viewerPreview.src=thumbnail?.currentSrc || imageURL(card);
  viewerImage.onload=()=>viewerImage.classList.add('is-loaded');viewerImage.onerror=()=>viewerImage.classList.remove('is-loaded');
@@ -182,7 +193,7 @@ gallery?.addEventListener('click', event => {
 });
 const close=()=>{
  if(!dialog?.open||dialog.dataset.closing||!flightElement)return;
- dialog.dataset.closing='true';
+ dialog.dataset.closing='true';resetViewerTilt();
  const current=getComputedStyle(flightElement).transform;flight?.cancel();
  const finish=()=>{dialog.close();delete dialog.dataset.closing;};
  if(reducedMotion.matches){finish();return;}
@@ -195,7 +206,7 @@ dialog?.addEventListener('pointerdown',event=>{pointerStart={x:event.clientX,y:e
 dialog?.addEventListener('click',event=>{if(Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)<8)close();});
 dialog?.addEventListener('cancel',event=>{event.preventDefault();close();});
 dialog?.addEventListener('close',()=>{
- flight?.cancel();flight=null;document.body.style.overflow=previousOverflow;
+ flight?.cancel();flight=null;resetViewerTilt();document.body.style.overflow=previousOverflow;
  lastTrigger?.classList.remove('is-expanded');
  if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src');lastTrigger?.focus({preventScroll:true});
 });

@@ -10,6 +10,7 @@ const { artist, lang } = Astro.props;
 const t = copy[lang];
 const catalog = catalogFor(artist.id, lang);
 const cards = catalog.cards;
+const hasBothFormats = cards.some(card=>card.kind==='pocket') && cards.some(card=>card.kind!=='pocket');
 const pokemonLabels=[...new Map(cards.flatMap(c=>(c.pokemon||[]).map(p=>[p.id,p.name] as const)))].sort((a,b)=>a[1].localeCompare(b[1],lang));
 ---
 <section class="illustrator-profile" data-artist={artist.id} data-lang={lang} data-source-lang={catalog.language} data-version={catalog.version} data-count-label={t.cardCount} data-count-singular={t.cardCountSingular} data-failed={t.loadFailed}>
@@ -32,10 +33,10 @@ const pokemonLabels=[...new Map(cards.flatMap(c=>(c.pokemon||[]).map(p=>[p.id,p.
         <label for="card-rarity">{t.rarityLabel}<select id="card-rarity"><option value="">{t.allRarities}</option>{[...new Set(cards.map(c=>c.rarity).filter(Boolean))].sort().map(rarity=><option value={rarity}>{rarity}</option>)}</select></label>
         <label for="card-order">{t.orderCards}<select id="card-order"><option value="newest">{t.newestCards}</option><option value="oldest">{t.oldestCards}</option><option value="pokemon">{t.pokemonOrder}</option><option value="name">{t.nameOrder}</option></select></label>
       </div>
-      <fieldset class="filter-switches"><legend>{t.cardTypes}</legend>
+      {hasBothFormats && <fieldset class="filter-switches"><legend>{t.cardTypes}</legend>
         <label>{t.tcgLabel}<input aria-label={t.showTCG} type="checkbox" role="switch" data-display="tcg" checked /></label>
         <label>{t.pocketLabel}<input aria-label={t.showPocket} type="checkbox" role="switch" data-display="pocket" checked /></label>
-      </fieldset>
+      </fieldset>}
       <footer class="filter-actions"><button class="filter-reset" type="button"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16 6v4h-4M16 10a6 6 0 1 0-1.2 3.6"/></svg>{t.resetFilters}</button><button class="filter-done" type="submit">{t.doneFilters}</button></footer>
     </form>
   </dialog>
@@ -50,7 +51,7 @@ const pokemonLabels=[...new Map(cards.flatMap(c=>(c.pokemon||[]).map(p=>[p.id,p.
   <p class="catalog-attribution">{catalog.source && <><a href={catalog.source} target="_blank" rel="noopener noreferrer">The Art of Pokémon</a> · </>}<a href="https://tcgdex.dev/" target="_blank" rel="noopener noreferrer">TCGdex</a> · <a href="https://www.pokemon-card.com/card-search/" target="_blank" rel="noopener noreferrer">Pokémon</a></p>
   <dialog tabindex="-1" class="card-viewer" aria-label={t.closeCard}>
     <div class="viewer-content">
-      <div class="viewer-image-wrap"><img class="viewer-preview" alt="" draggable="false" /><img class="viewer-image" alt="" draggable="false" /></div>
+      <div class="viewer-image-wrap"><img class="viewer-preview" alt="" draggable="false" /><img class="viewer-image" alt="" draggable="false" /><span class="artwork-glare" aria-hidden="true"></span></div>
     </div>
   </dialog>
   <SuggestionForm lang={lang} />
