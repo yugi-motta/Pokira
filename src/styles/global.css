@@ -309,3 +309,40 @@ html[data-theme=dark] .filter-actions .filter-reset:hover{background:#41414a}
 @media(prefers-reduced-motion:reduce){.viewer-image-wrap{transform:none!important}.viewer-glare{display:none}}
 
 .filter-fields label:last-child{grid-column:1/-1}
+
+/* Keep consistent card widths across responsive illustration rows. */
+.card-gallery{display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:flex-start;gap:26px 20px}
+.card-gallery .gallery-card{flex:0 0 calc((100% - 80px)/5);width:calc((100% - 80px)/5)}
+.profile-filter-action{margin-top:10px}
+.profile-filter-action .filter-trigger{min-height:34px;padding-inline:13px;font-size:11px}
+.filter-dialog .gallery-search{margin-bottom:22px}
+.filter-dialog .gallery-search input{height:42px;padding-left:37px;font-size:12px}
+.gallery-card .artwork-thumb,.viewer-image-wrap{border-radius:4.92063492% / 3.52272727%}
+@media(max-width:1100px){.card-gallery{gap:22px 16px}.card-gallery .gallery-card{flex-basis:calc((100% - 48px)/4);width:calc((100% - 48px)/4)}}
+@media(max-width:640px){.card-gallery{gap:18px 12px}.card-gallery .gallery-card{flex-basis:calc((100% - 12px)/2);width:calc((100% - 12px)/2)}}
+.filter-switches input:checked{background:#34c759}
+html[data-theme=dark] .filter-switches input:checked{background:#30d158}
+.profile-header .profile-avatar{align-self:flex-start;margin-top:3px}
+/* Edge-aligned navigation and two-column illustrator directory. */
+.site-shell,.site-shell--wide{width:100%;max-width:none;padding-inline:clamp(16px,3vw,56px)}
+.site-header{max-width:none;margin-inline:0}
+.artist-grid{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.directory .artist-content{display:block;padding:20px}
+.directory .artist-artworks{width:calc(100% + 40px);margin:16px -20px -2px;padding:0 20px 2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:auto;overscroll-behavior-x:contain}
+.directory .artist-artworks::-webkit-scrollbar{display:none}
+.directory .artwork-thumb{flex:0 0 max(82px,calc((100% - 35px)/6));width:max(82px,calc((100% - 35px)/6))}
+.directory .artist-socials{flex-wrap:nowrap;max-width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:auto;padding-bottom:2px}
+.directory .artist-socials a{flex:none;max-width:none}.directory .artist-socials a span{overflow:visible}
+.directory .artist-artworks[data-more=true]{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
+.directory .artist-artworks[data-before=true]{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px);mask-image:linear-gradient(to right,transparent,#000 28px)}
+.directory .artist-artworks[data-before=true][data-more=true]{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent)}
+.illustrator-profile .profile-header{max-width:none;display:grid;grid-template-columns:112px minmax(0,1fr);gap:0 24px;align-items:start}
+.profile-identity{display:contents}
+.profile-header .profile-avatar{grid-column:1;grid-row:1/span 3;width:112px;height:112px}
+.profile-identity h1{grid-column:2;grid-row:1}
+.profile-identity .artist-socials{grid-column:2;grid-row:2}
+.profile-count-row{grid-column:2;grid-row:3;display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0;margin-top:12px}
+.profile-count-row .illustration-count-wrap,.profile-count-row .profile-filter-action{margin-top:0}
+@media(max-width:700px){.artist-grid{grid-template-columns:minmax(0,1fr);gap:12px}.directory .artist-content{padding:18px}.directory .artist-artworks{width:calc(100% + 36px);margin-inline:-18px;padding-inline:18px}}
+@media(max-width:640px){.illustrator-profile .profile-header{grid-template-columns:84px minmax(0,1fr);column-gap:16px}.profile-header .profile-avatar{width:84px;height:84px;grid-row:1/span 2}.profile-count-row{grid-column:1/-1;grid-row:3}}
+@media(max-width:480px){.site-shell,.site-shell--wide{padding-inline:16px}.directory .artist-content{padding:15px}.directory .artist-artworks{width:calc(100% + 30px);margin-inline:-15px;padding-inline:15px}}

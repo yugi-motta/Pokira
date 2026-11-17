@@ -38,7 +38,7 @@ test('all profile routes and pages preserve the Japanese collection',()=>{
   assert.ok(html.includes('class="card-viewer"'));assert.ok(!html.includes('viewer-close'));assert.ok(!html.includes('viewer-name'));assert.ok(!html.includes('include-other-language'));assert.ok(!html.includes('class="card-language"'));
   assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));
   const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}
-  assert.deepEqual(paged,cards);assert.ok(all.version.startsWith('illustrations-v1:'));
+  assert.deepEqual(paged,cards);assert.ok(all.version.startsWith('illustrations-v2:'));
   const source:{cards:{source:string;high:string|null}[]}=JSON.parse(readFileSync(`src/data/japanese-catalog/${artist.id}.json`,'utf8'));
   for(const card of source.cards.filter(c=>c.high)) assert.ok(cards.some(c=>(artworkIdentities[c.fullImage||c.image!]||c.fullImage||c.image)===(artworkIdentities[card.high!]||card.high)),`${artist.id} missing artwork ${card.source}`);
   for(const card of cards){assert.equal(card.language,'ja');assert.ok(card.image);assert.ok(!card.image.includes('/en/') && !card.image.includes('cdn.artofpkm.com'));}
@@ -105,4 +105,17 @@ test('illustration grouping retains the first print without merging distinct art
  const first={id:'original',image:'scan-a'},foil={id:'foil',image:'scan-a'},reprint={id:'reprint',image:'scan-b'},differentArt={id:'different',image:'scan-c'};
  assert.deepEqual(uniqueIllustrations([first,foil,reprint,differentArt],{'scan-b':'scan-a'}).map(c=>c.id),['original','different']);
  for(const {artist} of snapshots){const cards=builtCards(artist.id,'en');const keys=cards.map(c=>artworkIdentities[c.fullImage||c.image!]||c.fullImage||c.image);assert.equal(new Set(keys).size,keys.length,artist.id);}
+});
+
+test('homepage previews group foil scans that preserve the same illustration',()=>{
+ const base='https://www.pokemon-card.com/assets/images/card_images/large/';
+ for(const [a,b] of [
+  ['MC/049231_P_MAGIANA.jpg','M2a/048642_P_MAGIANA.jpg'],
+  ['MC/049009_P_TOGEKISSU.jpg','M2a/048588_P_TOGEKISSU.jpg'],
+  ['MC/049224_P_GIGIGIARU.jpg','SV11W/047689_P_GIGIGIARU.jpg'],
+  ['SK/041121_T_FUSHIGINAAME.jpg','SI/040465_T_FUSHIGINAAME.jpg'],
+  ['SK/041126_T_FUUSEN.jpg','SD/038377_T_FUUSEN.jpg']
+ ]){assert.ok(artworkIdentities[base+a]);assert.equal(artworkIdentities[base+a],artworkIdentities[base+b]);}
+ for(const id of ['rika','narano','amelicart','yoshinobu-saito']){const cards=builtCards(id,'en').slice(0,6);assert.equal(new Set(cards.map(c=>artworkIdentities[c.fullImage||c.image!]||c.fullImage||c.image)).size,cards.length);}
+ for(const lang of ['en','ja']){const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');const filters=html.split('id="gallery-filter-dialog"')[1].split('</dialog>')[0];assert.ok(filters.includes('id="card-query"'));assert.ok(html.split('class="profile-header"')[1].split('</header>')[0].includes('profile-filter-action'));}
 });

@@ -69,9 +69,9 @@ async function renderCards() {
   }catch{status.textContent=more?.dataset.failed||root.dataset.failed||'';}
   finally{if(version===renderVersion){if(more){more.disabled=false;more.textContent=more.dataset.idle||'';}gallery.removeAttribute('aria-busy');}}
 }
-controls?.addEventListener('submit',event=>{event.preventDefault();closeFilters();});
+controls?.addEventListener('submit',event=>{event.preventDefault();clearTimeout(queryTimer);visibleLimit=24;void renderCards();updateFilterCount();closeFilters();});
 let queryTimer: ReturnType<typeof setTimeout>;
-cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(()=>{visibleLimit=24;void renderCards();},180);});
+cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(()=>{visibleLimit=24;void renderCards();updateFilterCount();},180);});
 for(const select of [pokemonFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
 const display={pocket:true,tcg:true};
 const displayKeys=['pocket','tcg'] as const;
@@ -84,7 +84,7 @@ function updateDisplay(){
  updateFilterCount();
 }
 function updateFilterCount(){
- const count=Number(Boolean(pokemonFilter?.value))+Number(Boolean(rarityFilter?.value))+Number(orderFilter?.value!=='newest')+displayKeys.filter(key=>!display[key]).length;
+ const count=Number(Boolean(cardQuery?.value.trim()))+Number(Boolean(pokemonFilter?.value))+Number(Boolean(rarityFilter?.value))+Number(orderFilter?.value!=='newest')+displayKeys.filter(key=>!display[key]).length;
  const badge=filterTrigger?.querySelector<HTMLElement>('.filter-count');if(badge){badge.textContent=String(count);badge.hidden=!count;}
 }
 function saveDisplay(){try{localStorage.setItem('pokira-gallery-display',JSON.stringify(display));}catch{}}

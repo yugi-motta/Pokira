@@ -18,17 +18,15 @@ const pokemonLabels=[...new Map(cards.flatMap(c=>(c.pokemon||[]).map(p=>[p.id,p.
     <div class="profile-identity">
       <h1>{artist.name}</h1>
       <SocialLinks artist={artist} lang={lang} />
-      <div class="illustration-count-wrap"><p class="profile-count">{cards.length.toLocaleString(lang)} {cards.length===1?t.cardCountSingular:t.cardCount}</p><button class="illustration-info" type="button" aria-label={t.uniqueInfoLabel} aria-expanded="false" aria-describedby="illustration-count-info"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 9v5"/><circle class="info-dot" cx="10" cy="6" r=".8"/></svg></button><p id="illustration-count-info" class="illustration-tooltip" role="tooltip" hidden>{t.uniqueInfo}</p></div>
+      <div class="profile-count-row"><div class="illustration-count-wrap"><p class="profile-count">{cards.length.toLocaleString(lang)} {cards.length===1?t.cardCountSingular:t.cardCount}</p><button class="illustration-info" type="button" aria-label={t.uniqueInfoLabel} aria-expanded="false" aria-describedby="illustration-count-info"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 9v5"/><circle class="info-dot" cx="10" cy="6" r=".8"/></svg></button><p id="illustration-count-info" class="illustration-tooltip" role="tooltip" hidden>{t.uniqueInfo}</p></div>
+      <div class="profile-filter-action"><button class="filter-trigger" type="button" aria-haspopup="dialog" aria-controls="gallery-filter-dialog"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5h14M5 10h10M7 15h6"/></svg>{t.filters}<span class="filter-count" hidden></span></button></div></div>
     </div>
   </header>
   <h2 class="sr-only">{t.cardsHeading}</h2>
-  <div class="gallery-toolbar">
-    <div class="gallery-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><label class="sr-only" for="card-query">{t.searchCards}</label><input id="card-query" type="search" placeholder={t.searchCards} autocomplete="off" /></div>
-    <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-controls="gallery-filter-dialog"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5h14M5 10h10M7 15h6"/></svg>{t.filters}<span class="filter-count" hidden></span></button>
-  </div>
   <dialog id="gallery-filter-dialog" class="filter-dialog" aria-labelledby="filter-title">
     <form class="gallery-controls">
       <header class="filter-header"><h2 id="filter-title">{t.filters}</h2><button class="filter-close" type="button" aria-label={t.closeFilters}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button></header>
+    <div class="gallery-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><label class="sr-only" for="card-query">{t.searchCards}</label><input id="card-query" type="search" placeholder={t.searchCards} autocomplete="off" /></div>
       <div class="filter-fields">
         <label for="card-pokemon">{t.pokemonLabel}<select id="card-pokemon"><option value="">{t.allPokemon}</option>{pokemonLabels.map(([id,name])=><option value={id}>{name}</option>)}</select></label>
         <label for="card-rarity">{t.rarityLabel}<select id="card-rarity"><option value="">{t.allRarities}</option>{[...new Set(cards.map(c=>c.rarity).filter(Boolean))].sort().map(rarity=><option value={rarity}>{rarity}</option>)}</select></label>
