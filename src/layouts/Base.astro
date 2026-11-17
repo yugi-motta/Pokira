@@ -4,10 +4,11 @@ import '../styles/global.css';
 
 interface Props {
   lang: Lang;
+  wide?: boolean;
   title?: string;
   description?: string;
 }
-const { lang, title, description } = Astro.props;
+const { lang, title, description, wide = false } = Astro.props;
 const t = copy[lang];
 const fullTitle = title ? `${title} — ${t.siteTitle}` : t.siteTitle;
 const metaDescription = description || t.siteDescription;
@@ -46,7 +47,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{fullTitle}</title>
   </head>
   <body>
-    <div class="site-shell">
+    <div class:list={["site-shell",wide && "site-shell--wide"]}>
       <header class="site-header">
         <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>
           <img class="brand-logo" src="/pokira-logo-hiragana.png" width="2172" height="724" alt="" decoding="async" />

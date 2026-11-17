@@ -1,4 +1,5 @@
 import type { CatalogCard } from './cards';
+import { responsiveCardImages } from './card-images';
 import { filterCards } from './catalog-view';
 const root = document.querySelector<HTMLElement>('.illustrator-profile');
 const gallery = root?.querySelector<HTMLElement>('.card-gallery');
@@ -30,7 +31,6 @@ updateFade();
 const controls = root?.querySelector<HTMLFormElement>('.gallery-controls');
 const cardQuery = root?.querySelector<HTMLInputElement>('#card-query');
 const pokemonFilter=root?.querySelector<HTMLSelectElement>('#card-pokemon');
-const setFilter = root?.querySelector<HTMLSelectElement>('#card-set');
 const rarityFilter = root?.querySelector<HTMLSelectElement>('#card-rarity');
 const orderFilter = root?.querySelector<HTMLSelectElement>('#card-order');
 let allCards: CatalogCard[] | null = more ? null : [...(gallery?.querySelectorAll<HTMLElement>('[data-card]') || [])].map(e=>JSON.parse(e.dataset.card!));
@@ -49,12 +49,10 @@ async function loadCatalog(): Promise<CatalogCard[]> {
   return catalogRequest;
 }
 function makeCard(card: CatalogCard) {
-  const button=document.createElement('button');button.type='button';button.className='gallery-card';button.dataset.card=JSON.stringify(card);button.setAttribute('aria-label',`${card.name} · ${card.setName} · ${card.number}`);
+  const button=document.createElement('button');button.type='button';button.className='gallery-card';button.dataset.card=JSON.stringify(card);button.setAttribute('aria-label',card.name);
   const thumb=document.createElement('span');thumb.className='artwork-thumb';thumb.style.aspectRatio=`${card.imageWidth || 600}/${card.imageHeight || 825}`;
-  const image=document.createElement('img');image.src=imageURL(card);image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
-  const name=document.createElement('span');name.className='gallery-card-name';name.textContent=card.name;
-  const set=document.createElement('span');set.className='gallery-card-set';set.textContent=`${card.setName} · ${card.number}`;
-  button.append(thumb,name,set);return button;
+  const image=document.createElement('img');const sources=responsiveCardImages(card);image.src=sources.src;if(sources.srcset)image.srcset=sources.srcset;image.sizes=sources.sizes;image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
+  button.append(thumb);return button;
 }
 async function renderCards() {
   if(!gallery||!root||!status)return;
@@ -63,7 +61,7 @@ async function renderCards() {
   gallery.setAttribute('aria-busy','true');status.textContent='';
   try {
     const cards=await loadCatalog();if(version!==renderVersion)return;
-    const filtered=filterCards(cards,cardQuery?.value||'',setFilter?.value||'',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,hideTCG:display.tcg===false,locale:root.dataset.lang});
+    const filtered=filterCards(cards,cardQuery?.value||'','',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,hideTCG:display.tcg===false,locale:root.dataset.lang});
     const fragment=document.createDocumentFragment();filtered.slice(0,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
     gallery.replaceChildren(fragment);animateCards(gallery);settleImages(gallery);
     if(more)more.hidden=filtered.length<=visibleLimit;
@@ -74,20 +72,19 @@ async function renderCards() {
 controls?.addEventListener('submit',event=>{event.preventDefault();closeFilters();});
 let queryTimer: ReturnType<typeof setTimeout>;
 cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(()=>{visibleLimit=24;void renderCards();},180);});
-for(const select of [pokemonFilter,setFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
-const display={name:true,set:true,pocket:true,tcg:true};
-const displayKeys=['name','set','pocket','tcg'] as const;
+for(const select of [pokemonFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
+const display={pocket:true,tcg:true};
+const displayKeys=['pocket','tcg'] as const;
 try{const saved=JSON.parse(localStorage.getItem('pokira-gallery-display')||'{}');for(const key of displayKeys)if(typeof saved[key]==='boolean')display[key]=saved[key];}catch{}
 const filterDialog=root?.querySelector<HTMLDialogElement>('.filter-dialog');
 const filterTrigger=root?.querySelector<HTMLButtonElement>('.filter-trigger');
 let filterOverflow='';
 function updateDisplay(){
- if(gallery){gallery.dataset.showName=String(display.name);gallery.dataset.showSet=String(display.set);}
  root?.querySelectorAll<HTMLInputElement>('[data-display]').forEach(input=>{input.checked=display[input.dataset.display as keyof typeof display];});
  updateFilterCount();
 }
 function updateFilterCount(){
- const count=Number(Boolean(pokemonFilter?.value))+Number(Boolean(setFilter?.value))+Number(Boolean(rarityFilter?.value))+Number(orderFilter?.value!=='newest')+displayKeys.filter(key=>!display[key]).length;
+ const count=Number(Boolean(pokemonFilter?.value))+Number(Boolean(rarityFilter?.value))+Number(orderFilter?.value!=='newest')+displayKeys.filter(key=>!display[key]).length;
  const badge=filterTrigger?.querySelector<HTMLElement>('.filter-count');if(badge){badge.textContent=String(count);badge.hidden=!count;}
 }
 function saveDisplay(){try{localStorage.setItem('pokira-gallery-display',JSON.stringify(display));}catch{}}
@@ -104,7 +101,7 @@ filterDialog?.querySelector('.filter-reset')?.addEventListener('click',()=>{
  controls?.reset();if(cardQuery)cardQuery.value='';for(const key of displayKeys)display[key]=true;
  updateDisplay();saveDisplay();visibleLimit=24;void renderCards();
 });
-for(const select of [pokemonFilter,setFilter,rarityFilter,orderFilter])select?.addEventListener('change',updateFilterCount);
+for(const select of [pokemonFilter,rarityFilter,orderFilter])select?.addEventListener('change',updateFilterCount);
 updateDisplay();
 root?.querySelectorAll<HTMLInputElement>('[data-display]').forEach(input=>input.addEventListener('change',()=>{
  const key=input.dataset.display as keyof typeof display;display[key]=input.checked;updateDisplay();saveDisplay();
@@ -126,41 +123,81 @@ function warmCard(event: Event) {
 }
 gallery?.addEventListener('pointerover',warmCard);
 gallery?.addEventListener('focusin',warmCard);
+const flightElement=dialog?.querySelector<HTMLElement>('.viewer-content');
+const surface=dialog?.querySelector<HTMLElement>('.viewer-image-wrap');
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let flight:Animation|null=null;
+let sourceThumb:HTMLElement|null=null;
+const neutralTilt=()=>{surface?.style.setProperty('--tilt-x','0deg');surface?.style.setProperty('--tilt-y','0deg');surface?.style.setProperty('--glare-opacity','0');};
+function sourceTransform(){
+ if(!sourceThumb||!flightElement)return 'none';
+ const from=sourceThumb.getBoundingClientRect(),to=flightElement.getBoundingClientRect();
+ return `translate(${from.left-to.left}px,${from.top-to.top}px) scale(${from.width/to.width},${from.height/to.height})`;
+}
 gallery?.addEventListener('click', event => {
-  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.gallery-card');
-  if (!button?.dataset.card || !dialog || !viewerImage || !viewerPreview) return;
-  const card: CatalogCard = JSON.parse(button.dataset.card);
-  if (!card.image) return;
-  lastTrigger = button; previousOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
-  const wrap=viewerImage.parentElement!;
-  const thumbnail=button.querySelector<HTMLImageElement>('img');
-  const ratio=thumbnail?.naturalWidth ? thumbnail.naturalWidth/thumbnail.naturalHeight : (card.imageWidth || 600)/(card.imageHeight || 825);
-  wrap.style.aspectRatio=String(ratio);
-  dialog.style.setProperty('--viewer-ratio',String(ratio));
-  viewerImage.classList.remove('is-loaded'); viewerImage.alt = card.name;
-  // The already-loaded thumbnail remains visible while the full image arrives.
-  viewerPreview.src=button.querySelector('img')?.currentSrc || imageURL(card);
-  viewerImage.onload = () => viewerImage.classList.add('is-loaded');
-  viewerImage.onerror = () => viewerImage.classList.remove('is-loaded');
-  viewerImage.fetchPriority='high';viewerImage.decoding='async';viewerImage.src=imageURL(card,true);
-  if (viewerImage.complete && viewerImage.naturalWidth) viewerImage.classList.add('is-loaded');
-  const text = (selector: string, value: string) => { const el = dialog.querySelector(selector); if (el) el.textContent = value; };
-  text('.viewer-set', `${card.setName}${card.number?' · '+card.number:''}`);
-  text('.viewer-date', card.releaseDate ? new Intl.DateTimeFormat(root?.dataset.lang || 'en', {dateStyle:'medium',timeZone:'UTC'}).format(new Date(`${card.releaseDate}T00:00:00Z`)) : '');
-  dialog.style.setProperty('--viewer-caption-height','56px');dialog.showModal();
-  const details=dialog.querySelector<HTMLElement>('.viewer-details');if(details)dialog.style.setProperty('--viewer-caption-height',`${Math.ceil(details.getBoundingClientRect().height)+10}px`);
-  dialog.focus({preventScroll:true});
+ const button=(event.target as HTMLElement).closest<HTMLButtonElement>('.gallery-card');
+ if(!button?.dataset.card || !dialog || !viewerImage || !viewerPreview || !surface || !flightElement)return;
+ const card:CatalogCard=JSON.parse(button.dataset.card);if(!card.image)return;
+ lastTrigger=button;sourceThumb=button.querySelector<HTMLElement>('.artwork-thumb');
+ const thumbnail=button.querySelector<HTMLImageElement>('img');
+ const ratio=thumbnail?.naturalWidth?thumbnail.naturalWidth/thumbnail.naturalHeight:(card.imageWidth||600)/(card.imageHeight||825);
+ surface.style.aspectRatio=String(ratio);dialog.style.setProperty('--viewer-ratio',String(ratio));
+ neutralTilt();delete dialog.dataset.ready;
+ viewerImage.classList.remove('is-loaded');viewerImage.alt=card.name;
+ viewerPreview.src=thumbnail?.currentSrc || imageURL(card);
+ viewerImage.onload=()=>viewerImage.classList.add('is-loaded');viewerImage.onerror=()=>viewerImage.classList.remove('is-loaded');
+ viewerImage.fetchPriority='high';viewerImage.decoding='async';viewerImage.src=imageURL(card,true);
+ if(viewerImage.complete&&viewerImage.naturalWidth)viewerImage.classList.add('is-loaded');
+ previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal();
+ const from=sourceTransform();button.classList.add('is-expanded');
+ if(!reducedMotion.matches){
+  flight=flightElement.animate([{transform:from},{transform:'none'}],{duration:480,easing:'cubic-bezier(.2,.8,.2,1)'});
+  void flight.finished.then(()=>{if(dialog.open&&!dialog.dataset.closing)dialog.dataset.ready='true';}).catch(()=>{});
+ }else dialog.dataset.ready='true';
+ dialog.focus({preventScroll:true});
 });
-const viewerDetails=dialog?.querySelector<HTMLElement>('.viewer-details');
-if(viewerDetails)new ResizeObserver(([entry])=>{if(dialog?.open)dialog.style.setProperty('--viewer-caption-height',`${Math.ceil(entry.contentRect.height)+10}px`);}).observe(viewerDetails);
-const close = () => {
-  if (!dialog || dialog.dataset.closing) return;
-  dialog.dataset.closing = 'true';
-  setTimeout(() => { dialog.close(); delete dialog.dataset.closing; }, 180);
+const close=()=>{
+ if(!dialog?.open||dialog.dataset.closing||!flightElement)return;
+ dialog.dataset.closing='true';delete dialog.dataset.ready;neutralTilt();
+ const current=getComputedStyle(flightElement).transform;flight?.cancel();
+ const finish=()=>{dialog.close();delete dialog.dataset.closing;};
+ if(reducedMotion.matches){finish();return;}
+ const rect=sourceThumb?.getBoundingClientRect();const visible=rect&&rect.bottom>0&&rect.top<innerHeight;
+ flight=flightElement.animate(visible?[{transform:current},{transform:sourceTransform()}]:[{opacity:1},{opacity:0}],{duration:320,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
+ void flight.finished.then(finish).catch(finish);
 };
-dialog?.addEventListener('click', close);
-dialog?.addEventListener('cancel', event => { event.preventDefault(); close(); });
-dialog?.addEventListener('close', () => { document.body.style.overflow = previousOverflow; if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src'); lastTrigger?.focus(); });
+// A subtle perspective tilt and moving reflection, for fine pointers only.
+let pointerFrame=0;let point={x:0,y:0};
+flightElement?.addEventListener('pointermove',event=>{
+ if(event.pointerType==='touch'||!dialog?.dataset.ready||reducedMotion.matches||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+ point={x:event.clientX,y:event.clientY};if(pointerFrame)return;
+ pointerFrame=requestAnimationFrame(()=>{
+  pointerFrame=0;if(!flightElement||!surface||!dialog?.dataset.ready)return;
+  const rect=flightElement.getBoundingClientRect();const x=Math.max(0,Math.min(1,(point.x-rect.left)/rect.width));const y=Math.max(0,Math.min(1,(point.y-rect.top)/rect.height));
+  surface.style.setProperty('--tilt-x',`${(.5-y)*8}deg`);surface.style.setProperty('--tilt-y',`${(x-.5)*8}deg`);
+  surface.style.setProperty('--glare-x',`${x*100}%`);surface.style.setProperty('--glare-y',`${y*100}%`);surface.style.setProperty('--glare-opacity','.18');
+ });
+});
+flightElement?.addEventListener('pointerleave',neutralTilt);
+let pointerStart={x:0,y:0};
+dialog?.addEventListener('pointerdown',event=>{pointerStart={x:event.clientX,y:event.clientY};});
+dialog?.addEventListener('click',event=>{if(Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)<8)close();});
+dialog?.addEventListener('cancel',event=>{event.preventDefault();close();});
+dialog?.addEventListener('close',()=>{
+ flight?.cancel();flight=null;neutralTilt();document.body.style.overflow=previousOverflow;
+ lastTrigger?.classList.remove('is-expanded');
+ if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src');lastTrigger?.focus({preventScroll:true});
+});
+const infoButton=root?.querySelector<HTMLButtonElement>('.illustration-info');
+const infoWrap=root?.querySelector<HTMLElement>('.illustration-count-wrap');
+const info=root?.querySelector<HTMLElement>('.illustration-tooltip');let pinned=false;
+function showInfo(){if(!info||!infoButton)return;info.hidden=false;info.style.left='0px';const rect=info.getBoundingClientRect();info.style.left=`${Math.min(0,innerWidth-16-rect.right)}px`;infoButton.setAttribute('aria-expanded','true');}
+function hideInfo(){if(info)info.hidden=true;infoButton?.setAttribute('aria-expanded','false');}
+infoWrap?.addEventListener('mouseenter',showInfo);infoWrap?.addEventListener('mouseleave',()=>{if(!pinned)hideInfo();});
+infoButton?.addEventListener('focus',showInfo);infoButton?.addEventListener('blur',()=>{if(!pinned)hideInfo();});
+infoButton?.addEventListener('click',()=>{pinned=!pinned;if(pinned)showInfo();else hideInfo();});
+document.addEventListener('pointerdown',event=>{if(!infoWrap?.contains(event.target as Node)){pinned=false;hideInfo();}});
+infoButton?.addEventListener('keydown',event=>{if(event.key==='Escape'){pinned=false;hideInfo();}});
 const search = document.querySelector<HTMLInputElement>('#artist-search');
 const clear = document.querySelector<HTMLButtonElement>('.search-clear');
 search?.addEventListener('input', () => { if (clear) clear.hidden = !search.value; });

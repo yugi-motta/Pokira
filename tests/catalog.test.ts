@@ -1,4 +1,6 @@
 import test from 'node:test';
+import {uniqueIllustrations} from '../src/lib/illustrations';
+const artworkIdentities:Record<string,string>=JSON.parse(readFileSync('src/data/artwork-identities.json','utf8')).images;
 import type {CatalogCard} from '../src/lib/cards';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -36,9 +38,9 @@ test('all profile routes and pages preserve the Japanese collection',()=>{
   assert.ok(html.includes('class="card-viewer"'));assert.ok(!html.includes('viewer-close'));assert.ok(!html.includes('viewer-name'));assert.ok(!html.includes('include-other-language'));assert.ok(!html.includes('class="card-language"'));
   assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));
   const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}
-  assert.deepEqual(paged,cards);assert.ok(all.version.startsWith('japanese-v2:'));
+  assert.deepEqual(paged,cards);assert.ok(all.version.startsWith('illustrations-v1:'));
   const source:{cards:{source:string;high:string|null}[]}=JSON.parse(readFileSync(`src/data/japanese-catalog/${artist.id}.json`,'utf8'));
-  for(const card of source.cards.filter(c=>c.high)) assert.ok(cards.some(c=>c.source===card.source),`${artist.id} missing ${card.source}`);
+  for(const card of source.cards.filter(c=>c.high)) assert.ok(cards.some(c=>(artworkIdentities[c.fullImage||c.image!]||c.fullImage||c.image)===(artworkIdentities[card.high!]||card.high)),`${artist.id} missing artwork ${card.source}`);
   for(const card of cards){assert.equal(card.language,'ja');assert.ok(card.image);assert.ok(!card.image.includes('/en/') && !card.image.includes('cdn.artofpkm.com'));}
  }
 });
@@ -62,7 +64,7 @@ test('filters and sorting apply to the complete collection',()=>{
 
 test('interface language changes text but never Japanese image membership or ordering',()=>{
  for(const {artist} of snapshots){const en=builtCards(artist.id,'en');const ja=builtCards(artist.id,'ja');assert.deepEqual(en.map(c=>[c.id,c.image,c.thumbnail,c.fullImage]),ja.map(c=>[c.id,c.image,c.thumbnail,c.fullImage]),artist.id);assert.equal(new Set(en.map(c=>c.id)).size,en.length);assert.ok(en.every(c=>!/[\u3040-\u9fff]/u.test(c.name)),artist.id+' has an unlocalized name');}
- const en=builtCards('usgmen','en');const ja=builtCards('usgmen','ja');assert.ok(en.length>=17);assert.ok(en.some(c=>c.name==='Bibarel ex'));assert.ok(ja.some(c=>c.name==='ビーダルex'));
+ const en=builtCards('usgmen','en');const ja=builtCards('usgmen','ja');assert.ok(en.length>=15);assert.equal(en.filter(c=>c.name==='Wurmple').length,1);assert.ok(en.find(c=>c.name==='Wurmple')?.source?.includes('/sets/579/card/4'));assert.ok(en.some(c=>c.name==='Bibarel ex'));assert.ok(ja.some(c=>c.name==='ビーダルex'));
 });
 
 test('known TCGdex translations survive incomplete Japanese rarity and Pokédex data',()=>{
@@ -82,19 +84,25 @@ test('both language menus always use 日本語 / ENG',()=>{
 
 test('Pokémon filtering groups variants and Pocket can be hidden independently',()=>{
  const usgmen=builtCards('usgmen','en');
- const physical=filterCards(usgmen,'','','','newest',{hidePocket:true});assert.equal(physical.length,8);assert.ok(physical.every(c=>c.kind==='physical'));
+ const physical=filterCards(usgmen,'','','','newest',{hidePocket:true});assert.equal(physical.length,6);assert.ok(physical.every(c=>c.kind==='physical'));
  const pocket=filterCards(usgmen,'','','','newest',{hideTCG:true});assert.equal(pocket.length,9);assert.ok(pocket.every(c=>c.kind==='pocket'));assert.equal(filterCards(usgmen,'','','','newest',{hideTCG:true,hidePocket:true}).length,0);
  const goomy=filterCards(usgmen,'','','','newest',{pokemonId:'704'});assert.equal(goomy.length,1);assert.equal(goomy[0].name,'Goomy');
  assert.equal(filterCards(usgmen,'','','','newest',{pokemonId:'704',hidePocket:true}).length,0);
  const sorted=filterCards(usgmen,'','','','pokemon',{locale:'en'});assert.equal(sorted[0].name,'Bibarel ex');assert.equal(sorted.at(-1)?.name,'Wurmple');
  const arita=builtCards('mitsuhiro-arita','en');const charizard=filterCards(arita,'','','','pokemon',{pokemonId:'6'});assert.ok(charizard.length>1);assert.ok(charizard.every(c=>c.pokemon?.some(p=>p.id===6)));
- for(const lang of ['en','ja']){const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');for(const key of ['name','set','pocket','tcg'])assert.ok(html.includes(`data-display="${key}"`));assert.ok(html.includes('id="card-pokemon"'));}
+ for(const lang of ['en','ja']){const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');for(const key of ['pocket','tcg'])assert.ok(html.includes(`data-display="${key}"`));assert.ok(html.includes('id="card-pokemon"'));}
 });
 
 test('filters live in a dialog and expanded cards omit the illustrator and icons',()=>{
  for(const lang of ['en','ja']){
   const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');
   const filters=html.split('id="gallery-filter-dialog"')[1].split('</dialog>')[0];assert.ok(filters.includes('class="filter-reset"'));assert.ok(filters.includes('id="card-pokemon"'));assert.ok(filters.includes('data-display="tcg"'));
-  const viewer=html.split('class="card-viewer"')[1].split('</dialog>')[0];assert.ok(!viewer.includes('viewer-credit'));assert.ok(!viewer.includes('<svg'));
+  const viewer=html.split('class="card-viewer"')[1].split('</dialog>')[0];assert.ok(!viewer.includes('viewer-credit'));assert.ok(!viewer.includes('<svg'));assert.ok(!viewer.includes('viewer-details'));assert.ok(!html.includes('gallery-card-name'));assert.ok(!html.includes('gallery-card-set'));assert.ok(!filters.includes('id="card-set"'));assert.ok(!filters.includes('data-display="name"'));assert.ok(html.includes('About unique illustrations') || html.includes('イラストの数について'));
  }
+});
+
+test('illustration grouping retains the first print without merging distinct artworks',()=>{
+ const first={id:'original',image:'scan-a'},foil={id:'foil',image:'scan-a'},reprint={id:'reprint',image:'scan-b'},differentArt={id:'different',image:'scan-c'};
+ assert.deepEqual(uniqueIllustrations([first,foil,reprint,differentArt],{'scan-b':'scan-a'}).map(c=>c.id),['original','different']);
+ for(const {artist} of snapshots){const cards=builtCards(artist.id,'en');const keys=cards.map(c=>artworkIdentities[c.fullImage||c.image!]||c.fullImage||c.image);assert.equal(new Set(keys).size,keys.length,artist.id);}
 });

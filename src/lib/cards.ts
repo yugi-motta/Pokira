@@ -3,6 +3,8 @@ import { z } from 'zod';
 import type { MatchFacts } from './card-identity';
 import { visibleCatalog } from './catalog-view';
 import { pokemonFor } from './pokemon';
+import artworkIdentities from '../data/artwork-identities.json';
+import { uniqueIllustrations } from './illustrations';
 import { compareCards } from './card-order';
 export const catalogCardSchema = z.object({
   kind:z.enum(['physical','pocket']).optional(),pokemon:z.array(z.object({id:z.number(),name:z.string()})).optional(),
@@ -61,7 +63,7 @@ export function catalogFor(id: string, lang: Lang) {
     cards.push({...card,kind:card.image?.includes('/tcgp/')?'pocket':'physical',pokemon:pokemonFor(text?.en || translation?.name || card.name,lang),imageDetails:undefined,otherLanguageOnly:undefined,...(lang==='en'?{name:text?.en || translation?.name || card.name,setName:text?.setName || card.setName}:{} )});
   }
   cards.sort(compareCards);
-  return {cards,language:'ja',source:japanese?.source,updatedAt:japanese?.updatedAt || index?.updatedAt || '',version:`japanese-v2:${japanese?.updatedAt || index?.updatedAt || ''}`};
+  return {cards:uniqueIllustrations(cards,artworkIdentities.images),language:'ja',source:japanese?.source,updatedAt:japanese?.updatedAt || index?.updatedAt || '',version:`illustrations-v1:${japanese?.updatedAt || index?.updatedAt || ''}`};
 }
 export const cardImage = (card: CatalogCard, quality: 'low' | 'high' = 'low') => quality === 'high' ? card.fullImage || (card.image ? `${card.image}/high.webp` : '') : card.thumbnail || (card.image ? `${card.image}/low.webp` : '');
 export const artistPath = (lang: Lang, id: string) => `${lang === 'en' ? '/en' : ''}/${id}/`;

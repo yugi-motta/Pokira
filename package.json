@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "refresh:cards": "node --import tsx scripts/refresh-cards.ts && python3 scripts/refresh-japanese.py && python3 scripts/resolve-japanese-images.py",
+    "refresh:cards": "node --import tsx scripts/refresh-cards.ts && python3 scripts/refresh-japanese.py && python3 scripts/resolve-japanese-images.py && node --import tsx scripts/index-artwork.ts",
     "test": "node --import tsx --test tests/*.test.ts",
     "build": "npm run validate && astro build",
     "preview": "astro preview",
