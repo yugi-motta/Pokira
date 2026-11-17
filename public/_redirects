@@ -1,0 +1,4 @@
+/artists/:id /:id/ 301
+/artists/:id/ /:id/ 301
+/en/artists/:id /en/:id/ 301
+/en/artists/:id/ /en/:id/ 301

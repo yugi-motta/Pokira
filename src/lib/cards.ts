@@ -1,6 +1,9 @@
 import type { Lang } from './i18n';
 import { z } from 'zod';
+import { visibleCatalog } from './catalog-view';
 export const catalogCardSchema = z.object({
+  matchingKey: z.string().nullable().optional(),
+  imageDetails: z.object({id:z.string(), name:z.string(), number:z.string(), setName:z.string(),releaseDate:z.string().nullable(),language:z.enum(['en','ja'])}).optional(),
   detailsCheckedAt: z.string().optional(),
   id: z.string(), number: z.string(), name: z.string(),
   image: z.string().startsWith('https://assets.tcgdex.net/').nullable(),
@@ -16,7 +19,7 @@ export const PAGE_SIZE = 24;
 export function catalogFor(id: string, lang: Lang) {
   const index = cardIndexes.get(id);
   const language: Lang = index?.catalogs[lang].length ? lang : lang === 'ja' ? 'en' : 'ja';
-  return { cards: index?.catalogs[language] || [], language, updatedAt: index?.updatedAt || '' };
+  return { cards: visibleCatalog(index?.catalogs[language] || [], index?.catalogs[language === 'ja' ? 'en' : 'ja'] || []), language, updatedAt: index?.updatedAt || '' };
 }
 export const cardImage = (card: CatalogCard, quality: 'low' | 'high' = 'low') => card.image ? `${card.image}/${quality}.webp` : '';
-export const artistPath = (lang: Lang, id: string) => `${lang === 'en' ? '/en' : ''}/artists/${id}/`;
+export const artistPath = (lang: Lang, id: string) => `${lang === 'en' ? '/en' : ''}/${id}/`;

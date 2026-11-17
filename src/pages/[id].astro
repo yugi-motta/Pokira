@@ -1,7 +1,7 @@
 ---
-import Base from '../../layouts/Base.astro';
-import IllustratorProfile from '../../components/IllustratorProfile.astro';
-import { artists } from '../../lib/content';
+import Base from '../layouts/Base.astro';
+import IllustratorProfile from '../components/IllustratorProfile.astro';
+import { artists } from '../lib/content';
 export function getStaticPaths() { return artists.map(artist => ({ params: { id: artist.id }, props: { artist } })); }
 const { artist } = Astro.props;
 ---

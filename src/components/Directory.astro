@@ -18,12 +18,12 @@ const t = copy[lang];
       const profile = artistPath(lang, artist.id);
       const search = [artist.name, artist.japaneseName, artist.romanizedName, artist.handle, artist.instagram, ...cards.map(card => card.name)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
       return (
-        <article id={artist.id} class="artist-entry" style={`--entry-delay:${Math.min(index, 8) * 90}ms`} data-search={search}>
+        <article id={artist.id} class="artist-entry" style={`--entry-delay:${Math.min(index, 8) * 90}ms`} data-search={search} data-profile={profile}>
           <div class="artist-content">
             <div class="artist-heading">
               <a class="artist-avatar-link" href={profile} aria-label={artist.name}>{artist.avatar ? <img class="artist-avatar" src={artist.avatar} width="54" height="54" alt="" loading="lazy" decoding="async" /> : <span class="artist-avatar artist-avatar--text" aria-hidden="true">{artist.name.slice(0, 1)}</span>}</a>
               <div class="artist-identity">
-                <h2><a href={profile}>{artist.name}</a></h2>
+                <h2><a class="artist-profile-link" href={profile}>{artist.name}</a></h2>
                 <SocialLinks artist={artist} lang={lang} />
               </div>
             </div>
@@ -47,6 +47,10 @@ const t = copy[lang];
   const count = document.querySelector<HTMLElement>('#result-count');
   const noResults = document.querySelector<HTMLElement>('#no-results');
   const cards = [...document.querySelectorAll<HTMLElement>('.artist-entry')];
+  cards.forEach(card => card.addEventListener('click', event => {
+    if ((event.target as HTMLElement).closest('a,button,input,select') || window.getSelection()?.toString()) return;
+    if (card.dataset.profile) location.assign(card.dataset.profile);
+  }));
   const strips = [...document.querySelectorAll<HTMLElement>('.artist-artworks, .artist-socials')];
   document.querySelectorAll<HTMLImageElement>('.artwork-thumb img').forEach((image) => {
     const thumb = image.parentElement;
