@@ -9,6 +9,24 @@
   "gallery": [],
   "announcements": [
     {
+      "url": "https://x.com/JamesTurner_42/status/2100407792184291638",
+      "tweetId": "2100407792184291638",
+      "date": "2026-09-17",
+      "pokemon": [
+        "ピカチュウ"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/JamesTurner_42/status/2100407792184291638",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/HSYlwA-aQAAxvIL.jpg",
+          "width": 800,
+          "height": 1117
+        }
+      ]
+    },
+    {
       "url": "https://x.com/JamesTurner_42/status/2013562328743321639",
       "tweetId": "2013562328743321639",
       "date": "2026-01-20",
@@ -23,6 +41,78 @@
           "src": "https://pbs.twimg.com/media/G_GcQn8W0AAEC16.jpg",
           "width": 868,
           "height": 1212
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/JamesTurner_42/status/1801164455889285437",
+      "tweetId": "1801164455889285437",
+      "date": "2024-06-13",
+      "pokemon": [
+        "ヨノワール"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/JamesTurner_42/status/1801164455889285437",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GP8FhlVWYAE-ROK.jpg",
+          "width": 1536,
+          "height": 2048
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/JamesTurner_42/status/1801164183221809421",
+      "tweetId": "1801164183221809421",
+      "date": "2024-06-13",
+      "pokemon": [
+        "サマヨール"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/JamesTurner_42/status/1801164183221809421",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GP8FRveXwAAIxHr.jpg",
+          "width": 1590,
+          "height": 2048
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/JamesTurner_42/status/1801163838902984793",
+      "tweetId": "1801163838902984793",
+      "date": "2024-06-13",
+      "pokemon": [
+        "ヨマワル"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/JamesTurner_42/status/1801163838902984793",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GP8E9r1XYAA7rBo.jpg",
+          "width": 1576,
+          "height": 2048
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/JamesTurner_42/status/1105218981936345089",
+      "tweetId": "1105218981936345089",
+      "date": "2019-03-11",
+      "pokemon": [
+        "バオップ"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/JamesTurner_42/status/1105218981936345089",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/D1aGzfRU4AAGN7a.jpg",
+          "width": 750,
+          "height": 1046
         }
       ]
     }

@@ -9,6 +9,78 @@
   "gallery": [],
   "announcements": [
     {
+      "url": "https://x.com/USGMEN_GIF/status/2094383198272946634",
+      "tweetId": "2094383198272946634",
+      "date": "2026-08-31",
+      "pokemon": [
+        "ホエルオー"
+      ],
+      "kind": "pocket",
+      "source": "https://x.com/USGMEN_GIF/status/2094383198272946634",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/HRC-asBbwAACW9v.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/USGMEN_GIF/status/2051264785485062341",
+      "tweetId": "2051264785485062341",
+      "date": "2026-05-04",
+      "pokemon": [
+        "メガヤドラン"
+      ],
+      "kind": "pocket",
+      "source": "https://x.com/USGMEN_GIF/status/2051264785485062341",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/HHeOcyybwAAyDL0.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/USGMEN_GIF/status/2018269394493968454",
+      "tweetId": "2018269394493968454",
+      "date": "2026-02-02",
+      "pokemon": [
+        "デリバード"
+      ],
+      "kind": "pocket",
+      "source": "https://x.com/USGMEN_GIF/status/2018269394493968454",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/HAJVULmbAAArkfZ.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/USGMEN_GIF/status/1929490467269272056",
+      "tweetId": "1929490467269272056",
+      "date": "2025-06-02",
+      "pokemon": [
+        "オドリドリ"
+      ],
+      "kind": "pocket",
+      "source": "https://x.com/USGMEN_GIF/status/1929490467269272056",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GsbtWkebIAAQEuT.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
+    },
+    {
       "url": "https://x.com/USGMEN_GIF/status/1919340260191879474",
       "tweetId": "1919340260191879474",
       "date": "2025-05-05",
@@ -23,6 +95,24 @@
           "src": "https://pbs.twimg.com/media/GqLdyxFbMAAkJn_.jpg",
           "width": 734,
           "height": 1024
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/USGMEN_GIF/status/1751472491028263372",
+      "tweetId": "1751472491028263372",
+      "date": "2024-01-28",
+      "pokemon": [
+        "ミュウ"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/USGMEN_GIF/status/1751472491028263372",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GE568gtaoAA12Bw.jpg",
+          "width": 868,
+          "height": 1212
         }
       ]
     }

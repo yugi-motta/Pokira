@@ -11,7 +11,7 @@ const t = copy[lang];
   <h1 class="sr-only">{t.directory}</h1>
   <div id="artist-grid" class="artist-grid">
     {artists.map((artist, index) => {
-      const posts = newest(artist.announcements);
+      const posts = newest(artist.announcements).sort((a, b) => Number(b.tweetId === artist.featuredTweetId) - Number(a.tweetId === artist.featuredTweetId));
       const previews: { media: { src: string; width: number; height: number } }[] = [
         ...artist.gallery.map((media) => ({ media })),
         ...posts.filter((post) => post.media.length || post.images.length)

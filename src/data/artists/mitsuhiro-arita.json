@@ -9,6 +9,72 @@
   "gallery": [],
   "announcements": [
     {
+      "url": "https://x.com/MitsuhiroArita/status/1667457827319971842",
+      "tweetId": "1667457827319971842",
+      "date": "2023-06-10",
+      "pokemon": [
+        "ゼニガメ",
+        "カメール",
+        "カメックス"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/nyoron74/status/1667069616030642176",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/FyKe-baacAAYSXY.jpg",
+          "width": 600,
+          "height": 838
+        },
+        {
+          "src": "https://pbs.twimg.com/media/FyKe-ooaQAETeho.jpg",
+          "width": 600,
+          "height": 838
+        },
+        {
+          "src": "https://pbs.twimg.com/media/FyKe-zSaEAAgYrN.jpg",
+          "width": 600,
+          "height": 838
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/MitsuhiroArita/status/1525615392999510016",
+      "tweetId": "1525615392999510016",
+      "date": "2022-05-14",
+      "pokemon": [
+        "オリジンディアルガ"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/MitsuhiroArita/status/1525615392999510016",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/FSwTHIyaUAASvf8.jpg",
+          "width": 868,
+          "height": 1212
+        }
+      ]
+    },
+    {
+      "url": "https://x.com/MitsuhiroArita/status/1450759244622352384",
+      "tweetId": "1450759244622352384",
+      "date": "2021-10-20",
+      "pokemon": [
+        "リザードン"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/imakuni/status/1450758855902654464",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/FCIhe6EVgAErUii.png",
+          "width": 500,
+          "height": 698
+        }
+      ]
+    },
+    {
       "url": "https://x.com/MitsuhiroArita/status/1189417722116882432",
       "tweetId": "1189417722116882432",
       "date": "2019-10-30",
@@ -24,5 +90,6 @@
         }
       ]
     }
-  ]
+  ],
+  "featuredTweetId": "1450759244622352384"
 }
