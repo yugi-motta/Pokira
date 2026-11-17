@@ -56,7 +56,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </div>
         <div class="site-menu">
           <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-menu-panel">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M7 12h13M4 17h16" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="menu-line menu-line-top" d="M4 7h16" /><path class="menu-line menu-line-middle" d="M4 12h16" /><path class="menu-line menu-line-bottom" d="M4 17h16" /></svg>
           </button>
           <div id="site-menu-panel" class="menu-panel" hidden>
             <div class="menu-group">

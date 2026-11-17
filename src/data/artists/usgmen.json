@@ -1,0 +1,30 @@
+{
+  "id": "usgmen",
+  "name": "USGMEN",
+  "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/47947/regu/all",
+  "handle": "USGMEN_GIF",
+  "instagram": "usgmen_e",
+  "instagramSource": "https://www.artofpkm.com/illustrators/usgmen",
+  "avatar": "https://pbs.twimg.com/profile_images/1661945832403529728/HsQ00nUt_400x400.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/USGMEN_GIF/status/1919340260191879474",
+      "tweetId": "1919340260191879474",
+      "date": "2025-05-05",
+      "pokemon": [
+        "ビーダル"
+      ],
+      "kind": "pocket",
+      "source": "https://x.com/USGMEN_GIF/status/1919340260191879474",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/GqLdyxFbMAAkJn_.jpg",
+          "width": 734,
+          "height": 1024
+        }
+      ]
+    }
+  ]
+}

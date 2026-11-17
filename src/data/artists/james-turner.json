@@ -1,0 +1,30 @@
+{
+  "id": "james-turner",
+  "name": "James Turner",
+  "creditSource": "https://asia.pokemon-card.com/id/card-search/detail/17557/",
+  "handle": "JamesTurner_42",
+  "instagram": "jamesturner_42",
+  "instagramSource": "https://www.pokemonmillennium.net/carte/427426-lex-graphic-designer-di-game-freak-james-turner-illustra-una-nuova-carta-pokemon/",
+  "avatar": "https://pbs.twimg.com/profile_images/2092061976533049344/syGa6a60_400x400.jpg",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/JamesTurner_42/status/2013562328743321639",
+      "tweetId": "2013562328743321639",
+      "date": "2026-01-20",
+      "pokemon": [
+        "ピカチュウ"
+      ],
+      "kind": "physical",
+      "source": "https://x.com/JamesTurner_42/status/2013562328743321639",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/G_GcQn8W0AAEC16.jpg",
+          "width": 868,
+          "height": 1212
+        }
+      ]
+    }
+  ]
+}

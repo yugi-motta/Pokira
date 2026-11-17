@@ -1,0 +1,28 @@
+{
+  "id": "mitsuhiro-arita",
+  "name": "Mitsuhiro Arita",
+  "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/32336",
+  "handle": "MitsuhiroArita",
+  "instagram": "mitsuhiro_arita",
+  "instagramSource": "https://linktr.ee/MitsuhiroArita",
+  "avatar": "https://pbs.twimg.com/profile_images/1569032444/twitter128x128_400x400.png",
+  "gallery": [],
+  "announcements": [
+    {
+      "url": "https://x.com/MitsuhiroArita/status/1189417722116882432",
+      "tweetId": "1189417722116882432",
+      "date": "2019-10-30",
+      "pokemon": [],
+      "kind": "physical",
+      "source": "https://x.com/MitsuhiroArita/status/1189417722116882432",
+      "images": [],
+      "media": [
+        {
+          "src": "https://pbs.twimg.com/media/EIGpHMsU8AE3NyV.jpg",
+          "width": 469,
+          "height": 654
+        }
+      ]
+    }
+  ]
+}
