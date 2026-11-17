@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { compareCards } from '../src/lib/card-order';
 import { visibleCatalog, filterCards } from '../src/lib/catalog-view';
 const normalize = (s: string) => s.normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();
@@ -25,7 +25,7 @@ test('built homepage uses six latest available images, links to profiles, and ha
   }
 });
 test('all profile routes and paginated metadata preserve the complete collection',()=>{
-  for(const {artist,index} of snapshots)for(const lang of ['en','ja']){const cards=visibleCatalog(index.catalogs[lang],index.catalogs[lang==='en'?'ja':'en']);const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');assert.ok(html.includes('class="card-viewer"'));assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}assert.deepEqual(paged,cards);}
+  for(const {artist,index} of snapshots)for(const lang of ['en','ja']){const cards=visibleCatalog(index.catalogs[lang],index.catalogs[lang==='en'?'ja':'en']);const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');assert.ok(html.includes('class="card-viewer"'));assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}assert.deepEqual(paged,cards);const all=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/all.json`,'utf8'));assert.deepEqual(all.cards,cards);assert.ok(html.includes(`data-version="${all.version}"`));assert.ok(all.version.startsWith('shared-v1:'));}
 });
 
 test('legacy profile URLs redirect to the short routes',()=>{
@@ -35,12 +35,16 @@ test('language fallback uses matching cards and rejects ambiguous editions',()=>
   const base={id:'ja-1',number:'1',name:'Japanese',image:null,illustrator:'Example',rarity:'Rare',language:'ja' as const,setId:'jp',setName:'JP',releaseDate:'2025-01-01',matchingKey:'verified-details'};
   const english={...base,id:'en-1',name:'English',language:'en' as const,image:'https://assets.tcgdex.net/en/example/1',setId:'en',setName:'EN',releaseDate:'2025-02-01'};
   const result=visibleCatalog([base],[english]);assert.equal(result[0].image,english.image);assert.equal(result[0].imageDetails?.id,english.id);assert.equal(result[0].releaseDate,base.releaseDate);
-  assert.equal(visibleCatalog([base],[{...english,matchingKey:'other-art'}]).length,0);
-  assert.equal(visibleCatalog([base],[english,{...english,id:'another'}]).length,0);
-  assert.equal(visibleCatalog([base],[{...english,illustrator:'Someone else'}]).length,0);
+  assert.equal(visibleCatalog([base],[{...english,matchingKey:'other-art'}])[0].otherLanguageOnly,true);
+  assert.equal(visibleCatalog([base],[english,{...english,id:'another'}]).length,2);
+  assert.equal(visibleCatalog([base],[{...english,illustrator:'Someone else'}])[0].editionIds?.length,1);
 });
 test('filters and sorting apply to the complete collection',()=>{
   const cards=visibleCatalog(snapshots[0].index.catalogs.en,snapshots[0].index.catalogs.ja);
   const target=cards[0];const filtered=filterCards(cards,target.name,target.setId,target.rarity||'','oldest');assert.ok(filtered.some(c=>c.id===target.id));assert.ok(filtered.every(c=>c.setId===target.setId));
   const oldest=filterCards(cards,'','','','oldest');assert.ok(oldest[0].releaseDate! <= oldest.at(-1)!.releaseDate!);
+});
+
+test('every illustrator has exactly the same default collection in English and Japanese',()=>{
+  for(const {artist,index} of snapshots){const en=visibleCatalog(index.catalogs.en,index.catalogs.ja,'en');const ja=visibleCatalog(index.catalogs.ja,index.catalogs.en,'ja');assert.equal(en.length,ja.length,artist.id);assert.deepEqual(en.map(c=>c.id),ja.map(c=>c.id),artist.id);assert.equal(new Set(en.flatMap(c=>c.editionIds||[])).size,en.flatMap(c=>c.editionIds||[]).length);}
 });

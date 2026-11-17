@@ -69,7 +69,7 @@ if (!handle || handle.toLowerCase() !== inputHandle.toLowerCase()) {
   throw new Error('Cannot verify the original author. Supply an evidence JSON with the verified handle, or retry when X oEmbed is available.');
 }
 const existingByHandle = records.find(({ data }) => data.handle?.toLowerCase() === handle.toLowerCase());
-const existingById = evidence.artistId && records.find(({ data }) => data.id === evidence.artistId);
+const existingById = evidence.artistId ? records.find(({ data }) => data.id === evidence.artistId) : undefined;
 if (existingByHandle && existingById && existingByHandle.data.id !== existingById.data.id) {
   throw new Error('The X handle and artist ID point to different records.');
 }

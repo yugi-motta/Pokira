@@ -3,8 +3,8 @@ import { catalogFor } from '../../../../../lib/cards';
 import type { CatalogCard } from '../../../../../lib/cards';
 export function getStaticPaths() {
   return artists.flatMap(artist => (['en','ja'] as const).map(lang => {
-    const { cards, updatedAt } = catalogFor(artist.id, lang);
-    return { params: { id: artist.id, lang }, props: { cards, version: updatedAt } };
+    const { cards, version } = catalogFor(artist.id, lang);
+    return { params: { id: artist.id, lang }, props: { cards, version } };
   }));
 }
 export function GET({ props }: { props: {cards:CatalogCard[];version:string} }) {

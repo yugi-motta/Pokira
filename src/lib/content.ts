@@ -1,4 +1,4 @@
-import { artistSchema, type Artist } from './schema';
+import { artistSchema, type Artist, type Announcement } from './schema';
 export type { Artist, Announcement } from './schema';
 
 const files = import.meta.glob('../data/artists/*.json', { eager: true, import: 'default' });

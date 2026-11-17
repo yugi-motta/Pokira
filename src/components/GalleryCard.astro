@@ -1,9 +1,8 @@
 ---
 import { cardImage, type CatalogCard } from '../lib/cards';
-import { copy, type Lang } from '../lib/i18n';
+import { type Lang } from '../lib/i18n';
 interface Props { card: CatalogCard; lang: Lang; }
-const { card, lang } = Astro.props;
-const t = copy[lang];
+const { card } = Astro.props;
 ---
 <button class="gallery-card" type="button" data-card={JSON.stringify(card)} aria-label={`${card.name} · ${card.setName} · ${card.number}`} disabled={!card.image}>
   <span class:list={['artwork-thumb', !card.image && 'is-error']}>

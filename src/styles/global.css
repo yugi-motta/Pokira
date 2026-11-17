@@ -198,7 +198,7 @@ html[data-theme=dark] .viewer-image-wrap:has(.viewer-image:not(.is-loaded)){back
 .artist-entry{position:relative;transition:translate .22s ease,box-shadow .22s ease,border-color .22s ease,background-color .22s ease}
 .artist-profile-link::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
 .artist-socials a{position:relative;z-index:2}
-@media(hover:hover){.artist-entry:hover{translate:0 -3px;box-shadow:0 12px 30px rgba(30,30,40,.09);border-color:#d9d9df}html[data-theme=dark] .artist-entry:hover{border-color:#56565e;box-shadow:0 12px 30px rgba(0,0,0,.2)}}
+@media(hover:hover){.artist-entry:hover{translate:0 -3px;box-shadow:0 12px 30px rgba(30,30,40,.09)}html[data-theme=dark] .artist-entry:hover{box-shadow:0 12px 30px rgba(0,0,0,.2)}}
 .gallery-controls{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(120px,1.3fr) minmax(100px,1fr) minmax(110px,1fr);gap:8px;margin:0 0 24px}
 .gallery-controls input,.gallery-controls select{min-width:0;width:100%;height:38px;padding:0 12px;border:1px solid #e3e3e8;border-radius:12px;background:#fff;color:inherit;font-size:11px;outline:0}
 .gallery-controls :focus-visible{border-color:#aaaab5;box-shadow:0 0 0 2px rgba(130,130,142,.13)}
@@ -210,8 +210,23 @@ html[data-theme=dark] .gallery-controls input,html[data-theme=dark] .gallery-con
 .viewer-close{display:grid;place-items:center;width:28px;height:28px;padding:4px;border:0;border-radius:5px;background:transparent!important;color:#8e8e93;box-shadow:none}
 .viewer-close svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
 .viewer-close:hover{color:#1d1d1f;transform:rotate(90deg)}
-.viewer-close:focus-visible{outline:2px solid #aaaab5;outline-offset:2px}
+.viewer-close:focus{outline:0;box-shadow:none}.viewer-close:focus-visible{outline:0;color:#55555d}
 html[data-theme=dark] .viewer-close:hover{color:#fff}
 @media(max-width:700px){.gallery-controls{grid-template-columns:1fr 1fr}.profile-header{padding:12px 0 20px}}
 
 .artist-entry .artist-artworks,.artist-entry .artist-socials{position:relative;z-index:2}
+
+.artist-entry,.artist-entry *{cursor:pointer}
+.artist-entry .artwork-thumb{user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+.card-viewer:focus{outline:0}
+.language-inclusion{display:flex;align-items:center;gap:7px;margin:-10px 0 22px;font-size:11px;color:#8e8e93;cursor:pointer}
+.language-inclusion input{margin:0;accent-color:#8e8e93;width:13px;height:13px}
+.js .gallery-card{opacity:0}
+.js .card-gallery.is-ready .gallery-card{animation:gallery-appear .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--gallery-delay,0ms)}
+@keyframes gallery-appear{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:701px){.gallery-controls select{appearance:none;-webkit-appearance:none;padding-right:32px;--select-chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");background-image:var(--select-chevron);background-repeat:no-repeat;background-position:right 11px center;background-size:16px 16px}html[data-theme=dark] .gallery-controls select{background-image:var(--select-chevron);background-repeat:no-repeat;background-position:right 11px center;background-size:16px 16px}}
+@media(prefers-reduced-motion:reduce){.js .gallery-card{animation:none!important;opacity:1}}
+
+.artist-entry .artwork-thumb img{-webkit-user-drag:none;user-select:none}
+.gallery-card{transition:transform .22s ease,translate .22s ease}.gallery-card:hover:not(:disabled){translate:0 -4px}
+.viewer-close:focus-visible{color:#007aff}

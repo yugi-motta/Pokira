@@ -9,6 +9,10 @@ const viewerImage = dialog?.querySelector<HTMLImageElement>('.viewer-image');
 const viewerImageStatus = dialog?.querySelector<HTMLElement>('.viewer-image-status');
 let lastTrigger: HTMLElement | null = null;
 let previousOverflow = '';
+function animateCards(parent: ParentNode) {
+  parent.querySelectorAll<HTMLElement>('.gallery-card').forEach((card,index)=>{card.style.setProperty('--gallery-delay', `${Math.min(index,8)*90}ms`);});
+}
+if(gallery){animateCards(gallery);requestAnimationFrame(()=>requestAnimationFrame(()=>gallery.classList.add('is-ready')));}
 function settleImages(parent: ParentNode) {
   parent.querySelectorAll<HTMLImageElement>('.artwork-thumb img').forEach(image => {
     const settle = () => image.parentElement?.classList.add(image.naturalWidth ? 'is-loaded' : 'is-error');
@@ -26,6 +30,7 @@ const controls = root?.querySelector<HTMLFormElement>('.gallery-controls');
 const cardQuery = root?.querySelector<HTMLInputElement>('#card-query');
 const setFilter = root?.querySelector<HTMLSelectElement>('#card-set');
 const rarityFilter = root?.querySelector<HTMLSelectElement>('#card-rarity');
+const includeOther = root?.querySelector<HTMLInputElement>('#include-other-language');
 const orderFilter = root?.querySelector<HTMLSelectElement>('#card-order');
 let allCards: CatalogCard[] | null = more ? null : [...(gallery?.querySelectorAll<HTMLElement>('[data-card]') || [])].map(e=>JSON.parse(e.dataset.card!));
 let catalogRequest: Promise<CatalogCard[]> | null = null;
@@ -58,14 +63,15 @@ async function renderCards() {
   gallery.setAttribute('aria-busy','true');status.textContent='';
   try {
     const cards=await loadCatalog();if(version!==renderVersion)return;
-    const filtered=filterCards(cards,cardQuery?.value||'',setFilter?.value||'',rarityFilter?.value||'',orderFilter?.value||'newest');
+    const filtered=filterCards(includeOther?.checked === false ? cards.filter(card=>!card.otherLanguageOnly) : cards,cardQuery?.value||'',setFilter?.value||'',rarityFilter?.value||'',orderFilter?.value||'newest');
     const fragment=document.createDocumentFragment();filtered.slice(0,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
-    gallery.replaceChildren(fragment);settleImages(gallery);
+    gallery.replaceChildren(fragment);animateCards(gallery);settleImages(gallery);
     if(more)more.hidden=filtered.length<=visibleLimit;
     status.textContent=`${filtered.length.toLocaleString(root.dataset.lang)} ${root.dataset.countLabel}`;
   }catch{status.textContent=more?.dataset.failed||root.dataset.failed||'';}
   finally{if(version===renderVersion){if(more){more.disabled=false;more.textContent=more.dataset.idle||'';}gallery.removeAttribute('aria-busy');}}
 }
+includeOther?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
 controls?.addEventListener('submit',event=>event.preventDefault());
 let queryTimer: ReturnType<typeof setTimeout>;
 cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(()=>{visibleLimit=24;void renderCards();},180);});
@@ -91,6 +97,7 @@ gallery?.addEventListener('click', event => {
   text('#viewer-name', displayed.name); text('.viewer-set', `${displayed.setName} · ${displayed.number}`); text('.viewer-credit', card.illustrator);
   text('.viewer-date', displayed.releaseDate ? new Intl.DateTimeFormat(root?.dataset.lang || 'en', { dateStyle:'long', timeZone:'UTC' }).format(new Date(`${displayed.releaseDate}T00:00:00Z`)) : '');
   dialog.showModal();
+  dialog.focus({preventScroll:true});
 });
 const close = () => {
   if (!dialog || dialog.dataset.closing) return;
