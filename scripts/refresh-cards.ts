@@ -14,14 +14,14 @@ async function get(path: string, ttl = TTL): Promise<any> {
   const file = join(CACHE, createHash('sha256').update(path).digest('hex') + '.json');
   try { const cached = JSON.parse(await readFile(file, 'utf8')); if (!force && Date.now() - cached.time < ttl) return cached.data; } catch {}
   let error;
-  for (let retry = 0; retry < 3; retry++) {
+  for (let retry = 0; retry < 5; retry++) {
     try {
       const response = await fetch(`https://api.tcgdex.net/v2/${path}`, { signal: AbortSignal.timeout(30000) });
       if (!response.ok) throw new Error(`${path}: ${response.status}`);
       const data = await response.json();
       await writeFile(file, JSON.stringify({ time: Date.now(), data }));
       return data;
-    } catch (e) { error = e; await new Promise(r => setTimeout(r, 500 * (retry + 1))); }
+    } catch (e) { error = e; await new Promise(r => setTimeout(r, 1000 * 2 ** retry)); }
   }
   throw error;
 }
@@ -38,24 +38,33 @@ for (const lang of ['en', 'ja']) credits[lang] = await get(`${lang}/illustrators
 const report: any[] = [];
 const snapshots = await pool(artists, async artist => {
   const catalogs: any = {};
+  let previous: any;
+  try { previous = JSON.parse(await readFile(join(ROOT, artist.id + '.json'), 'utf8')); } catch {}
+
   for (const lang of ['en', 'ja']) {
     const names = [artist.name, ...(artist.tcgdexAliases || [])].map(normalize);
     const matches = credits[lang].filter(name => names.includes(normalize(name)));
     const lists = await Promise.all(matches.map(name => get(`${lang}/cards?illustrator=${encodeURIComponent('eq:' + name)}`)));
     const briefs: any[] = [...new Map(lists.flat().map((card: any) => [card.id, card])).values()];
     console.log(`${artist.id} ${lang}: ${briefs.length} cards`);
+    const historical = new Map<string, any>((previous?.catalogs[lang] || []).map((card: any) => [card.id, card]));
     const details = await pool(briefs, async brief => {
+      const old = historical.get(brief.id);
+      const checkedAt = old?.detailsCheckedAt || previous?.updatedAt;
+      if (!force && old && Date.now() - Date.parse(checkedAt) < 30 * TTL && old.name === brief.name && old.image === (brief.image || null)) {
+        return { ...old, localId: old.number, set: { id: old.setId, name: old.setName }, detailsCheckedAt: checkedAt };
+      }
       // Lists refresh daily. Historical detail fields are stable; recheck them monthly,
       // or immediately when the daily list reports a changed name/image.
       let card = await get(`${lang}/cards/${encodeURIComponent(brief.id)}`, 30 * TTL);
       if (card.name !== brief.name || (card.image || null) !== (brief.image || null)) card = await get(`${lang}/cards/${encodeURIComponent(brief.id)}`, 0);
-      return card;
+      return { ...card, detailsCheckedAt: new Date().toISOString() };
     }, 3);
     const setIds = [...new Set<string>(details.map(card => card.set.id))];
     const sets = new Map((await pool(setIds, id => get(`${lang}/sets/${encodeURIComponent(id)}`), 3)).map(set => [set.id, set]));
     const cards = details.filter(card => names.includes(normalize(card.illustrator || ''))).map(card => ({
       id: card.id, number: card.localId, name: card.name, image: card.image || null,
-      illustrator: card.illustrator, rarity: card.rarity || null, language: lang,
+      detailsCheckedAt: card.detailsCheckedAt, illustrator: card.illustrator, rarity: card.rarity || null, language: lang,
       setId: card.set.id, setName: card.set.name, releaseDate: sets.get(card.set.id)?.releaseDate || null
     }));
     cards.sort(compareCards);

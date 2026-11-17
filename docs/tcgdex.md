@@ -8,7 +8,7 @@ Run `npm run refresh:cards` to refresh metadata; `-- --force` bypasses the reque
 
 The GitHub Actions `Refresh TCGdex metadata` workflow runs daily at 19:23 UTC (04:23 Japan time) and can be run manually. It caches API responses, refreshes the catalog, builds and tests it, then commits the new snapshots to main. Cloudflare Pages' existing main-branch integration deploys that commit. A failed fetch aborts before replacing the snapshots; a failed build/test prevents publication.
 
-Daily illustrator credit lists and card associations identify new/removed cards. Daily card lists detect image/name changes. Detailed historical card fields are cached for 30 days; changed image/name entries invalidate this cache immediately. Set metadata is refreshed daily. No visitor makes requests to TCGdex's API: pages and small 24-card JSON batches are generated at build time.
+Daily illustrator credit lists and card associations identify new/removed cards. Daily card lists detect image/name changes. Detailed historical card fields are cached for 30 days, reusing their checked timestamps from the committed snapshot even on a fresh runner; changed image/name entries invalidate this cache immediately. Set metadata is refreshed daily. No visitor makes requests to TCGdex's API: pages and small 24-card JSON batches are generated at build time.
 
 ## Matching, ordering, and languages
 

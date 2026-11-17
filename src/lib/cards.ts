@@ -1,6 +1,7 @@
 import type { Lang } from './i18n';
 import { z } from 'zod';
 export const catalogCardSchema = z.object({
+  detailsCheckedAt: z.string().optional(),
   id: z.string(), number: z.string(), name: z.string(),
   image: z.string().startsWith('https://assets.tcgdex.net/').nullable(),
   illustrator: z.string(), rarity: z.string().nullable(), language: z.enum(['en','ja']),
