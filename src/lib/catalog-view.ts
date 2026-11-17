@@ -39,8 +39,8 @@ export function visibleCatalog(primary: ViewCard[], alternate: ViewCard[], reque
     }];
   }).sort(compareCards);
 }
-export function filterCards(cards: ViewCard[], query: string, setId: string, rarity: string, order: string, options:{pokemonId?:string;hidePocket?:boolean;locale?:string}={}) {
+export function filterCards(cards: ViewCard[], query: string, setId: string, rarity: string, order: string, options:{pokemonId?:string;hidePocket?:boolean;hideTCG?:boolean;locale?:string}={}) {
   const q=query.normalize('NFKC').toLocaleLowerCase().trim();
-  const filtered=cards.filter(c=>(!q||`${c.name} ${c.imageDetails?.name||''} ${c.number}`.normalize('NFKC').toLocaleLowerCase().includes(q))&&(!setId||c.setId===setId)&&(!rarity||c.rarity===rarity)&&(!options.pokemonId||c.pokemon?.some(p=>String(p.id)===options.pokemonId))&&(!options.hidePocket||c.kind!=='pocket'));
+  const filtered=cards.filter(c=>(!q||`${c.name} ${c.imageDetails?.name||''} ${c.number}`.normalize('NFKC').toLocaleLowerCase().includes(q))&&(!setId||c.setId===setId)&&(!rarity||c.rarity===rarity)&&(!options.pokemonId||c.pokemon?.some(p=>String(p.id)===options.pokemonId))&&(!options.hidePocket||c.kind!=='pocket')&&(!options.hideTCG||c.kind==='pocket'));
   return filtered.sort((a,b)=>order==='pokemon' ? Number(!a.pokemon?.length)-Number(!b.pokemon?.length)||(a.pokemon?.map(p=>p.name).join(' / ')||'').localeCompare(b.pokemon?.map(p=>p.name).join(' / ')||'',options.locale)||compareCards(a,b) : order==='oldest' ? (cardDate(a)||'9999').localeCompare(cardDate(b)||'9999')||a.number.localeCompare(b.number,'en',{numeric:true})||a.id.localeCompare(b.id) : order==='name' ? a.name.localeCompare(b.name)||compareCards(a,b) : order==='number' ? a.number.localeCompare(b.number,'en',{numeric:true})||compareCards(a,b):compareCards(a,b));
 }

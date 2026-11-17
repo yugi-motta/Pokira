@@ -29,7 +29,7 @@ const t = copy[lang];
             </div>
             <div class="artist-artworks">
               {previews.map((card) => (
-                <a href={profile} class="artwork-thumb" style="aspect-ratio:245/337" aria-label={`${artist.name} · ${card.name}`}><img src={cardImage(card)} width="245" height="337" alt={card.name} loading="lazy" decoding="async" /><span class="image-unavailable" aria-hidden="true">{card.name}</span></a>
+                <a href={profile} class="artwork-thumb" style={`aspect-ratio:${card.imageWidth || 600}/${card.imageHeight || 825}`} aria-label={`${artist.name} · ${card.name}`}><img src={cardImage(card)} width="245" height="337" alt={card.name} loading="lazy" decoding="async" /><span class="image-unavailable" aria-hidden="true">{card.name}</span></a>
               ))}
               {!previews.length && <a href={profile} class="catalog-empty">{cards.length ? t.noCatalogImages : t.noCatalogCards}</a>}
             </div>

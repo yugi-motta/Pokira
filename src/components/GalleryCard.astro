@@ -5,7 +5,7 @@ interface Props { card: CatalogCard; lang: Lang; }
 const { card } = Astro.props;
 ---
 <button class="gallery-card" type="button" data-card={JSON.stringify(card)} aria-label={`${card.name} · ${card.setName} · ${card.number}`} disabled={!card.image}>
-  <span class:list={['artwork-thumb', !card.image && 'is-error']}>
+  <span style={`aspect-ratio:${card.imageWidth || 600}/${card.imageHeight || 825}`} class:list={['artwork-thumb', !card.image && 'is-error']}>
     {card.image && <img src={cardImage(card)} width="245" height="337" alt={card.name} loading="lazy" decoding="async" />}
   </span>
   <span class="gallery-card-name">{card.name}</span>

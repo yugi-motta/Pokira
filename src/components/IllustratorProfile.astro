@@ -24,16 +24,30 @@ for(const card of cards){if(!setLabels.has(card.setId))setLabels.set(card.setId,
     </div>
   </header>
   <h2 class="sr-only">{t.cardsHeading}</h2>
-  <form class="gallery-controls" role="search">
+  <div class="gallery-toolbar">
     <label class="sr-only" for="card-query">{t.searchCards}</label><input id="card-query" type="search" placeholder={t.searchCards} autocomplete="off" />
-    <label class="sr-only" for="card-pokemon">{t.allPokemon}</label><select id="card-pokemon"><option value="">{t.allPokemon}</option>{pokemonLabels.map(([id,name])=><option value={id}>{name}</option>)}</select>
-    <label class="sr-only" for="card-set">{t.allSets}</label><select id="card-set"><option value="">{t.allSets}</option>{[...setLabels.entries()].map(([id,names])=><option value={id}>{[...names].join(' / ')}</option>)}</select>
-    <label class="sr-only" for="card-rarity">{t.allRarities}</label><select id="card-rarity"><option value="">{t.allRarities}</option>{[...new Set(cards.map(c=>c.rarity).filter(Boolean))].sort().map(rarity=><option value={rarity}>{rarity}</option>)}</select>
-    <label class="sr-only" for="card-order">{t.orderCards}</label><select id="card-order"><option value="newest">{t.newestCards}</option><option value="oldest">{t.oldestCards}</option><option value="pokemon">{t.pokemonOrder}</option><option value="name">{t.nameOrder}</option><option value="number">{t.numberOrder}</option></select>
-  </form>
-  <div class="gallery-display" role="group" aria-label={t.displayCards}>
-    {[["name",t.nameLabel,t.showName],["set",t.setLabel,t.showSet],["pocket",t.pocketLabel,t.showPocket]].map(([key,label,title])=><button type="button" class="display-toggle" data-display={key} aria-pressed="true" aria-label={title} title={title}><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg>{label}</button>)}
+    <button class="filter-trigger" type="button" aria-haspopup="dialog" aria-controls="gallery-filter-dialog"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5h14M5 10h10M7 15h6"/></svg>{t.filters}<span class="filter-count" hidden></span></button>
   </div>
+  <dialog id="gallery-filter-dialog" class="filter-dialog" aria-labelledby="filter-title">
+    <form class="gallery-controls">
+      <header class="filter-header"><h2 id="filter-title">{t.filters}</h2><button class="filter-close" type="button" aria-label={t.closeFilters}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button></header>
+      <div class="filter-fields">
+        <label for="card-pokemon">{t.pokemonLabel}<select id="card-pokemon"><option value="">{t.allPokemon}</option>{pokemonLabels.map(([id,name])=><option value={id}>{name}</option>)}</select></label>
+        <label for="card-set">{t.setLabel}<select id="card-set"><option value="">{t.allSets}</option>{[...setLabels.entries()].map(([id,names])=><option value={id}>{[...names].join(' / ')}</option>)}</select></label>
+        <label for="card-rarity">{t.rarityLabel}<select id="card-rarity"><option value="">{t.allRarities}</option>{[...new Set(cards.map(c=>c.rarity).filter(Boolean))].sort().map(rarity=><option value={rarity}>{rarity}</option>)}</select></label>
+        <label for="card-order">{t.orderCards}<select id="card-order"><option value="newest">{t.newestCards}</option><option value="oldest">{t.oldestCards}</option><option value="pokemon">{t.pokemonOrder}</option><option value="name">{t.nameOrder}</option><option value="number">{t.numberOrder}</option></select></label>
+      </div>
+      <fieldset class="filter-switches"><legend>{t.cardTypes}</legend>
+        <label>{t.tcgLabel}<input aria-label={t.showTCG} type="checkbox" role="switch" data-display="tcg" checked /></label>
+        <label>{t.pocketLabel}<input aria-label={t.showPocket} type="checkbox" role="switch" data-display="pocket" checked /></label>
+      </fieldset>
+      <fieldset class="filter-switches"><legend>{t.captionOptions}</legend>
+        <label>{t.nameLabel}<input aria-label={t.showName} type="checkbox" role="switch" data-display="name" checked /></label>
+        <label>{t.setLabel}<input aria-label={t.showSet} type="checkbox" role="switch" data-display="set" checked /></label>
+      </fieldset>
+      <footer class="filter-actions"><button class="filter-reset" type="button">{t.resetFilters}</button><button class="filter-done" type="submit">{t.doneFilters}</button></footer>
+    </form>
+  </dialog>
   <div class="card-gallery" id="card-gallery" aria-label={`${artist.name} · ${t.cardsHeading}`}>
     {cards.slice(0, PAGE_SIZE).map(card => <GalleryCard card={card} lang={lang} />)}
   </div>
@@ -46,10 +60,7 @@ for(const card of cards){if(!setLabels.has(card.setId))setLabels.set(card.setId,
   <dialog tabindex="-1" class="card-viewer" aria-label={t.closeCard}>
     <div class="viewer-content">
       <div class="viewer-image-wrap"><img class="viewer-preview" alt="" /><img class="viewer-image" alt="" /></div>
-      <div class="viewer-details">
-        <p><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="2" width="11" height="15" rx="2"/><path d="M7 5h4M7 8h4m6-3v11a3 3 0 0 1-3 3"/></svg><span class="viewer-set"></span></p>
-        <p><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 12-1 5 5-1L17 7l-4-4Zm7-7 4 4"/></svg><span class="viewer-credit"></span><span class="viewer-date"></span></p>
-      </div>
+      <div class="viewer-details"><p class="viewer-set"></p><p class="viewer-date"></p></div>
     </div>
   </dialog>
   <SuggestionForm lang={lang} />

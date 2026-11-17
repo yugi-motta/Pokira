@@ -16,7 +16,7 @@ function animateCards(parent: ParentNode) {
 if(gallery){animateCards(gallery);requestAnimationFrame(()=>requestAnimationFrame(()=>gallery.classList.add('is-ready')));}
 function settleImages(parent: ParentNode) {
   parent.querySelectorAll<HTMLImageElement>('.artwork-thumb img').forEach(image => {
-    const settle = () => image.parentElement?.classList.add(image.naturalWidth ? 'is-loaded' : 'is-error');
+    const settle = () => {if(image.naturalWidth && image.parentElement)image.parentElement.style.aspectRatio=`${image.naturalWidth}/${image.naturalHeight}`;image.parentElement?.classList.add(image.naturalWidth ? 'is-loaded' : 'is-error');};
     if (image.complete) settle();
     else { image.addEventListener('load', settle, { once: true }); image.addEventListener('error', settle, { once: true }); }
   });
@@ -50,7 +50,7 @@ async function loadCatalog(): Promise<CatalogCard[]> {
 }
 function makeCard(card: CatalogCard) {
   const button=document.createElement('button');button.type='button';button.className='gallery-card';button.dataset.card=JSON.stringify(card);button.setAttribute('aria-label',`${card.name} · ${card.setName} · ${card.number}`);
-  const thumb=document.createElement('span');thumb.className='artwork-thumb';
+  const thumb=document.createElement('span');thumb.className='artwork-thumb';thumb.style.aspectRatio=`${card.imageWidth || 600}/${card.imageHeight || 825}`;
   const image=document.createElement('img');image.src=imageURL(card);image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
   const name=document.createElement('span');name.className='gallery-card-name';name.textContent=card.name;
   const set=document.createElement('span');set.className='gallery-card-set';set.textContent=`${card.setName} · ${card.number}`;
@@ -63,7 +63,7 @@ async function renderCards() {
   gallery.setAttribute('aria-busy','true');status.textContent='';
   try {
     const cards=await loadCatalog();if(version!==renderVersion)return;
-    const filtered=filterCards(cards,cardQuery?.value||'',setFilter?.value||'',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,locale:root.dataset.lang});
+    const filtered=filterCards(cards,cardQuery?.value||'',setFilter?.value||'',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,hideTCG:display.tcg===false,locale:root.dataset.lang});
     const fragment=document.createDocumentFragment();filtered.slice(0,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
     gallery.replaceChildren(fragment);animateCards(gallery);settleImages(gallery);
     if(more)more.hidden=filtered.length<=visibleLimit;
@@ -71,23 +71,46 @@ async function renderCards() {
   }catch{status.textContent=more?.dataset.failed||root.dataset.failed||'';}
   finally{if(version===renderVersion){if(more){more.disabled=false;more.textContent=more.dataset.idle||'';}gallery.removeAttribute('aria-busy');}}
 }
-controls?.addEventListener('submit',event=>event.preventDefault());
+controls?.addEventListener('submit',event=>{event.preventDefault();closeFilters();});
 let queryTimer: ReturnType<typeof setTimeout>;
 cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(()=>{visibleLimit=24;void renderCards();},180);});
 for(const select of [pokemonFilter,setFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
-const display:{name:boolean;set:boolean;pocket:boolean}={name:true,set:true,pocket:true};
-try{const saved=JSON.parse(localStorage.getItem('pokira-gallery-display')||'{}');for(const key of ['name','set','pocket'] as const)if(typeof saved[key]==='boolean')display[key]=saved[key];}catch{}
+const display={name:true,set:true,pocket:true,tcg:true};
+const displayKeys=['name','set','pocket','tcg'] as const;
+try{const saved=JSON.parse(localStorage.getItem('pokira-gallery-display')||'{}');for(const key of displayKeys)if(typeof saved[key]==='boolean')display[key]=saved[key];}catch{}
+const filterDialog=root?.querySelector<HTMLDialogElement>('.filter-dialog');
+const filterTrigger=root?.querySelector<HTMLButtonElement>('.filter-trigger');
+let filterOverflow='';
 function updateDisplay(){
  if(gallery){gallery.dataset.showName=String(display.name);gallery.dataset.showSet=String(display.set);}
- root?.querySelectorAll<HTMLButtonElement>('[data-display]').forEach(button=>button.setAttribute('aria-pressed',String(display[button.dataset.display as keyof typeof display])));
+ root?.querySelectorAll<HTMLInputElement>('[data-display]').forEach(input=>{input.checked=display[input.dataset.display as keyof typeof display];});
+ updateFilterCount();
 }
+function updateFilterCount(){
+ const count=Number(Boolean(pokemonFilter?.value))+Number(Boolean(setFilter?.value))+Number(Boolean(rarityFilter?.value))+Number(orderFilter?.value!=='newest')+displayKeys.filter(key=>!display[key]).length;
+ const badge=filterTrigger?.querySelector<HTMLElement>('.filter-count');if(badge){badge.textContent=String(count);badge.hidden=!count;}
+}
+function saveDisplay(){try{localStorage.setItem('pokira-gallery-display',JSON.stringify(display));}catch{}}
+function closeFilters(){
+ if(!filterDialog?.open || filterDialog.dataset.closing)return;
+ filterDialog.dataset.closing='true';setTimeout(()=>{filterDialog.close();delete filterDialog.dataset.closing;},180);
+}
+filterTrigger?.addEventListener('click',()=>{if(!filterDialog)return;filterOverflow=document.body.style.overflow;document.body.style.overflow='hidden';filterDialog.showModal();});
+filterDialog?.querySelector('.filter-close')?.addEventListener('click',closeFilters);
+filterDialog?.addEventListener('click',event=>{if(event.target===filterDialog)closeFilters();});
+filterDialog?.addEventListener('cancel',event=>{event.preventDefault();closeFilters();});
+filterDialog?.addEventListener('close',()=>{document.body.style.overflow=filterOverflow;filterTrigger?.focus({preventScroll:true});});
+filterDialog?.querySelector('.filter-reset')?.addEventListener('click',()=>{
+ controls?.reset();if(cardQuery)cardQuery.value='';for(const key of displayKeys)display[key]=true;
+ updateDisplay();saveDisplay();visibleLimit=24;void renderCards();
+});
+for(const select of [pokemonFilter,setFilter,rarityFilter,orderFilter])select?.addEventListener('change',updateFilterCount);
 updateDisplay();
-root?.querySelectorAll<HTMLButtonElement>('[data-display]').forEach(button=>button.addEventListener('click',()=>{
- const key=button.dataset.display as keyof typeof display;display[key]=!display[key];updateDisplay();
- try{localStorage.setItem('pokira-gallery-display',JSON.stringify(display));}catch{}
- if(key==='pocket'){visibleLimit=24;void renderCards();}
+root?.querySelectorAll<HTMLInputElement>('[data-display]').forEach(input=>input.addEventListener('change',()=>{
+ const key=input.dataset.display as keyof typeof display;display[key]=input.checked;updateDisplay();saveDisplay();
+ if(key==='pocket'||key==='tcg'){visibleLimit=24;void renderCards();}
 }));
-if(!display.pocket){gallery?.querySelectorAll<HTMLElement>('[data-card]').forEach(card=>{if(JSON.parse(card.dataset.card!).kind==='pocket')card.remove();});void renderCards();}
+if(!display.pocket || !display.tcg){gallery?.querySelectorAll<HTMLElement>('[data-card]').forEach(card=>{const kind=JSON.parse(card.dataset.card!).kind;if(kind==='pocket'?!display.pocket:!display.tcg)card.remove();});void renderCards();}
 more?.addEventListener('click',()=>{visibleLimit+=24;void renderCards();});
 // Warm only the card the visitor is about to open, never the whole gallery.
 const warmed = new Map<string, HTMLImageElement>();
@@ -110,7 +133,10 @@ gallery?.addEventListener('click', event => {
   if (!card.image) return;
   lastTrigger = button; previousOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
   const wrap=viewerImage.parentElement!;
-  wrap.style.aspectRatio=`${card.imageWidth || 600} / ${card.imageHeight || 825}`;
+  const thumbnail=button.querySelector<HTMLImageElement>('img');
+  const ratio=thumbnail?.naturalWidth ? thumbnail.naturalWidth/thumbnail.naturalHeight : (card.imageWidth || 600)/(card.imageHeight || 825);
+  wrap.style.aspectRatio=String(ratio);
+  dialog.style.setProperty('--viewer-ratio',String(ratio));
   viewerImage.classList.remove('is-loaded'); viewerImage.alt = card.name;
   // The already-loaded thumbnail remains visible while the full image arrives.
   viewerPreview.src=button.querySelector('img')?.currentSrc || imageURL(card);
@@ -119,10 +145,14 @@ gallery?.addEventListener('click', event => {
   viewerImage.fetchPriority='high';viewerImage.decoding='async';viewerImage.src=imageURL(card,true);
   if (viewerImage.complete && viewerImage.naturalWidth) viewerImage.classList.add('is-loaded');
   const text = (selector: string, value: string) => { const el = dialog.querySelector(selector); if (el) el.textContent = value; };
-  text('.viewer-set', `${card.setName} · ${card.number}`);text('.viewer-credit', card.illustrator);
-  text('.viewer-date', card.releaseDate ? ' · '+new Intl.DateTimeFormat(root?.dataset.lang || 'en', {dateStyle:'medium',timeZone:'UTC'}).format(new Date(`${card.releaseDate}T00:00:00Z`)) : '');
-  dialog.showModal();dialog.focus({preventScroll:true});
+  text('.viewer-set', `${card.setName}${card.number?' · '+card.number:''}`);
+  text('.viewer-date', card.releaseDate ? new Intl.DateTimeFormat(root?.dataset.lang || 'en', {dateStyle:'medium',timeZone:'UTC'}).format(new Date(`${card.releaseDate}T00:00:00Z`)) : '');
+  dialog.style.setProperty('--viewer-caption-height','56px');dialog.showModal();
+  const details=dialog.querySelector<HTMLElement>('.viewer-details');if(details)dialog.style.setProperty('--viewer-caption-height',`${Math.ceil(details.getBoundingClientRect().height)+10}px`);
+  dialog.focus({preventScroll:true});
 });
+const viewerDetails=dialog?.querySelector<HTMLElement>('.viewer-details');
+if(viewerDetails)new ResizeObserver(([entry])=>{if(dialog?.open)dialog.style.setProperty('--viewer-caption-height',`${Math.ceil(entry.contentRect.height)+10}px`);}).observe(viewerDetails);
 const close = () => {
   if (!dialog || dialog.dataset.closing) return;
   dialog.dataset.closing = 'true';

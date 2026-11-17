@@ -83,9 +83,18 @@ test('both language menus always use 日本語 / ENG',()=>{
 test('Pokémon filtering groups variants and Pocket can be hidden independently',()=>{
  const usgmen=builtCards('usgmen','en');
  const physical=filterCards(usgmen,'','','','newest',{hidePocket:true});assert.equal(physical.length,8);assert.ok(physical.every(c=>c.kind==='physical'));
+ const pocket=filterCards(usgmen,'','','','newest',{hideTCG:true});assert.equal(pocket.length,9);assert.ok(pocket.every(c=>c.kind==='pocket'));assert.equal(filterCards(usgmen,'','','','newest',{hideTCG:true,hidePocket:true}).length,0);
  const goomy=filterCards(usgmen,'','','','newest',{pokemonId:'704'});assert.equal(goomy.length,1);assert.equal(goomy[0].name,'Goomy');
  assert.equal(filterCards(usgmen,'','','','newest',{pokemonId:'704',hidePocket:true}).length,0);
  const sorted=filterCards(usgmen,'','','','pokemon',{locale:'en'});assert.equal(sorted[0].name,'Bibarel ex');assert.equal(sorted.at(-1)?.name,'Wurmple');
  const arita=builtCards('mitsuhiro-arita','en');const charizard=filterCards(arita,'','','','pokemon',{pokemonId:'6'});assert.ok(charizard.length>1);assert.ok(charizard.every(c=>c.pokemon?.some(p=>p.id===6)));
- for(const lang of ['en','ja']){const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');for(const key of ['name','set','pocket'])assert.ok(html.includes(`data-display="${key}"`));assert.ok(html.includes('id="card-pokemon"'));}
+ for(const lang of ['en','ja']){const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');for(const key of ['name','set','pocket','tcg'])assert.ok(html.includes(`data-display="${key}"`));assert.ok(html.includes('id="card-pokemon"'));}
+});
+
+test('filters live in a dialog and expanded cards omit the illustrator and icons',()=>{
+ for(const lang of ['en','ja']){
+  const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');
+  const filters=html.split('id="gallery-filter-dialog"')[1].split('</dialog>')[0];assert.ok(filters.includes('class="filter-reset"'));assert.ok(filters.includes('id="card-pokemon"'));assert.ok(filters.includes('data-display="tcg"'));
+  const viewer=html.split('class="card-viewer"')[1].split('</dialog>')[0];assert.ok(!viewer.includes('viewer-credit'));assert.ok(!viewer.includes('<svg'));
+ }
 });
