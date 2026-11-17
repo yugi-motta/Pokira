@@ -2,12 +2,12 @@
 import { cardImage, type CatalogCard } from '../lib/cards';
 import { type Lang } from '../lib/i18n';
 interface Props { card: CatalogCard; lang: Lang; }
-const { card } = Astro.props;
+const { card, lang } = Astro.props;
 ---
 <button class="gallery-card" type="button" data-card={JSON.stringify(card)} aria-label={`${card.name} · ${card.setName} · ${card.number}`} disabled={!card.image}>
   <span class:list={['artwork-thumb', !card.image && 'is-error']}>
     {card.image && <img src={cardImage(card)} width="245" height="337" alt={card.name} loading="lazy" decoding="async" />}
-    {card.imageDetails && <span class="card-language">{card.imageDetails.language === 'en' ? 'ENG' : '日本語'}</span>}
+    {card.imageDetails && <span class="card-language">{card.imageDetails.language === 'en' ? (lang === 'ja' ? '英語' : 'ENG') : (lang === 'en' ? 'JP' : '日本語')}</span>}
   </span>
   <span class="gallery-card-name">{card.name}</span>
   <span class="gallery-card-set">{card.setName} · {card.number}</span>

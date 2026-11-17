@@ -25,7 +25,7 @@ test('built homepage uses six latest available images, links to profiles, and ha
   }
 });
 test('all profile routes and paginated metadata preserve the complete collection',()=>{
-  for(const {artist,index} of snapshots)for(const lang of ['en','ja']){const cards=visibleCatalog(index.catalogs[lang],index.catalogs[lang==='en'?'ja':'en']);const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');assert.ok(html.includes('class="card-viewer"'));assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}assert.deepEqual(paged,cards);const all=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/all.json`,'utf8'));assert.deepEqual(all.cards,cards);assert.ok(html.includes(`data-version="${all.version}"`));assert.ok(all.version.startsWith('shared-v1:'));}
+  for(const {artist,index} of snapshots)for(const lang of ['en','ja']){const cards=visibleCatalog(index.catalogs[lang],index.catalogs[lang==='en'?'ja':'en']);const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');assert.ok(html.includes('class="card-viewer"'));assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(24,cards.length));const paged=[];for(let page=1;page<=Math.ceil(cards.length/24);page++){const data=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/${page}.json`,'utf8'));paged.push(...data.cards);assert.equal(data.more,page*24<cards.length);}assert.deepEqual(paged,cards);const all=JSON.parse(readFileSync(`dist/api/artists/${artist.id}/${lang}/all.json`,'utf8'));assert.deepEqual(all.cards,cards);assert.ok(html.includes(`data-version="${all.version}"`));assert.ok(all.version.startsWith('shared-v2:'));}
 });
 
 test('legacy profile URLs redirect to the short routes',()=>{
@@ -47,4 +47,21 @@ test('filters and sorting apply to the complete collection',()=>{
 
 test('every illustrator has exactly the same default collection in English and Japanese',()=>{
   for(const {artist,index} of snapshots){const en=visibleCatalog(index.catalogs.en,index.catalogs.ja,'en');const ja=visibleCatalog(index.catalogs.ja,index.catalogs.en,'ja');assert.equal(en.length,ja.length,artist.id);assert.deepEqual(en.map(c=>c.id),ja.map(c=>c.id),artist.id);assert.equal(new Set(en.flatMap(c=>c.editionIds||[])).size,en.flatMap(c=>c.editionIds||[]).length);}
+});
+
+test('known TCGdex translations survive incomplete Japanese rarity and Pokédex data',()=>{
+ const artist=snapshots.find(x=>x.artist.id==='uninori')!;
+ const cards=visibleCatalog(artist.index.catalogs.ja,artist.index.catalogs.en,'ja');
+ for(const [en,ja] of [['sv08-210','SV7a-074'],['sv08.5-166','SV8a-222']]){
+  const card=cards.find(c=>c.editionIds?.includes(`en:${en}`))!;
+  assert.ok(card.editionIds?.includes(`ja:${ja}`));assert.equal(card.otherLanguageOnly,false);assert.ok(card.image?.includes('/ja/'));assert.equal(card.imageDetails,undefined);
+ }
+});
+test('fallback badges and language controls are localized correctly',()=>{
+ for(const {artist} of snapshots)for(const lang of ['en','ja']){
+  const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');
+  const badges=[...html.matchAll(/class="card-language">([^<]+)</g)].map(x=>x[1]);
+  assert.ok(badges.every(text=>text===(lang==='ja'?'英語':'JP')));
+  assert.ok(html.includes(`data-lang="${lang==='ja'?'en':'ja'}">${lang==='ja'?'英語':'JP'}</a>`));
+ }
 });

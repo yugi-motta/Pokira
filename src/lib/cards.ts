@@ -1,8 +1,10 @@
 import type { Lang } from './i18n';
 import { z } from 'zod';
+import type { MatchFacts } from './card-identity';
 import { visibleCatalog } from './catalog-view';
 export const catalogCardSchema = z.object({
   sortReleaseDate: z.string().nullable().optional(), sortNumber: z.string().optional(), editionIds: z.array(z.string()).optional(), otherLanguageOnly: z.boolean().optional(),
+  matchFacts: z.custom<MatchFacts>().optional(),
   matchingKey: z.string().nullable().optional(),
   imageDetails: z.object({id:z.string(), name:z.string(), number:z.string(), setName:z.string(),releaseDate:z.string().nullable(),language:z.enum(['en','ja'])}).optional(),
   detailsCheckedAt: z.string().optional(),
@@ -19,7 +21,7 @@ export const cardIndexes = new Map(snapshots.map(index => [index.artistId, index
 export const PAGE_SIZE = 24;
 export function catalogFor(id: string, lang: Lang) {
   const index = cardIndexes.get(id);
-  return { cards: visibleCatalog(index?.catalogs[lang] || [], index?.catalogs[lang === 'ja' ? 'en' : 'ja'] || [], lang), language:lang, updatedAt: index?.updatedAt || '', version:`shared-v1:${index?.updatedAt || ''}` };
+  return { cards: visibleCatalog(index?.catalogs[lang] || [], index?.catalogs[lang === 'ja' ? 'en' : 'ja'] || [], lang), language:lang, updatedAt: index?.updatedAt || '', version:`shared-v2:${index?.updatedAt || ''}` };
 }
 export const cardImage = (card: CatalogCard, quality: 'low' | 'high' = 'low') => card.image ? `${card.image}/${quality}.webp` : '';
 export const artistPath = (lang: Lang, id: string) => `${lang === 'en' ? '/en' : ''}/${id}/`;

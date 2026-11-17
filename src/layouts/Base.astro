@@ -63,8 +63,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             <div class="menu-group">
               <span class="menu-label">{t.language}</span>
               <nav class="menu-options" aria-label={t.language}>
-                <a href={pagePath} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
-                <a href={`/en${pagePath}`} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
+                <a href={pagePath} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">{lang === 'en' ? 'JP' : '日本語'}</a>
+                <a href={`/en${pagePath}`} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">{lang === 'ja' ? '英語' : 'ENG'}</a>
               </nav>
             </div>
             <div class="menu-group">

@@ -29,3 +29,7 @@ Japanese available-image counts below six: LINNE 5, mashu 4, Narano 4, USGMEN 3,
 Cross-language equivalence is never based on Pokémon names alone: one Pokémon can have multiple distinct illustrations. TCGdex availability determines coverage, and source records may change with future refreshes.
 
 Profile URLs are `/{id}/` and `/en/{id}/`. Permanent redirects preserve the former `/artists/{id}/` links. Set/rarity/name filters and newest/oldest/name/number ordering work across the full usable collection, not just the first page.
+
+Matching also stores normalized card facts, tolerating absent/unknown rarity, regulation marks, and missing Pokédex IDs while rejecting contradictory known fields. EX suffix capitalization and energy-cost order are normalized. Pokémon identity and attack/stat details must agree; a match still requires reciprocal uniqueness. Japanese names use the TCGdex project's own `scripts/utils-data/jp_card_translations.ts` translation table (vendored as metadata in `src/data/card-translations.json`). This corrects false fallback labels such as Uninori's Flapple SV7a-074 / sv08-210 and Raging Bolt SV8a-222 / sv08.5-166.
+
+Fallback badges are localized: Japanese interfaces label English images 英語; English interfaces label Japanese images JP. Matching facts remain on the build side and are omitted from public gallery payloads.

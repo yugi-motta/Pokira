@@ -1,10 +1,11 @@
+import { compatibleFacts, type MatchFacts } from './card-identity';
 import { compareCards, cardDate } from './card-order';
 export type ImageDetails = { id: string; name: string; number: string; setName: string; releaseDate: string | null; language: 'en'|'ja' };
-export type ViewCard = {id:string;number:string;name:string;image:string|null;illustrator:string;rarity:string|null;language:'en'|'ja';setId:string;setName:string;releaseDate:string|null;matchingKey?:string|null;imageDetails?:ImageDetails;sortReleaseDate?:string|null;sortNumber?:string;editionIds?:string[];otherLanguageOnly?:boolean};
+export type ViewCard = {id:string;number:string;name:string;image:string|null;illustrator:string;rarity:string|null;language:'en'|'ja';setId:string;setName:string;releaseDate:string|null;matchingKey?:string|null;matchFacts?:MatchFacts;imageDetails?:ImageDetails;sortReleaseDate?:string|null;sortNumber?:string;editionIds?:string[];otherLanguageOnly?:boolean};
 function counterparts(card: ViewCard, candidates: ViewCard[]): ViewCard[] {
   let matches=candidates.filter(c=>c.id===card.id&&c.illustrator===card.illustrator);
-  if(!matches.length&&card.matchingKey){
-    matches=candidates.filter(c=>c.matchingKey===card.matchingKey&&c.illustrator===card.illustrator&&card.releaseDate&&c.releaseDate&&Math.abs(Date.parse(card.releaseDate)-Date.parse(c.releaseDate))<=366*86400000);
+  if(!matches.length&&(card.matchingKey||card.matchFacts)){
+    matches=candidates.filter(c=>((c.matchingKey===card.matchingKey&&Boolean(card.matchingKey))||(card.matchFacts&&c.matchFacts&&compatibleFacts(card.matchFacts,c.matchFacts)))&&c.illustrator===card.illustrator&&card.releaseDate&&c.releaseDate&&Math.abs(Date.parse(card.releaseDate)-Date.parse(c.releaseDate))<=366*86400000);
     if(matches.length>1){const numbered=matches.filter(c=>Number(c.number)===Number(card.number));if(numbered.length===1)matches=numbered;}
   }
   return matches;
@@ -29,7 +30,8 @@ export function visibleCatalog(primary: ViewCard[], alternate: ViewCard[], reque
     const pictured=preferred?.image?preferred:other?.image?other:undefined;
     if(!pictured)return [];
     const localized=preferred||pictured;
-    return [{...localized,id:`${group.en?'en':'ja'}:${canonical.id}`,setId:canonical.setId,
+    const {matchingKey:_key,matchFacts:_facts,...presentation}=localized;
+    return [{...presentation,id:`${group.en?'en':'ja'}:${canonical.id}`,setId:canonical.setId,
       sortReleaseDate:canonical.releaseDate,sortNumber:canonical.number,
       editionIds:[group.en&&`en:${group.en.id}`,group.ja&&`ja:${group.ja.id}`].filter(Boolean) as string[],
       image:pictured.image,otherLanguageOnly:!preferred?.image,

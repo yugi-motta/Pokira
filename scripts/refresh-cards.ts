@@ -1,6 +1,7 @@
 import { mkdir, readFile, readdir, writeFile, rename } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
+import { matchFacts } from '../src/lib/card-identity';
 import { compareCards } from '../src/lib/card-order';
 
 const ROOT = 'src/data/tcgdex';
@@ -52,7 +53,7 @@ const snapshots = await pool(artists, async artist => {
     const details = await pool(briefs, async brief => {
       const old = historical.get(brief.id);
       const checkedAt = old?.detailsCheckedAt || previous?.updatedAt;
-      if (!force && old && old.matchingKey !== undefined && Date.now() - Date.parse(checkedAt) < 30 * TTL && old.name === brief.name && old.image === (brief.image || null)) {
+      if (!force && old && old.matchFacts?.version === 1 && Date.now() - Date.parse(checkedAt) < 30 * TTL && old.name === brief.name && old.image === (brief.image || null)) {
         return { ...old, localId: old.number, set: { id: old.setId, name: old.setName }, detailsCheckedAt: checkedAt };
       }
       // Lists refresh daily. Historical detail fields are stable; recheck them monthly,
@@ -65,7 +66,7 @@ const snapshots = await pool(artists, async artist => {
     const sets = new Map((await pool(setIds, id => get(`${lang}/sets/${encodeURIComponent(id)}`), 3)).map(set => [set.id, set]));
     const cards = details.filter(card => names.includes(normalize(card.illustrator || ''))).map(card => ({
       id: card.id, number: card.localId, name: card.name, image: card.image || null,
-      matchingKey: matchingKey(card), detailsCheckedAt: card.detailsCheckedAt, illustrator: card.illustrator, rarity: card.rarity || null, language: lang,
+      matchingKey: matchingKey(card), matchFacts: card.matchFacts || matchFacts(card, lang), detailsCheckedAt: card.detailsCheckedAt, illustrator: card.illustrator, rarity: card.rarity || null, language: lang,
       setId: card.set.id, setName: card.set.name, releaseDate: sets.get(card.set.id)?.releaseDate || null
     }));
     cards.sort(compareCards);

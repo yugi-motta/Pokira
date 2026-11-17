@@ -51,7 +51,7 @@ function makeCard(card: CatalogCard) {
   const button=document.createElement('button');button.type='button';button.className='gallery-card';button.dataset.card=JSON.stringify(card);button.setAttribute('aria-label',`${card.name} · ${card.setName} · ${card.number}`);
   const thumb=document.createElement('span');thumb.className='artwork-thumb';
   const image=document.createElement('img');image.src=`${card.image}/low.webp`;image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
-  if(card.imageDetails){const badge=document.createElement('span');badge.className='card-language';badge.textContent=card.imageDetails.language==='en'?'ENG':'日本語';thumb.append(badge);}
+  if(card.imageDetails){const badge=document.createElement('span');badge.className='card-language';badge.textContent=card.imageDetails.language==='en'?(root?.dataset.lang==='ja'?'英語':'ENG'):(root?.dataset.lang==='en'?'JP':'日本語');thumb.append(badge);}
   const name=document.createElement('span');name.className='gallery-card-name';name.textContent=card.name;
   const set=document.createElement('span');set.className='gallery-card-set';set.textContent=`${card.setName} · ${card.number}`;
   button.append(thumb,name,set);return button;
