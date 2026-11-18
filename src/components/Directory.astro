@@ -16,7 +16,7 @@ const t = copy[lang];
       const cards = catalogFor(artist.id, lang).cards;
       const previews = cards.filter(card => card.image).slice(0, 6);
       const profile = artistPath(lang, artist.id);
-      const search = [artist.name, artist.japaneseName, artist.romanizedName, artist.handle, artist.instagram, ...cards.map(card => card.name)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
+      const search = [artist.name, artist.japaneseName, artist.romanizedName, artist.handle, artist.instagram].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
       return (
         <article id={artist.id} class="artist-entry" style={`--entry-delay:${Math.min(index, 8) * 90}ms`} data-search={search} data-profile={profile}>
           <div class="artist-content">

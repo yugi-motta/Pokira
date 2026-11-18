@@ -1,6 +1,7 @@
 ---
 import { copy, pathFor, type Lang } from '../lib/i18n';
 import '../styles/global.css';
+import AboutPokira from '../components/AboutPokira.astro';
 
 interface Props {
   lang: Lang;
@@ -24,13 +25,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="theme-color" content="#f5f5f7" />
     <script is:inline>
       document.documentElement.classList.add('js');
-      try {
-        const theme = localStorage.getItem('pokira-theme');
-        if (theme === 'dark') {
-          document.documentElement.dataset.theme = 'dark';
-          document.querySelector('meta[name="theme-color"]').content = '#121214';
-        }
-      } catch {}
+      let savedTheme;
+      try { savedTheme = localStorage.getItem('pokira-theme'); } catch {}
+      const initialTheme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = initialTheme;
+      document.querySelector('meta[name="theme-color"]').content = initialTheme === 'dark' ? '#121214' : '#f5f5f7';
     </script>
     <link rel="icon" href="/pokira-logo-hiragana.png" type="image/png" />
     <meta name="description" content={metaDescription} />
@@ -64,20 +63,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           </button>
           <div id="site-menu-panel" class="menu-panel" hidden>
             <div class="menu-group">
-              <span class="menu-label">{t.language}</span>
+              <span class="menu-label"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/></svg>{t.language}</span>
               <nav class="menu-options" aria-label={t.language}>
                 <a href={pagePath} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
                 <a href={`/en${pagePath}`} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
               </nav>
             </div>
             <div class="menu-group">
-              <span class="menu-label">{t.theme}</span>
+              <span class="menu-label"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/></svg>{t.theme}</span>
               <div class="menu-options" role="group" aria-label={t.theme}>
                 <button type="button" data-theme-choice="light" aria-pressed="true">{t.light}</button>
                 <button type="button" data-theme-choice="dark" aria-pressed="false">{t.dark}</button>
               </div>
             </div>
-            <button class="suggestion-trigger" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog">{t.suggestArtist}<span aria-hidden="true">↗</span></button>
+            <div class="menu-actions">
+            <button class="about-trigger" type="button" aria-haspopup="dialog" aria-controls="about-dialog"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/></svg>{t.about}<span aria-hidden="true">›</span></button>
+            <button class="suggestion-trigger" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>{t.suggestArtist}<span aria-hidden="true">›</span></button>
+            </div>
           </div>
         </div>
       </header>
@@ -87,6 +89,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <p>{t.unofficial}</p>
       </footer>
     </div>
+    <AboutPokira lang={lang} />
     <script is:inline>
       const menuButton = document.querySelector('.menu-toggle');
       const menuPanel = document.querySelector('#site-menu-panel');
@@ -108,15 +111,24 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && !menuPanel.hidden) { closeMenu(); menuButton.focus(); }
       });
-      menuPanel.querySelector('.suggestion-trigger').addEventListener('click', closeMenu);
+      menuPanel.querySelectorAll('.suggestion-trigger,.about-trigger').forEach(button=>button.addEventListener('click', closeMenu));
       const syncTheme = () => {
         const dark = document.documentElement.dataset.theme === 'dark';
         document.querySelectorAll('[data-theme-choice]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === (dark ? 'dark' : 'light'))));
         document.querySelector('meta[name="theme-color"]').content = dark ? '#121214' : '#f5f5f7';
       };
+      const deviceTheme = matchMedia('(prefers-color-scheme: dark)');
+      let themePreference;
+      try { themePreference = localStorage.getItem('pokira-theme'); } catch {}
+      deviceTheme.addEventListener('change', event => {
+        if (themePreference === 'light' || themePreference === 'dark') return;
+        document.documentElement.dataset.theme = event.matches ? 'dark' : 'light';
+        syncTheme();
+      });
       syncTheme();
       document.querySelectorAll('[data-theme-choice]').forEach((button) => button.addEventListener('click', () => {
         const theme = button.dataset.themeChoice;
+        themePreference = theme;
         document.documentElement.dataset.theme = theme;
         try { localStorage.setItem('pokira-theme', theme); } catch {}
         syncTheme();

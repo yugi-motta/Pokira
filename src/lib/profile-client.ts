@@ -55,7 +55,7 @@ function makeCard(card: CatalogCard) {
   const glare=document.createElement('span');glare.className='artwork-glare';glare.setAttribute('aria-hidden','true');thumb.append(glare);
   button.append(thumb);return button;
 }
-async function renderCards() {
+async function renderCards(append = false) {
   if(!gallery||!root||!status)return;
   const version=++renderVersion;
   if(more){more.disabled=true;more.textContent=more.dataset.loading||'';}
@@ -63,8 +63,12 @@ async function renderCards() {
   try {
     const cards=await loadCatalog();if(version!==renderVersion)return;
     const filtered=filterCards(cards,cardQuery?.value||'','',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,hideTCG:display.tcg===false,locale:root.dataset.lang});
-    const fragment=document.createDocumentFragment();filtered.slice(0,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
-    resetThumbnailTilt();gallery.replaceChildren(fragment);animateCards(gallery);settleImages(gallery);
+    const fragment=document.createDocumentFragment();
+    const start=append?gallery.children.length:0;
+    filtered.slice(start,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
+    animateCards(fragment);settleImages(fragment);
+    if(append)gallery.append(fragment);
+    else{resetThumbnailTilt();gallery.replaceChildren(fragment);}
     if(more)more.hidden=filtered.length<=visibleLimit;
     status.textContent=`${filtered.length.toLocaleString(root.dataset.lang)} ${filtered.length===1?root.dataset.countSingular:root.dataset.countLabel}`;
   }catch{status.textContent=more?.dataset.failed||root.dataset.failed||'';}
@@ -109,7 +113,7 @@ root?.querySelectorAll<HTMLInputElement>('[data-display]').forEach(input=>input.
  if(key==='pocket'||key==='tcg'){visibleLimit=24;void renderCards();}
 }));
 if(!display.pocket || !display.tcg){gallery?.querySelectorAll<HTMLElement>('[data-card]').forEach(card=>{const kind=JSON.parse(card.dataset.card!).kind;if(kind==='pocket'?!display.pocket:!display.tcg)card.remove();});void renderCards();}
-more?.addEventListener('click',()=>{visibleLimit+=24;void renderCards();});
+more?.addEventListener('click',()=>{visibleLimit+=24;void renderCards(true);});
 // Warm only the card the visitor is about to open, never the whole gallery.
 const warmed = new Map<string, HTMLImageElement>();
 function warmCard(event: Event) {

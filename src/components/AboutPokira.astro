@@ -1,0 +1,29 @@
+---
+import { copy, type Lang } from '../lib/i18n';
+interface Props { lang: Lang; }
+const t = copy[Astro.props.lang];
+---
+<dialog id="about-dialog" class="suggestion-dialog about-dialog" aria-labelledby="about-title">
+  <div class="suggestion-dialog-inner">
+    <button class="suggestion-close" type="button" aria-label={t.closeAbout}><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button>
+    <h2 id="about-title">{t.about}</h2>
+    <div class="about-copy"><p>{t.aboutIntro}</p><p>{t.aboutArt}</p><hr/><p>{t.aboutRights}</p><p>{t.aboutData}</p></div>
+  </div>
+</dialog>
+<script>
+  const dialog=document.querySelector<HTMLDialogElement>('#about-dialog');
+  const trigger=document.querySelector<HTMLButtonElement>('.about-trigger');
+  let previousOverflow='';
+  trigger?.addEventListener('click',()=>{
+    if(!dialog)return;
+    previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal();
+  });
+  const close=()=>{
+    if(!dialog?.open||dialog.dataset.closing)return;
+    dialog.dataset.closing='true';setTimeout(()=>{dialog.close();delete dialog.dataset.closing;},180);
+  };
+  dialog?.querySelector('.suggestion-close')?.addEventListener('click',close);
+  dialog?.addEventListener('cancel',event=>{event.preventDefault();close();});
+  dialog?.addEventListener('click',event=>{if(event.target===dialog)close();});
+  dialog?.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus();});
+</script>

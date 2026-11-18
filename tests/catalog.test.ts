@@ -119,3 +119,37 @@ test('homepage previews group foil scans that preserve the same illustration',()
  for(const id of ['rika','narano','amelicart','yoshinobu-saito']){const cards=builtCards(id,'en').slice(0,6);assert.equal(new Set(cards.map(c=>artworkIdentities[c.fullImage||c.image!]||c.fullImage||c.image)).size,cards.length);}
  for(const lang of ['en','ja']){const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');const filters=html.split('id="gallery-filter-dialog"')[1].split('</dialog>')[0];assert.ok(filters.includes('id="card-query"'));assert.ok(html.split('class="profile-header"')[1].split('</header>')[0].includes('profile-filter-action'));}
 });
+
+test('directory search indexes illustrator names and handles without card titles',()=>{
+ for(const lang of ['en','ja']){
+  const html=readFileSync(`dist/${lang==='en'?'en/':''}index.html`,'utf8');
+  for(const {artist} of snapshots){
+   const article=html.split(`id="${artist.id}"`)[1].split('</article>')[0];
+   const actual=article.match(/data-search="([^"]*)"/)![1].replaceAll('&amp;','&').replaceAll('&#39;',"'").replaceAll('&quot;','"');
+   const expected=[artist.name,artist.japaneseName,artist.romanizedName,artist.handle,artist.instagram].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase();
+   assert.equal(actual,expected,artist.id);
+   if(artist.id==='jerky')assert.ok(!actual.includes('sa'));
+  }
+ }
+});
+
+test('format choices are available only for illustrators with both formats',()=>{
+ for(const {artist} of snapshots){
+  const cards=builtCards(artist.id,'en');
+  const html=readFileSync(`dist/en/${artist.id}/index.html`,'utf8');
+  const expected=cards.some(c=>c.kind==='pocket')&&cards.some(c=>c.kind!=='pocket');
+  assert.equal(html.includes('class="filter-switches"'),expected,artist.id);
+  assert.ok(!html.includes('role="switch"'));
+ }
+});
+
+test('appearance defaults to the device and respects a saved manual choice',async()=>{
+ const {runInNewContext}=await import('node:vm');
+ const html=readFileSync('dist/en/index.html','utf8');
+ const boot=html.match(/<script>([\s\S]*?)<\/script>/)![1];
+ for(const systemDark of [false,true])for(const saved of [null,'light','dark','invalid','unreadable']){
+  const root={dataset:{} as Record<string,string>,classList:{add(){}}};const meta={content:''};
+  runInNewContext(boot,{document:{documentElement:root,querySelector:()=>meta},localStorage:{getItem(){if(saved==='unreadable')throw Error('Unavailable');return saved;}},matchMedia:()=>({matches:systemDark})});
+  assert.equal(root.dataset.theme,saved==='light'||saved==='dark'?saved:systemDark?'dark':'light');
+ }
+});
