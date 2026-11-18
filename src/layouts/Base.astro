@@ -65,14 +65,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           </button>
           <div id="site-menu-panel" class="menu-panel" hidden>
             <div class="menu-group">
-              <span class="menu-label"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/></svg>{t.language}</span>
+              <span class="menu-label">{t.language}</span>
               <nav class="menu-options" aria-label={t.language}>
                 <a href={pagePath} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
                 <a href={`/en${pagePath}`} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">English</a>
               </nav>
             </div>
             <div class="menu-group">
-              <span class="menu-label"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/></svg>{t.theme}</span>
+              <span class="menu-label">{t.theme}</span>
               <div class="menu-options" role="group" aria-label={t.theme}>
                 <button type="button" data-theme-choice="light" aria-pressed="true">{t.light}</button>
                 <button type="button" data-theme-choice="dark" aria-pressed="false">{t.dark}</button>
@@ -87,7 +87,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       </header>
       <main><slot /></main>
       <footer class="site-footer">
-        <span>Pokira © {new Date().getFullYear()}</span>
+        <span>{t.siteTitle} © {new Date().getFullYear()}</span>
         <p>{t.unofficial}</p>
       </footer>
     </div>
