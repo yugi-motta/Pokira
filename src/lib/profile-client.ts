@@ -10,6 +10,7 @@ const viewerImage = dialog?.querySelector<HTMLImageElement>('.viewer-image');
 const viewerPreview = dialog?.querySelector<HTMLImageElement>('.viewer-preview');
 const imageURL = (card: CatalogCard, high=false) => high ? card.fullImage || `${card.image}/high.webp` : card.thumbnail || `${card.image}/low.webp`;
 let lastTrigger: HTMLElement | null = null;
+let openedWithKeyboard=false;
 let previousOverflow = '';
 function animateCards(parent: ParentNode) {
   parent.querySelectorAll<HTMLElement>('.gallery-card').forEach((card,index)=>{card.style.setProperty('--gallery-delay', `${Math.min(index,8)*90}ms`);});
@@ -178,7 +179,7 @@ gallery?.addEventListener('click', event => {
  const button=(event.target as HTMLElement).closest<HTMLButtonElement>('.gallery-card');
  if(!button?.dataset.card || !dialog || !viewerImage || !viewerPreview || !surface || !flightElement)return;
  const card:CatalogCard=JSON.parse(button.dataset.card);if(!card.image)return;
- lastTrigger=button;sourceThumb=button.querySelector<HTMLElement>('.artwork-thumb');
+ openedWithKeyboard=event.detail===0;lastTrigger=button;sourceThumb=button.querySelector<HTMLElement>('.artwork-thumb');
  const thumbnail=button.querySelector<HTMLImageElement>('img');
  const ratio=thumbnail?.naturalWidth?thumbnail.naturalWidth/thumbnail.naturalHeight:(card.imageWidth||600)/(card.imageHeight||825);
  surface.style.aspectRatio=String(ratio);dialog.style.setProperty('--viewer-ratio',String(ratio));
@@ -199,7 +200,7 @@ const close=()=>{
  if(!dialog?.open||dialog.dataset.closing||!flightElement)return;
  dialog.dataset.closing='true';resetViewerTilt();
  const current=getComputedStyle(flightElement).transform;flight?.cancel();
- const finish=()=>{dialog.close();delete dialog.dataset.closing;};
+ const finish=()=>{dialog.close();if(!openedWithKeyboard)lastTrigger?.blur();delete dialog.dataset.closing;};
  if(reducedMotion.matches){finish();return;}
  const rect=sourceThumb?.getBoundingClientRect();const visible=rect&&rect.bottom>0&&rect.top<innerHeight;
  flight=flightElement.animate(visible?[{transform:current},{transform:sourceTransform()}]:[{opacity:1},{opacity:0}],{duration:320,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
@@ -212,7 +213,7 @@ dialog?.addEventListener('cancel',event=>{event.preventDefault();close();});
 dialog?.addEventListener('close',()=>{
  flight?.cancel();flight=null;resetViewerTilt();document.body.style.overflow=previousOverflow;
  lastTrigger?.classList.remove('is-expanded');
- if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src');lastTrigger?.focus({preventScroll:true});
+ if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src');if(openedWithKeyboard)lastTrigger?.focus({preventScroll:true});else lastTrigger?.blur();
 });
 const infoButton=root?.querySelector<HTMLButtonElement>('.illustration-info');
 const infoWrap=root?.querySelector<HTMLElement>('.illustration-count-wrap');
@@ -224,7 +225,8 @@ infoButton?.addEventListener('focus',showInfo);infoButton?.addEventListener('blu
 infoButton?.addEventListener('click',()=>{pinned=!pinned;if(pinned)showInfo();else hideInfo();});
 document.addEventListener('pointerdown',event=>{if(!infoWrap?.contains(event.target as Node)){pinned=false;hideInfo();}});
 infoButton?.addEventListener('keydown',event=>{if(event.key==='Escape'){pinned=false;hideInfo();}});
-const search = document.querySelector<HTMLInputElement>('#artist-search');
-const clear = document.querySelector<HTMLButtonElement>('.search-clear');
-search?.addEventListener('input', () => { if (clear) clear.hidden = !search.value; });
-clear?.addEventListener('click', () => { if (search) { search.value = ''; clear.hidden = true; search.focus(); } });
+const queryClear=root?.querySelector<HTMLButtonElement>('.card-query-clear');
+function syncQueryClear(){if(queryClear)queryClear.hidden=!cardQuery?.value;}
+cardQuery?.addEventListener('input',syncQueryClear);
+controls?.addEventListener('reset',()=>{if(queryClear)queryClear.hidden=true;});
+queryClear?.addEventListener('click',()=>{if(!cardQuery)return;cardQuery.value='';clearTimeout(queryTimer);syncQueryClear();visibleLimit=24;void renderCards();updateFilterCount();cardQuery.focus();});

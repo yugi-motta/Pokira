@@ -75,10 +75,10 @@ test('known TCGdex translations survive incomplete Japanese rarity and Pokédex 
   assert.ok(card.editionIds?.includes(`ja:${ja}`));assert.equal(card.otherLanguageOnly,false);assert.ok(card.image?.includes('/ja/'));assert.equal(card.imageDetails,undefined);
  }
 });
-test('both language menus always use 日本語 / ENG',()=>{
+test('both language menus always use 日本語 / English',()=>{
  for(const lang of ['en','ja']){
   const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');
-  assert.ok(html.includes('data-lang="ja">日本語</a>'));assert.ok(html.includes('data-lang="en">ENG</a>'));
+  assert.ok(html.includes('data-lang="ja">日本語</a>'));assert.ok(html.includes('data-lang="en">English</a>'));
  }
 });
 
@@ -151,5 +151,21 @@ test('appearance defaults to the device and respects a saved manual choice',asyn
   const root={dataset:{} as Record<string,string>,classList:{add(){}}};const meta={content:''};
   runInNewContext(boot,{document:{documentElement:root,querySelector:()=>meta},localStorage:{getItem(){if(saved==='unreadable')throw Error('Unavailable');return saved;}},matchMedia:()=>({matches:systemDark})});
   assert.equal(root.dataset.theme,saved==='light'||saved==='dark'?saved:systemDark?'dark':'light');
+ }
+});
+
+test('profile search matches names and social handles across normalized queries',async()=>{
+ const {illustratorSearchText,matchesIllustrator}=await import('../src/lib/illustrator-search');
+ const jerky=snapshots.find(x=>x.artist.id==='jerky')!.artist;
+ assert.equal(matchesIllustrator(illustratorSearchText(jerky),'sa'),false);
+ assert.equal(matchesIllustrator(illustratorSearchText(jerky),'ＢＡＮＡＮＡＪＥＲＫＹ'),true);
+ const arita=snapshots.find(x=>x.artist.id==='mitsuhiro-arita')!.artist;
+ assert.equal(matchesIllustrator(illustratorSearchText(arita),'arita mitsuhiro'),true);
+ for(const lang of ['en','ja']){
+  const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');
+  const sheet=html.split('id="illustrator-search-results"')[1].split('</nav>')[0];
+  assert.equal((sheet.match(/<li /g)||[]).length,snapshots.length);
+  assert.ok(sheet.includes(`${lang==='en'?'/en':''}/jerky/`));
+  assert.ok(html.includes('card-query-clear'));
  }
 });

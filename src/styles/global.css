@@ -353,7 +353,7 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 .gallery-card .artwork-thumb,.viewer-image-wrap{transform:perspective(1600px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}
 
 /* A proportional mask shared by every printed and Pocket card at any size. */
-.artwork-thumb,.gallery-card .artwork-thumb,.viewer-image-wrap{border-radius:5% / 3.57954545%}
+.artwork-thumb,.gallery-card .artwork-thumb,.viewer-image-wrap{border-radius:5.2% / 3.72272727%}
 .illustration-count-wrap{gap:3px}
 .illustration-info{padding:1px}
 .illustration-info svg{width:17px;height:17px;stroke-width:1.7}
@@ -380,3 +380,37 @@ html[data-theme=dark] .menu-actions button:hover{background:#303037}
 .about-copy p:last-child{margin-bottom:0}
 .about-copy hr{border:0;border-top:1px solid #8e8e9326;margin:24px 0}
 html[data-theme=dark] .about-copy{color:#b8b8c1}
+
+/* Match the count label, including while its explanation is open. */
+.illustration-count-wrap{color:#8e8e93}
+.illustration-info,.illustration-info:hover,.illustration-info[aria-expanded=true],html[data-theme=dark] .illustration-info:hover,html[data-theme=dark] .illustration-info[aria-expanded=true]{color:inherit}
+.about-disclaimer{margin-top:24px;padding:19px 20px;border-radius:15px;background:#f5f5f7;font-size:12px;line-height:1.65}
+.about-disclaimer h3{margin:0 0 12px;font-size:12px;font-weight:650;color:#55555e}
+.about-disclaimer p{margin-bottom:13px}
+html[data-theme=dark] .about-disclaimer{background:#29292f}
+html[data-theme=dark] .about-disclaimer h3{color:#d3d3dd}
+.gallery-search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.filter-dialog .gallery-search input{padding-right:42px}
+.gallery-search .card-query-clear{position:absolute;right:11px;top:50%;transform:translateY(-50%)}
+.gallery-search .card-query-clear svg{position:static;width:14px;height:14px;stroke:currentColor;stroke-width:1.5;pointer-events:none}
+.search-wrap{position:relative}
+.search-sheet{position:absolute;z-index:30;top:calc(100% + 10px);left:50%;transform:translateX(-50%);width:max(100%,340px);max-width:calc(100vw - 32px);max-height:min(440px,65dvh);overflow:auto;padding:6px;border-radius:19px;background:#fff;color:#1d1d1f;box-shadow:0 12px 45px #0002;animation:search-sheet-in .18s ease both}
+.search-sheet ul{list-style:none;padding:0;margin:0}
+.search-sheet li a{display:flex;align-items:center;gap:11px;padding:10px;border-radius:13px}
+.search-sheet li a:hover,.search-sheet li a:focus-visible{background:#f1f1f4;outline:0}
+.search-sheet img,.search-result-avatar{width:34px;height:34px;flex:none;object-fit:cover;border-radius:50%;background:#eee;display:grid;place-items:center}
+.search-sheet li a>span:last-child{min-width:0}
+.search-sheet strong{display:block;font-size:12px;font-weight:600}
+.search-sheet small{display:block;font-size:10px;line-height:1.5;margin-top:2px;color:#8e8e93;overflow-wrap:anywhere}
+.search-sheet-empty{padding:14px;margin:0;font-size:12px;color:#8e8e93}
+html[data-theme=dark] .search-sheet{background:#232327;color:#f5f5f7;box-shadow:0 12px 45px #0005}
+html[data-theme=dark] .search-sheet li a:hover,html[data-theme=dark] .search-sheet li a:focus-visible{background:#35353b}
+@keyframes search-sheet-in{from{opacity:0;translate:0 -5px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){.search-sheet{animation:none}}
+/* Keep pointer dismissal from painting a square focus ring at the destination. */
+.gallery-card{border-radius:5.2% / 3.72272727%}
+.gallery-card:focus{outline:0}
+.gallery-card:focus-visible .artwork-thumb{outline:2px solid #8e8e93;outline-offset:4px}
+.viewer-image-wrap{isolation:isolate}
+.card-viewer[data-closing=true] .viewer-image-wrap{transform:none;transition:none;box-shadow:none}
+.card-viewer[data-closing=true] .artwork-glare{display:none}

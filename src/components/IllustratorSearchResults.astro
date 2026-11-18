@@ -1,0 +1,44 @@
+---
+import { artists } from '../lib/content';
+import { artistPath } from '../lib/cards';
+import { illustratorSearchText } from '../lib/illustrator-search';
+import { copy, type Lang } from '../lib/i18n';
+interface Props { lang: Lang; }
+const {lang}=Astro.props;
+const t=copy[lang];
+---
+<nav id="illustrator-search-results" class="search-sheet" aria-label={t.searchLabel} hidden>
+  <ul>{artists.map(artist=><li data-search={illustratorSearchText(artist)} hidden><a href={artistPath(lang,artist.id)}>{artist.avatar?<img src={artist.avatar} width="34" height="34" alt="" loading="lazy"/>:<span class="search-result-avatar">{artist.name.slice(0,1)}</span>}<span><strong>{artist.name}</strong><small>{[artist.handle,artist.instagram].filter(Boolean).filter((handle,index,all)=>all.indexOf(handle)===index).join(' · ')}</small></span></a></li>)}</ul>
+  <p class="search-sheet-empty" role="status" hidden>{t.noResults}</p>
+</nav>
+<script>
+ import { matchesIllustrator } from '../lib/illustrator-search';
+ const sheet=document.querySelector<HTMLElement>('#illustrator-search-results');
+ const input=document.querySelector<HTMLInputElement>('#artist-search');
+ const clear=document.querySelector<HTMLButtonElement>('.search-clear');
+ const rows=[...(sheet?.querySelectorAll<HTMLElement>('li[data-search]')||[])];
+ function close(){if(sheet)sheet.hidden=true;}
+ function update(){
+  if(!sheet||!input)return;
+  const query=input.value.trim();let count=0;
+  for(const row of rows){row.hidden=!query||!matchesIllustrator(row.dataset.search||'',query);if(!row.hidden)count++;}
+  sheet.hidden=!query;
+  const empty=sheet.querySelector<HTMLElement>('.search-sheet-empty');if(empty)empty.hidden=count!==0;
+  if(clear)clear.hidden=!input.value;
+ }
+ input?.addEventListener('input',update);input?.addEventListener('focus',update);
+ clear?.addEventListener('click',()=>{if(input){input.value='';update();input.focus();}});
+ input?.addEventListener('keydown',event=>{
+  if(event.key==='Escape'){event.preventDefault();close();}
+  if(event.key==='ArrowDown'&&!sheet?.hidden){event.preventDefault();sheet?.querySelector<HTMLAnchorElement>('li:not([hidden]) a')?.focus();}
+ });
+ sheet?.addEventListener('keydown',event=>{
+  if(event.key==='Escape'){event.preventDefault();input?.focus();close();return;}
+  if(!['ArrowDown','ArrowUp'].includes(event.key))return;
+  const links=[...sheet.querySelectorAll<HTMLAnchorElement>('li:not([hidden]) a')];
+  const index=links.indexOf(document.activeElement as HTMLAnchorElement);event.preventDefault();
+  const next=index+(event.key==='ArrowDown'?1:-1);if(next<0)input?.focus();else links[Math.min(next,links.length-1)]?.focus();
+ });
+ document.addEventListener('pointerdown',event=>{if(!(event.target as HTMLElement).closest('.search-wrap'))close();});
+ document.addEventListener('focusin',event=>{if(!(event.target as HTMLElement).closest('.search-wrap'))close();});
+</script>

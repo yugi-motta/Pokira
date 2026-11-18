@@ -27,7 +27,7 @@ const pokemonLabels=[...new Map(cards.flatMap(c=>(c.pokemon||[]).map(p=>[p.id,p.
   <dialog id="gallery-filter-dialog" class="filter-dialog" aria-labelledby="filter-title">
     <form class="gallery-controls">
       <header class="filter-header"><h2 id="filter-title">{t.filters}</h2><button class="filter-close" type="button" aria-label={t.closeFilters}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button></header>
-    <div class="gallery-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><label class="sr-only" for="card-query">{t.searchCards}</label><input id="card-query" type="search" placeholder={t.searchCards} autocomplete="off" /></div>
+    <div class="gallery-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><label class="sr-only" for="card-query">{t.searchCards}</label><input id="card-query" type="search" placeholder={t.searchCards} autocomplete="off" /><button class="search-clear card-query-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button></div>
       <div class="filter-fields">
         <label for="card-pokemon">{t.pokemonLabel}<select id="card-pokemon"><option value="">{t.allPokemon}</option>{pokemonLabels.map(([id,name])=><option value={id}>{name}</option>)}</select></label>
         <label for="card-rarity">{t.rarityLabel}<select id="card-rarity"><option value="">{t.allRarities}</option>{[...new Set(cards.map(c=>c.rarity).filter(Boolean))].sort().map(rarity=><option value={rarity}>{rarity}</option>)}</select></label>

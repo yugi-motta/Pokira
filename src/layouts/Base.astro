@@ -1,6 +1,7 @@
 ---
 import { copy, pathFor, type Lang } from '../lib/i18n';
 import '../styles/global.css';
+import IllustratorSearchResults from '../components/IllustratorSearchResults.astro';
 import AboutPokira from '../components/AboutPokira.astro';
 
 interface Props {
@@ -54,8 +55,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <form class="search-wrap" action={pathFor(lang)} method="get">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
           <label class="sr-only" for="artist-search">{t.searchLabel}</label>
-          <input id="artist-search" name="q" type="search" placeholder={t.search} autocomplete="off" />
+          <input id="artist-search" name="q" type="search" placeholder={t.search} autocomplete="off" aria-controls={pagePath!=='/'?'illustrator-search-results':undefined} />
           <button class="search-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button>
+          {pagePath!=='/' && <IllustratorSearchResults lang={lang} />}
         </form>
         <div class="site-menu">
           <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-menu-panel">
@@ -66,7 +68,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
               <span class="menu-label"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/></svg>{t.language}</span>
               <nav class="menu-options" aria-label={t.language}>
                 <a href={pagePath} lang="ja" aria-current={lang === 'ja' ? 'page' : undefined} data-lang="ja">日本語</a>
-                <a href={`/en${pagePath}`} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">ENG</a>
+                <a href={`/en${pagePath}`} lang="en" aria-current={lang === 'en' ? 'page' : undefined} data-lang="en">English</a>
               </nav>
             </div>
             <div class="menu-group">
@@ -77,8 +79,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
               </div>
             </div>
             <div class="menu-actions">
-            <button class="about-trigger" type="button" aria-haspopup="dialog" aria-controls="about-dialog"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/></svg>{t.about}<span aria-hidden="true">›</span></button>
-            <button class="suggestion-trigger" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>{t.suggestArtist}<span aria-hidden="true">›</span></button>
+            <button class="about-trigger" type="button" aria-haspopup="dialog" aria-controls="about-dialog"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/></svg>{t.about}</button>
+            <button class="suggestion-trigger" type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8M8 12h5"/></svg>{t.suggestArtist}</button>
             </div>
           </div>
         </div>
