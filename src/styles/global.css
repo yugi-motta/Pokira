@@ -353,7 +353,7 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 .gallery-card .artwork-thumb,.viewer-image-wrap{transform:perspective(1600px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}
 
 /* A proportional mask shared by every printed and Pocket card at any size. */
-.artwork-thumb,.gallery-card .artwork-thumb,.viewer-image-wrap{border-radius:5.2% / 3.72272727%}
+.artwork-thumb,.gallery-card .artwork-thumb,.viewer-image-wrap{border-radius:5.3% / 3.79431818%}
 .illustration-count-wrap{gap:3px}
 .illustration-info{padding:1px}
 .illustration-info svg{width:17px;height:17px;stroke-width:1.7}
@@ -370,7 +370,7 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 .menu-options{border-radius:999px;padding:4px}
 .menu-options a,.menu-options button{border-radius:999px;min-height:34px}
 .menu-actions{margin-top:16px;padding-top:10px;border-top:1px solid #8e8e9326;display:grid;gap:2px}
-.menu-actions button{display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:8px;border:0;border-radius:11px;margin:0;background:transparent;color:inherit;text-align:left;font-size:12px;font-weight:550;transition:background .2s}
+.menu-actions button{display:flex;align-items:center;justify-content:flex-start;gap:10px;width:100%;min-height:42px;padding:8px;border:0;border-radius:11px;margin:0;background:transparent;color:inherit;text-align:left;font-size:12px;font-weight:550;transition:background .2s}
 .menu-actions button svg{width:18px;height:18px;flex:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
 .menu-actions button span{margin-left:auto;font-size:20px;color:#8e8e93}
 .menu-actions button:hover{background:#f4f4f6}
@@ -408,7 +408,7 @@ html[data-theme=dark] .search-sheet li a:hover,html[data-theme=dark] .search-she
 @keyframes search-sheet-in{from{opacity:0;translate:0 -5px}to{opacity:1;translate:0 0}}
 @media(prefers-reduced-motion:reduce){.search-sheet{animation:none}}
 /* Keep pointer dismissal from painting a square focus ring at the destination. */
-.gallery-card{border-radius:5.2% / 3.72272727%}
+.gallery-card{border-radius:5.3% / 3.79431818%}
 .gallery-card:focus{outline:0}
 .gallery-card:focus-visible .artwork-thumb{outline:2px solid #8e8e93;outline-offset:4px}
 .viewer-image-wrap{isolation:isolate}
