@@ -169,3 +169,15 @@ test('profile search matches names and social handles across normalized queries'
   assert.ok(html.includes('card-query-clear'));
  }
 });
+
+test('Yoko Hishida retains verified Japanese Pocket illustrations and their original image sources',()=>{
+ const overrides=JSON.parse(readFileSync('src/data/japanese-image-overrides.json','utf8'));
+ for(const lang of ['en','ja']){
+  const cards=builtCards('yoko-hishida',lang).filter(c=>c.kind==='pocket');
+  for(const [source,override] of Object.entries(overrides) as [string,{artistId:string;high:string;imageSource:string}][]){
+   assert.equal(override.artistId,'yoko-hishida');
+   const card=cards.find(c=>c.source===source);assert.ok(card,source);
+   assert.equal(card.fullImage,override.high);assert.equal(card.imageSource,override.imageSource);
+  }
+ }
+});

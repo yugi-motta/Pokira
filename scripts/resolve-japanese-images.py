@@ -4,6 +4,7 @@ printed collector number from the official detail page, never by list order.
 """
 import concurrent.futures, hashlib, html, json, pathlib, re, time, urllib.request, urllib.parse
 ROOT=pathlib.Path(__file__).resolve().parents[1];CACHE=ROOT/'.cache/japanese-originals';CACHE.mkdir(parents=True,exist_ok=True)
+IMAGE_OVERRIDES=json.loads((ROOT/'src/data/japanese-image-overrides.json').read_text())
 def get(url):
  p=CACHE/(hashlib.sha256(url.encode()).hexdigest()+'.txt')
  ttl=86400 if 'resultAPI.php' in url else 30*86400
@@ -66,6 +67,10 @@ def process(file):
     c['width']=734;c['height']=1024
     c['high']=pocket[c['ja']];c['thumbnail']=pocket[c['ja']].replace('.png','-215x300.png') if 'usgmen.com/wp-content/' in pocket[c['ja']] else pocket[c['ja']].replace('.jpg','?format=jpg&name=small')
     c['imageSource']='https://usgmen.com/work/3092' if 'usgmen.com' in c['high'] else next(p['url'] for p in artist['announcements'] if any(n in c['ja'] for n in p['pokemon']))
+  override=IMAGE_OVERRIDES.get(c['source'])
+  if override:
+   if override['artistId']!=s['artistId']:raise ValueError('Image override illustrator mismatch: '+c['source'])
+   c.update({key:override[key] for key in ['high','thumbnail','width','height','imageSource']})
  print(s['artistId'],sum(bool(c['high']) for c in s['cards']),'/',len(s['cards']),flush=True)
  return file,s
 files=list((ROOT/'src/data/japanese-catalog').glob('*.json'))
