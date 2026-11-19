@@ -13,9 +13,17 @@ for(const file of await readdir('src/data/japanese-catalog')){
 }
 const unique=[...new Map(input.map(c=>[c.image,c])).values()];let cursor=0,done=0;
 async function fingerprint(url:string):Promise<Fingerprint>{
- const response=await fetch(url,{signal:AbortSignal.timeout(20000)});
- if(!response.ok)throw new Error(`${response.status}: ${url}`);
- const buffer=Buffer.from(await response.arrayBuffer());const metadata=await sharp(buffer).metadata();
+ let buffer:Buffer;
+ if(url.startsWith('https://pokira.pages.dev/images/cards/ja/')){
+  const path=new URL(url).pathname;
+  if(!/^\/images\/cards\/ja\/[a-z0-9-]+\.webp$/.test(path))throw new Error('Invalid local card image');
+  buffer=await readFile(`public${path}`);
+ }else{
+  const response=await fetch(url,{signal:AbortSignal.timeout(20000)});
+  if(!response.ok)throw new Error(`${response.status}: ${url}`);
+  buffer=Buffer.from(await response.arrayBuffer());
+ }
+ const metadata=await sharp(buffer).metadata();
  if(!metadata.width||!metadata.height)throw new Error('Invalid image');
  const crop={left:Math.round(metadata.width*.08),top:Math.round(metadata.height*.18),width:Math.round(metadata.width*.84),height:Math.round(metadata.height*.36)};
  const pixels=[...await sharp(buffer).extract(crop).removeAlpha().toColourspace('srgb').resize(32,32,{fit:'fill'}).raw().toBuffer()];

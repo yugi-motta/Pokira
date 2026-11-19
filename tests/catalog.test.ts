@@ -174,6 +174,9 @@ test('Yoko Hishida retains verified Japanese Pocket illustrations and their orig
  const overrides=JSON.parse(readFileSync('src/data/japanese-image-overrides.json','utf8'));
  for(const lang of ['en','ja']){
   const cards=builtCards('yoko-hishida',lang).filter(c=>c.kind==='pocket');
+  assert.equal(cards.length,6);
+  assert.ok(cards.some(c=>c.source==='https://www.artofpkm.com/sets/921/card/184'));
+  assert.ok(readFileSync('public/images/cards/ja/yoko-hishida-c1-184.webp').length>100000);
   for(const [source,override] of Object.entries(overrides) as [string,{artistId:string;high:string;imageSource:string}][]){
    assert.equal(override.artistId,'yoko-hishida');
    const card=cards.find(c=>c.source===source);assert.ok(card,source);

@@ -38,5 +38,14 @@
     "width": 734,
     "height": 1024,
     "imageSource": "https://x.com/choro_o/status/2121509403044331931/photo/6"
+  },
+  "https://www.artofpkm.com/sets/921/card/184": {
+    "artistId": "yoko-hishida",
+    "high": "https://pokira.pages.dev/images/cards/ja/yoko-hishida-c1-184.webp",
+    "thumbnail": "https://pokira.pages.dev/images/cards/ja/yoko-hishida-c1-184.webp",
+    "width": 1074,
+    "height": 1498,
+    "imageSource": "https://www.artofpkm.com/sets/921/card/184",
+    "originalImage": "https://cdn.artofpkm.com/xgg3z735iroc85yi2btta3pek6cl"
   }
 }

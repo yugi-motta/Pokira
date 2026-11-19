@@ -146,13 +146,14 @@
       "number": "184/131",
       "setName": "Dual Fusion",
       "setId": "921",
-      "high": null,
-      "thumbnail": null,
-      "width": 600,
-      "height": 825,
+      "high": "https://pokira.pages.dev/images/cards/ja/yoko-hishida-c1-184.webp",
+      "thumbnail": "https://pokira.pages.dev/images/cards/ja/yoko-hishida-c1-184.webp",
+      "width": 1074,
+      "height": 1498,
       "releaseDate": "2026-10-29",
       "setJapaneseName": "デュアルフュージョン",
-      "setCode": "C1"
+      "setCode": "C1",
+      "imageSource": "https://www.artofpkm.com/sets/921/card/184"
     },
     {
       "kind": "pocket",
@@ -240,5 +241,5 @@
       "imageSource": "https://x.com/choro_o/status/2121509403044331931/photo/6"
     }
   ],
-  "updatedAt": "2026-11-19T01:45:36+00:00"
+  "updatedAt": "2026-11-19T01:57:34+00:00"
 }

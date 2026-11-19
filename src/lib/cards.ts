@@ -16,7 +16,7 @@ export const catalogCardSchema = z.object({
   thumbnail: z.url().optional(), fullImage: z.url().optional(), source: z.url().optional(),imageSource:z.url().optional(),
   imageWidth: z.number().optional(), imageHeight: z.number().optional(),
   id: z.string(), number: z.string(), name: z.string(),
-  image: z.url().refine(url => url.startsWith('https://assets.tcgdex.net/ja/') || url.startsWith('https://assets.tcgdex.net/en/') || url.startsWith('https://www.pokemon-card.com/') || url.startsWith('https://pbs.twimg.com/') || url.startsWith('https://usgmen.com/')).nullable(),
+  image: z.url().refine(url => url.startsWith('https://pokira.pages.dev/images/cards/ja/') || url.startsWith('https://assets.tcgdex.net/ja/') || url.startsWith('https://assets.tcgdex.net/en/') || url.startsWith('https://www.pokemon-card.com/') || url.startsWith('https://pbs.twimg.com/') || url.startsWith('https://usgmen.com/')).nullable(),
   illustrator: z.string(), rarity: z.string().nullable(), language: z.enum(['en','ja']),
   setId: z.string(), setName: z.string(), releaseDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable()
 });
@@ -26,7 +26,7 @@ const files = import.meta.glob('../data/tcgdex/*.json', { eager: true, import: '
 const snapshots = Object.entries(files).filter(([path]) => !path.endsWith('/coverage.json')).map(([,file]) => snapshotSchema.parse(file));
 export const cardIndexes = new Map(snapshots.map(index => [index.artistId, index]));
 export const PAGE_SIZE = 24;
-const japaneseImageSchema=z.url().refine(url=>url.startsWith('https://assets.tcgdex.net/ja/') || url.startsWith('https://www.pokemon-card.com/assets/images/card_images/') || url.startsWith('https://pbs.twimg.com/media/') || url.startsWith('https://usgmen.com/wp-content/uploads/'));
+const japaneseImageSchema=z.url().refine(url=>url.startsWith('https://pokira.pages.dev/images/cards/ja/') || url.startsWith('https://assets.tcgdex.net/ja/') || url.startsWith('https://www.pokemon-card.com/assets/images/card_images/') || url.startsWith('https://pbs.twimg.com/media/') || url.startsWith('https://usgmen.com/wp-content/uploads/'));
 const japaneseSchema = z.object({artistId:z.string(),updatedAt:z.string(),source:z.url(),cards:z.array(z.object({
   kind:z.enum(['physical','pocket']),source:z.url(), imageSource:z.url().optional(), high:japaneseImageSchema.nullable(), thumbnail:japaneseImageSchema.nullable(),
   width:z.number(),height:z.number(),en:z.string(),ja:z.string(),number:z.string(),setName:z.string(),setJapaneseName:z.string().nullable(),setId:z.string(),releaseDate:z.string().nullable()
