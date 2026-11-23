@@ -443,3 +443,28 @@ html[data-theme=dark] .search-sheet li a:hover,html[data-theme=dark] .search-she
 .viewer-image-wrap{isolation:isolate}
 .card-viewer[data-closing=true] .viewer-image-wrap{transform:none;transition:none;box-shadow:none}
 .card-viewer[data-closing=true] .artwork-glare{display:none}
+
+/* Keep all five homepage previews in view, including on phones. */
+.directory .artist-artworks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;width:100%;margin:16px 0 0;padding:0;overflow:visible;scroll-snap-type:none;-webkit-mask-image:none;mask-image:none}
+.directory .artwork-thumb{width:100%;min-width:0}
+.profile-identity .artist-socials{gap:10px}
+.profile-identity .artist-socials a{min-height:44px;padding:12px 24px;border:0;background:#1d1d1f;color:#fff;font-size:13px;line-height:1.45;box-shadow:0 6px 24px #0001;transition:background .2s,box-shadow .2s}
+.profile-identity .artist-socials a:hover{background:#393940;color:#fff;box-shadow:0 8px 28px #0002}
+.profile-identity .artist-socials a svg{width:18px;height:18px}
+html[data-theme=dark] .profile-identity .artist-socials a{background:#f5f5f7;color:#1d1d1f}
+html[data-theme=dark] .profile-identity .artist-socials a:hover{background:#fff;color:#1d1d1f}
+.card-gallery .gallery-card:nth-child(n+11){display:none}
+@media(min-width:901px) and (max-width:1100px){.card-gallery .gallery-card:nth-child(n+9){display:none}}
+@media(min-width:641px) and (max-width:900px){.card-gallery .gallery-card:nth-child(n+10){display:none}}
+@media(max-width:640px){.card-gallery .gallery-card:nth-child(n+7){display:none}}
+.suggestion-card,.suggestion-card *{cursor:default}
+.suggestion-card button,.suggestion-card button *{cursor:pointer}
+.suggestion-avatar{display:grid;place-items:center;background:#efeff3;color:#a1a1aa}
+.suggestion-avatar svg{width:52%;height:52%;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}
+.suggestion-card-action{margin-top:8px}
+.suggestion-card-action .search-suggest{display:inline-flex;min-height:30px;padding:5px 10px;font-size:11px;line-height:1.45;gap:6px}
+.suggestion-card-action .search-suggest svg{width:13px;height:13px}
+.suggestion-artwork{display:block;width:100%;aspect-ratio:868/1212;border:1.5px dashed #c9c9d2;border-radius:5.4% / 3.86590909%;background:#f5f5f780}
+.directory #no-results{grid-column:1/-1;margin:10px 0}
+html[data-theme=dark] .suggestion-avatar{background:#303036;color:#9999a4}
+html[data-theme=dark] .suggestion-artwork{border-color:#50505c;background:#25252980}

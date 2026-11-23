@@ -59,7 +59,7 @@ test('homepage thumbnails use the same rarity-first selection as profiles',()=>{
 test('profiles replace counts, filters and pagination with an external continuation link',()=>{
  for(const artist of artists)for(const lang of ['en','ja']){
   const html=readFileSync(`dist/${lang==='en'?'en/':''}${artist.id}/index.html`,'utf8');
-  assert.equal((html.match(/class="gallery-card"/g)||[]).length,cardsFor(artist.id,lang).length);
+  assert.equal((html.match(/class="gallery-card"/g)||[]).length,Math.min(10,cardsFor(artist.id,lang).length));
   for(const obsolete of ['class="profile-count"','gallery-filter-dialog','class="load-more"','illustration-count-info','class="gallery-pagination"'])assert.ok(!html.includes(obsolete),obsolete);
   const source=JSON.parse(readFileSync(`src/data/japanese-catalog/${artist.id}.json`,'utf8')).source;
   assert.ok(html.includes(`class="see-all" href="${source}" target="_blank"`));

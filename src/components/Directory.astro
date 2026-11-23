@@ -4,6 +4,7 @@ import { artists } from '../lib/content';
 import { copy, type Lang } from '../lib/i18n';
 import { catalogFor, cardImage, artistPath } from '../lib/cards';
 import SocialLinks from './SocialLinks.astro';
+import IllustratorSuggestion from './IllustratorSuggestion.astro';
 import SuggestionForm from './SuggestionForm.astro';
 
 interface Props { lang: Lang; }
@@ -38,9 +39,9 @@ const t = copy[lang];
         </article>
       );
     })}
+    <p id="no-results" class="no-results" hidden>{t.noResults}</p>
+    <IllustratorSuggestion lang={lang} />
   </div>
-  <p id="no-results" class="no-results" hidden>{t.noResults}</p>
-  <div class="directory-suggestion"><button class="search-suggest" data-suggest type="button">{t.suggestArtist}<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 4h12v9H8l-4 3V4Z"/><path d="M7 7h6M7 10h4"/></svg></button></div>
   <span id="result-count" class="sr-only" aria-live="polite">{artists.length}</span>
   <SuggestionForm lang={lang} />
 </section>
@@ -48,12 +49,12 @@ const t = copy[lang];
   const input = document.querySelector<HTMLInputElement>('#artist-search');
   const count = document.querySelector<HTMLElement>('#result-count');
   const noResults = document.querySelector<HTMLElement>('#no-results');
-  const cards = [...document.querySelectorAll<HTMLElement>('.artist-entry')];
+  const cards = [...document.querySelectorAll<HTMLElement>('.artist-entry[data-profile]')];
   cards.forEach(card => card.addEventListener('click', event => {
     if ((event.target as HTMLElement).closest('a,button,input,select') || window.getSelection()?.toString()) return;
     if (card.dataset.profile) location.assign(card.dataset.profile);
   }));
-  const strips = [...document.querySelectorAll<HTMLElement>('.artist-artworks, .artist-socials')];
+  const strips = [...document.querySelectorAll<HTMLElement>('.artist-socials')];
   document.querySelectorAll<HTMLImageElement>('.artwork-thumb img').forEach((image) => {
     const thumb = image.parentElement;
     const settle = () => thumb?.classList.add(image.naturalWidth ? 'is-loaded' : 'is-error');

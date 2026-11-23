@@ -9,7 +9,7 @@ interface Props { artist: Artist; lang: Lang; }
 const { artist, lang } = Astro.props;
 const t = copy[lang];
 const catalog = catalogFor(artist.id, lang);
-const cards = catalog.cards;
+const cards = catalog.cards.slice(0, 10);
 ---
 <section class="illustrator-profile" data-artist={artist.id} data-lang={lang}>
   <header class="profile-header">

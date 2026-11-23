@@ -129,7 +129,7 @@ dialog?.addEventListener('close',()=>{
 // Size the continuation fade to the final row at every responsive breakpoint.
 function updatePreviewFade(){
  if(!gallery)return;
- const last=gallery.querySelector<HTMLElement>('.gallery-card:last-child');
+ const last=[...gallery.querySelectorAll<HTMLElement>('.gallery-card')].filter(card=>card.getClientRects().length).at(-1);
  if(last)gallery.parentElement?.style.setProperty('--preview-fade-height',`${last.getBoundingClientRect().height*.76}px`);
 }
 if(gallery){new ResizeObserver(updatePreviewFade).observe(gallery);updatePreviewFade();}
