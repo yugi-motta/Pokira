@@ -29,7 +29,7 @@ const t = copy[Astro.props.lang];
     </div>
 </dialog>
 <script>
-  const trigger = document.querySelector<HTMLButtonElement>('.suggestion-trigger');
+  const triggers = document.querySelectorAll<HTMLButtonElement>('.suggestion-trigger,[data-suggest]');
   const dialog = document.querySelector<HTMLDialogElement>('#suggestion-dialog');
   const closeButton = dialog?.querySelector<HTMLButtonElement>('.suggestion-close');
   const form = document.querySelector<HTMLFormElement>('#suggestion-form');
@@ -38,12 +38,14 @@ const t = copy[Astro.props.lang];
   const postInput = form?.querySelector<HTMLInputElement>('[name="postUrl"]');
   const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
   let previousOverflow = '';
-  trigger?.addEventListener('click', () => {
+  let lastTrigger:HTMLButtonElement|null=null;
+  triggers.forEach(trigger=>trigger.addEventListener('click', () => {
     if (!dialog) return;
+    lastTrigger=trigger;
     previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     dialog.showModal();
-  });
+  }));
   const closeDialog = () => {
     if (!dialog || dialog.dataset.closing) return;
     dialog.dataset.closing = 'true';
@@ -54,7 +56,8 @@ const t = copy[Astro.props.lang];
   dialog?.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
   dialog?.addEventListener('close', () => {
     document.body.style.overflow = previousOverflow;
-    document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus();
+    if(lastTrigger?.closest('#site-menu-panel'))document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus();
+    else document.querySelector<HTMLInputElement>('#artist-search')?.focus();
   });
   const socialLink = (value: string, post: boolean) => {
     try {

@@ -43,7 +43,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="alternate" hreflang={lang === 'ja' ? 'en' : 'ja'} href={new URL(alternate, Astro.site).href} />
     <link rel="alternate" hreflang={lang} href={canonical.href} />
     <link rel="preconnect" href="https://www.pokemon-card.com" />
-    <link rel="preconnect" href="https://assets.tcgdex.net" />
     <title>{fullTitle}</title>
   </head>
   <body>

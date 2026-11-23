@@ -1,6 +1,6 @@
 ---
 import type { Artist } from '../lib/schema';
-import { catalogFor, PAGE_SIZE } from '../lib/cards';
+import { catalogFor } from '../lib/cards';
 import { copy, type Lang } from '../lib/i18n';
 import SocialLinks from './SocialLinks.astro';
 import SuggestionForm from './SuggestionForm.astro';
@@ -10,45 +10,22 @@ const { artist, lang } = Astro.props;
 const t = copy[lang];
 const catalog = catalogFor(artist.id, lang);
 const cards = catalog.cards;
-const hasBothFormats = cards.some(card=>card.kind==='pocket') && cards.some(card=>card.kind!=='pocket');
-const pokemonLabels=[...new Map(cards.flatMap(c=>(c.pokemon||[]).map(p=>[p.id,p.name] as const)))].sort((a,b)=>a[1].localeCompare(b[1],lang));
 ---
-<section class="illustrator-profile" data-artist={artist.id} data-lang={lang} data-source-lang={catalog.language} data-version={catalog.version} data-count-label={t.cardCount} data-count-singular={t.cardCountSingular} data-failed={t.loadFailed}>
+<section class="illustrator-profile" data-artist={artist.id} data-lang={lang}>
   <header class="profile-header">
-    {artist.avatar ? <img class="artist-avatar profile-avatar" src={artist.avatar} width="76" height="76" alt="" decoding="async" /> : <span class="artist-avatar artist-avatar--text profile-avatar">{artist.name.slice(0,1)}</span>}
+    {artist.avatar ? <img class="artist-avatar profile-avatar" src={artist.avatar} width="400" height="400" alt="" decoding="async" fetchpriority="high" /> : <span class="artist-avatar artist-avatar--text profile-avatar">{artist.name.slice(0,1)}</span>}
     <div class="profile-identity">
       <h1>{artist.name}</h1>
       <SocialLinks artist={artist} lang={lang} />
-      <div class="profile-count-row"><div class="illustration-count-wrap"><p class="profile-count">{cards.length.toLocaleString(lang)} {cards.length===1?t.cardCountSingular:t.cardCount}</p><button class="illustration-info" type="button" aria-label={t.uniqueInfoLabel} aria-expanded="false" aria-describedby="illustration-count-info"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle class="info-dot" cx="12" cy="7.5" r="1"/></svg></button><p id="illustration-count-info" class="illustration-tooltip" role="tooltip" hidden>{t.uniqueInfo}</p></div>
-      <div class="profile-filter-action"><button class="filter-trigger" type="button" aria-haspopup="dialog" aria-controls="gallery-filter-dialog"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5h14M5 10h10M7 15h6"/></svg>{t.filters}<span class="filter-count" hidden></span></button></div></div>
     </div>
   </header>
   <h2 class="sr-only">{t.cardsHeading}</h2>
-  <dialog id="gallery-filter-dialog" class="filter-dialog" aria-labelledby="filter-title">
-    <form class="gallery-controls">
-      <header class="filter-header"><h2 id="filter-title">{t.filters}</h2><button class="filter-close" type="button" aria-label={t.closeFilters}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button></header>
-    <div class="gallery-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><label class="sr-only" for="card-query">{t.searchCards}</label><input id="card-query" type="search" placeholder={t.searchCards} autocomplete="off" /><button class="search-clear card-query-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button></div>
-      <div class="filter-fields">
-        <label for="card-pokemon">{t.pokemonLabel}<select id="card-pokemon"><option value="">{t.allPokemon}</option>{pokemonLabels.map(([id,name])=><option value={id}>{name}</option>)}</select></label>
-        <label for="card-rarity">{t.rarityLabel}<select id="card-rarity"><option value="">{t.allRarities}</option>{[...new Set(cards.map(c=>c.rarity).filter(Boolean))].sort().map(rarity=><option value={rarity}>{rarity}</option>)}</select></label>
-        <label for="card-order">{t.orderCards}<select id="card-order"><option value="newest">{t.newestCards}</option><option value="oldest">{t.oldestCards}</option><option value="pokemon">{t.pokemonOrder}</option><option value="name">{t.nameOrder}</option></select></label>
-      </div>
-      {hasBothFormats && <fieldset class="filter-switches"><legend>{t.cardTypes}</legend>
-        <label>{t.tcgLabel}<input aria-label={t.showTCG} type="checkbox" data-display="tcg" checked /></label>
-        <label>{t.pocketLabel}<input aria-label={t.showPocket} type="checkbox" data-display="pocket" checked /></label>
-      </fieldset>}
-      <footer class="filter-actions"><button class="filter-reset" type="button"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16 6v4h-4M16 10a6 6 0 1 0-1.2 3.6"/></svg>{t.resetFilters}</button><button class="filter-done" type="submit">{t.doneFilters}</button></footer>
-    </form>
-  </dialog>
-  <div class="card-gallery" id="card-gallery" aria-label={`${artist.name} · ${t.cardsHeading}`}>
-    {cards.slice(0, PAGE_SIZE).map(card => <GalleryCard card={card} lang={lang} />)}
-  </div>
-  {!cards.length && <p class="no-results">{t.noCatalogCards}</p>}
-  <div class="gallery-pagination">
-    {cards.length > PAGE_SIZE && <button class="load-more" type="button" data-page="2" data-loading={t.loadingCards} data-idle={t.loadMore} data-failed={t.loadFailed} data-unavailable={t.unavailableImage}>{t.loadMore}</button>}
-    <p class="gallery-status" role="status" aria-live="polite"></p>
-  </div>
-  <p class="catalog-attribution">{catalog.source && <><a href={catalog.source} target="_blank" rel="noopener noreferrer">The Art of Pokémon</a> · </>}<a href="https://tcgdex.dev/" target="_blank" rel="noopener noreferrer">TCGdex</a> · <a href="https://www.pokemon-card.com/card-search/" target="_blank" rel="noopener noreferrer">Pokémon</a></p>
+  {cards.length ? <div class="gallery-preview">
+    <div class="card-gallery" id="card-gallery" aria-label={`${artist.name} · ${t.cardsHeading}`}>
+      {cards.map(card => <GalleryCard card={card} lang={lang} />)}
+    </div>
+    <a class="see-all" href={catalog.source} target="_blank" rel="noopener noreferrer" aria-label={t.seeAllLabel.replace('{name}',artist.name)}>{t.seeAll}<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 14 14 6M6 6h8v8"/></svg></a>
+  </div> : <div class="preview-empty"><p>{t.noCatalogCards}</p><a class="see-all" href={catalog.source} target="_blank" rel="noopener noreferrer">{t.seeAll}</a></div>}
   <dialog tabindex="-1" class="card-viewer" aria-label={t.closeCard}>
     <div class="viewer-content">
       <div class="viewer-image-wrap"><img class="viewer-preview" alt="" draggable="false" /><img class="viewer-image" alt="" draggable="false" /><span class="artwork-glare" aria-hidden="true"></span></div>

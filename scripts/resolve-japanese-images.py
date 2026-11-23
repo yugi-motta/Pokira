@@ -4,7 +4,6 @@ printed collector number from the official detail page, never by list order.
 """
 import concurrent.futures, hashlib, html, json, pathlib, re, time, urllib.request, urllib.parse
 ROOT=pathlib.Path(__file__).resolve().parents[1];CACHE=ROOT/'.cache/japanese-originals';CACHE.mkdir(parents=True,exist_ok=True)
-IMAGE_OVERRIDES=json.loads((ROOT/'src/data/japanese-image-overrides.json').read_text())
 def get(url):
  p=CACHE/(hashlib.sha256(url.encode()).hexdigest()+'.txt')
  ttl=86400 if 'resultAPI.php' in url else 30*86400
@@ -52,25 +51,6 @@ def process(file):
   if candidates:
    c['width']=868;c['height']=1212
    original=candidates[0];url='https://www.pokemon-card.com'+original['cardThumbFile'];c['high']=url;c['thumbnail']=url;c['imageSource']='https://www.pokemon-card.com/card-search/details.php/card/'+original['cardID']+'/regu/all'
-  elif s['artistId']=='usgmen':
-   pocket={
-    'ホエルオーex':'https://pbs.twimg.com/media/HRC-asBbwAACW9v.jpg',
-    'メガヤドランex':'https://pbs.twimg.com/media/HHeOcyybwAAyDL0.jpg',
-    'デリバード':'https://pbs.twimg.com/media/HAJVULmbAAArkfZ.jpg',
-    'オドリドリ':'https://pbs.twimg.com/media/GsbtWkebIAAQEuT.jpg',
-    'ビーダルex':'https://pbs.twimg.com/media/GqLdyxFbMAAkJn_.jpg',
-    'コダック':'https://usgmen.com/wp-content/uploads/2026/07/171330dc0829cb233d93de2be0f24c11.png',
-    'ヤドン':'https://usgmen.com/wp-content/uploads/2026/07/56d7c6529596ea169219ec628eb60c81.png',
-    'ヌオー':'https://usgmen.com/wp-content/uploads/2026/07/544c5d12af7d458afde86a3eaf44c5b2.png',
-    'ヌメラ':'https://usgmen.com/wp-content/uploads/2026/07/ae52061b87e90c617e5679da9d4d3a1a.png'}
-   if c['ja'] in pocket:
-    c['width']=734;c['height']=1024
-    c['high']=pocket[c['ja']];c['thumbnail']=pocket[c['ja']].replace('.png','-215x300.png') if 'usgmen.com/wp-content/' in pocket[c['ja']] else pocket[c['ja']].replace('.jpg','?format=jpg&name=small')
-    c['imageSource']='https://usgmen.com/work/3092' if 'usgmen.com' in c['high'] else next(p['url'] for p in artist['announcements'] if any(n in c['ja'] for n in p['pokemon']))
-  override=IMAGE_OVERRIDES.get(c['source'])
-  if override:
-   if override['artistId']!=s['artistId']:raise ValueError('Image override illustrator mismatch: '+c['source'])
-   c.update({key:override[key] for key in ['high','thumbnail','width','height','imageSource']})
  print(s['artistId'],sum(bool(c['high']) for c in s['cards']),'/',len(s['cards']),flush=True)
  return file,s
 files=list((ROOT/'src/data/japanese-catalog').glob('*.json'))

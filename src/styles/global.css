@@ -388,6 +388,34 @@ html[data-theme=dark] .about-copy{color:#b8b8c1}
 .about-disclaimer h3{margin:0 0 12px;font-size:12px;font-weight:650;color:#55555e}
 .about-disclaimer p{margin-bottom:13px}
 html[data-theme=dark] .about-disclaimer{background:#29292f}
+
+/* Social-first profiles with a short, rarity-ordered artwork preview. */
+:root{--preview-background:#f5f5f7}
+html[data-theme=dark]{--preview-background:#121214}
+.illustrator-profile .profile-header{display:flex;flex-direction:column;align-items:center;gap:18px;padding:30px 0 42px;margin:0 auto;text-align:center}
+.profile-header .profile-avatar{align-self:center;grid-column:auto;grid-row:auto;width:112px;height:112px;margin:0}
+.profile-identity{display:flex;flex-direction:column;align-items:center;width:100%;min-width:0}
+.profile-identity h1{grid-column:auto;grid-row:auto;margin:0 0 15px;font-size:30px}
+.profile-identity .artist-socials{grid-column:auto;grid-row:auto;justify-content:safe center;flex-wrap:nowrap;width:max-content;max-width:100%;margin:0 auto;padding:2px 0;overflow-x:auto;scrollbar-width:none}
+.profile-identity .artist-socials a{min-height:36px;padding:7px 13px;font-size:12px;flex:none}
+.gallery-preview{position:relative;isolation:isolate;--preview-fade-height:200px}
+.gallery-preview::after{content:"";position:absolute;z-index:3;inset-inline:-2px;bottom:-2px;height:var(--preview-fade-height);background:linear-gradient(to bottom,transparent 0%,var(--preview-background) 92%);pointer-events:none}
+.see-all{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 24px;border:0;border-radius:999px;background:#1d1d1f;color:#fff;font-size:13px;font-weight:600;box-shadow:0 6px 24px #0001;transition:background .2s,transform .2s,box-shadow .2s}
+.gallery-preview>.see-all{position:absolute;z-index:4;bottom:25px;left:50%;transform:translateX(-50%);white-space:nowrap}
+.see-all svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.see-all:hover{background:#393940;box-shadow:0 8px 28px #0002}
+.gallery-preview>.see-all:hover{transform:translateX(-50%) translateY(-2px)}
+html[data-theme=dark] .see-all{background:#f5f5f7;color:#1d1d1f}
+html[data-theme=dark] .see-all:hover{background:#fff}
+.preview-empty{text-align:center;padding:30px 0 70px;color:#8e8e93}
+.directory-suggestion{display:flex;justify-content:center;margin:30px auto 0}
+.search-suggest{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 17px;border:0;border-radius:999px;background:#eaeaef;color:#55555e;font-size:12px;font-weight:600;transition:background .2s,color .2s}
+.search-suggest svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.search-suggest:hover{background:#dfdfe6;color:#1d1d1f}
+.search-sheet>.search-suggest{justify-content:space-between;width:calc(100% - 16px);margin:8px;border-radius:12px}
+html[data-theme=dark] .search-suggest{background:#2b2b32;color:#dedee6}
+html[data-theme=dark] .search-suggest:hover{background:#3a3a43;color:#fff}
+@media(max-width:640px){.illustrator-profile .profile-header{gap:17px;padding:25px 0 32px}.profile-header .profile-avatar{width:84px;height:84px}.profile-identity h1{font-size:27px}.gallery-preview>.see-all{bottom:22px}}
 html[data-theme=dark] .about-disclaimer h3{color:#d3d3dd}
 .gallery-search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
 .filter-dialog .gallery-search input{padding-right:42px}

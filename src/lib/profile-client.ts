@@ -1,10 +1,6 @@
 import type { CatalogCard } from './cards';
-import { responsiveCardImages } from './card-images';
-import { filterCards } from './catalog-view';
 const root = document.querySelector<HTMLElement>('.illustrator-profile');
 const gallery = root?.querySelector<HTMLElement>('.card-gallery');
-const more = root?.querySelector<HTMLButtonElement>('.load-more');
-const status = root?.querySelector<HTMLElement>('.gallery-status');
 const dialog = root?.querySelector<HTMLDialogElement>('.card-viewer');
 const viewerImage = dialog?.querySelector<HTMLImageElement>('.viewer-image');
 const viewerPreview = dialog?.querySelector<HTMLImageElement>('.viewer-preview');
@@ -29,92 +25,6 @@ const updateFade = () => { if (social) { social.dataset.before = String(social.s
 social?.addEventListener('scroll', updateFade, { passive: true });
 if (social) new ResizeObserver(updateFade).observe(social);
 updateFade();
-const controls = root?.querySelector<HTMLFormElement>('.gallery-controls');
-const cardQuery = root?.querySelector<HTMLInputElement>('#card-query');
-const pokemonFilter=root?.querySelector<HTMLSelectElement>('#card-pokemon');
-const rarityFilter = root?.querySelector<HTMLSelectElement>('#card-rarity');
-const orderFilter = root?.querySelector<HTMLSelectElement>('#card-order');
-let allCards: CatalogCard[] | null = more ? null : [...(gallery?.querySelectorAll<HTMLElement>('[data-card]') || [])].map(e=>JSON.parse(e.dataset.card!));
-let catalogRequest: Promise<CatalogCard[]> | null = null;
-let visibleLimit = 24;
-let renderVersion = 0;
-async function loadCatalog(): Promise<CatalogCard[]> {
-  if (allCards) return allCards;
-  if (!root) return [];
-  if (!catalogRequest) catalogRequest = fetch(`/api/artists/${root.dataset.artist}/${root.dataset.lang}/all.json?v=${encodeURIComponent(root.dataset.version || '')}`).then(async response => {
-    if (!response.ok) throw new Error('Could not load gallery');
-    const data: {version:string;cards:CatalogCard[]} = await response.json();
-    if (data.version !== root.dataset.version) throw new Error('Catalog changed; reload before filtering');
-    allCards=data.cards; return data.cards;
-  }).catch(error=>{catalogRequest=null;throw error;});
-  return catalogRequest;
-}
-function makeCard(card: CatalogCard) {
-  const button=document.createElement('button');button.type='button';button.className='gallery-card';button.dataset.card=JSON.stringify(card);button.setAttribute('aria-label',card.name);
-  const thumb=document.createElement('span');thumb.className='artwork-thumb';thumb.style.aspectRatio=`${card.imageWidth || 600}/${card.imageHeight || 825}`;
-  const image=document.createElement('img');const sources=responsiveCardImages(card);image.src=sources.src;if(sources.srcset)image.srcset=sources.srcset;image.sizes=sources.sizes;image.width=245;image.height=337;image.alt=card.name;image.loading='lazy';image.decoding='async';thumb.append(image);
-  const glare=document.createElement('span');glare.className='artwork-glare';glare.setAttribute('aria-hidden','true');thumb.append(glare);
-  button.append(thumb);return button;
-}
-async function renderCards(append = false) {
-  if(!gallery||!root||!status)return;
-  const version=++renderVersion;
-  if(more){more.disabled=true;more.textContent=more.dataset.loading||'';}
-  gallery.setAttribute('aria-busy','true');status.textContent='';
-  try {
-    const cards=await loadCatalog();if(version!==renderVersion)return;
-    const filtered=filterCards(cards,cardQuery?.value||'','',rarityFilter?.value||'',orderFilter?.value||'newest',{pokemonId:pokemonFilter?.value,hidePocket:display.pocket===false,hideTCG:display.tcg===false,locale:root.dataset.lang});
-    const fragment=document.createDocumentFragment();
-    const start=append?gallery.children.length:0;
-    filtered.slice(start,visibleLimit).forEach(card=>fragment.append(makeCard(card)));
-    animateCards(fragment);settleImages(fragment);
-    if(append)gallery.append(fragment);
-    else{resetThumbnailTilt();gallery.replaceChildren(fragment);}
-    if(more)more.hidden=filtered.length<=visibleLimit;
-    status.textContent=`${filtered.length.toLocaleString(root.dataset.lang)} ${filtered.length===1?root.dataset.countSingular:root.dataset.countLabel}`;
-  }catch{status.textContent=more?.dataset.failed||root.dataset.failed||'';}
-  finally{if(version===renderVersion){if(more){more.disabled=false;more.textContent=more.dataset.idle||'';}gallery.removeAttribute('aria-busy');}}
-}
-controls?.addEventListener('submit',event=>{event.preventDefault();clearTimeout(queryTimer);visibleLimit=24;void renderCards();updateFilterCount();closeFilters();});
-let queryTimer: ReturnType<typeof setTimeout>;
-cardQuery?.addEventListener('input',()=>{clearTimeout(queryTimer);queryTimer=setTimeout(()=>{visibleLimit=24;void renderCards();updateFilterCount();},180);});
-for(const select of [pokemonFilter,rarityFilter,orderFilter])select?.addEventListener('change',()=>{visibleLimit=24;void renderCards();});
-const display={pocket:true,tcg:true};
-const displayKeys=['pocket','tcg'] as const;
-try{const saved=root?.querySelector('.filter-switches')?JSON.parse(localStorage.getItem('pokira-gallery-display')||'{}'):{};for(const key of displayKeys)if(typeof saved[key]==='boolean')display[key]=saved[key];}catch{}
-const filterDialog=root?.querySelector<HTMLDialogElement>('.filter-dialog');
-const filterTrigger=root?.querySelector<HTMLButtonElement>('.filter-trigger');
-let filterOverflow='';
-function updateDisplay(){
- root?.querySelectorAll<HTMLInputElement>('[data-display]').forEach(input=>{input.checked=display[input.dataset.display as keyof typeof display];});
- updateFilterCount();
-}
-function updateFilterCount(){
- const count=Number(Boolean(cardQuery?.value.trim()))+Number(Boolean(pokemonFilter?.value))+Number(Boolean(rarityFilter?.value))+Number(orderFilter?.value!=='newest')+displayKeys.filter(key=>!display[key]).length;
- const badge=filterTrigger?.querySelector<HTMLElement>('.filter-count');if(badge){badge.textContent=String(count);badge.hidden=!count;}
-}
-function saveDisplay(){try{localStorage.setItem('pokira-gallery-display',JSON.stringify(display));}catch{}}
-function closeFilters(){
- if(!filterDialog?.open || filterDialog.dataset.closing)return;
- filterDialog.dataset.closing='true';setTimeout(()=>{filterDialog.close();delete filterDialog.dataset.closing;},180);
-}
-filterTrigger?.addEventListener('click',()=>{if(!filterDialog)return;filterOverflow=document.body.style.overflow;document.body.style.overflow='hidden';filterDialog.showModal();});
-filterDialog?.querySelector('.filter-close')?.addEventListener('click',closeFilters);
-filterDialog?.addEventListener('click',event=>{if(event.target===filterDialog)closeFilters();});
-filterDialog?.addEventListener('cancel',event=>{event.preventDefault();closeFilters();});
-filterDialog?.addEventListener('close',()=>{document.body.style.overflow=filterOverflow;filterTrigger?.focus({preventScroll:true});});
-filterDialog?.querySelector('.filter-reset')?.addEventListener('click',()=>{
- controls?.reset();if(cardQuery)cardQuery.value='';for(const key of displayKeys)display[key]=true;
- updateDisplay();saveDisplay();visibleLimit=24;void renderCards();
-});
-for(const select of [pokemonFilter,rarityFilter,orderFilter])select?.addEventListener('change',updateFilterCount);
-updateDisplay();
-root?.querySelectorAll<HTMLInputElement>('[data-display]').forEach(input=>input.addEventListener('change',()=>{
- const key=input.dataset.display as keyof typeof display;display[key]=input.checked;updateDisplay();saveDisplay();
- if(key==='pocket'||key==='tcg'){visibleLimit=24;void renderCards();}
-}));
-if(!display.pocket || !display.tcg){gallery?.querySelectorAll<HTMLElement>('[data-card]').forEach(card=>{const kind=JSON.parse(card.dataset.card!).kind;if(kind==='pocket'?!display.pocket:!display.tcg)card.remove();});void renderCards();}
-more?.addEventListener('click',()=>{visibleLimit+=24;void renderCards(true);});
 // Warm only the card the visitor is about to open, never the whole gallery.
 const warmed = new Map<string, HTMLImageElement>();
 function warmCard(event: Event) {
@@ -143,7 +53,7 @@ function resetThumbnailTilt(){
  hoveredSurface?.style.setProperty('--tilt-x','0deg');hoveredSurface?.style.setProperty('--tilt-y','0deg');hoveredSurface?.style.setProperty('--glare-opacity','0');
  hoveredCard?.classList.remove('is-tilting');hoveredCard=null;hoveredSurface=null;
 }
-// Delegate to the gallery so filtered and newly loaded illustrations work too.
+// Keep the card tilt interaction delegated to the preview gallery.
 gallery?.addEventListener('pointermove',event=>{
  if(event.pointerType==='touch'||reducedMotion.matches||!finePointer.matches||dialog?.open){resetThumbnailTilt();return;}
  const button=(event.target as HTMLElement).closest<HTMLButtonElement>('.gallery-card');
@@ -215,18 +125,11 @@ dialog?.addEventListener('close',()=>{
  lastTrigger?.classList.remove('is-expanded');
  if(viewerImage){viewerImage.onload=null;viewerImage.onerror=null;viewerImage.removeAttribute('src');}viewerPreview?.removeAttribute('src');if(openedWithKeyboard)lastTrigger?.focus({preventScroll:true});else lastTrigger?.blur();
 });
-const infoButton=root?.querySelector<HTMLButtonElement>('.illustration-info');
-const infoWrap=root?.querySelector<HTMLElement>('.illustration-count-wrap');
-const info=root?.querySelector<HTMLElement>('.illustration-tooltip');let pinned=false;
-function showInfo(){if(!info||!infoButton)return;info.hidden=false;info.style.left='0px';const rect=info.getBoundingClientRect();info.style.left=`${Math.min(0,innerWidth-16-rect.right)}px`;infoButton.setAttribute('aria-expanded','true');}
-function hideInfo(){if(info)info.hidden=true;infoButton?.setAttribute('aria-expanded','false');}
-infoWrap?.addEventListener('mouseenter',showInfo);infoWrap?.addEventListener('mouseleave',()=>{if(!pinned)hideInfo();});
-infoButton?.addEventListener('focus',showInfo);infoButton?.addEventListener('blur',()=>{if(!pinned)hideInfo();});
-infoButton?.addEventListener('click',()=>{pinned=!pinned;if(pinned)showInfo();else hideInfo();});
-document.addEventListener('pointerdown',event=>{if(!infoWrap?.contains(event.target as Node)){pinned=false;hideInfo();}});
-infoButton?.addEventListener('keydown',event=>{if(event.key==='Escape'){pinned=false;hideInfo();}});
-const queryClear=root?.querySelector<HTMLButtonElement>('.card-query-clear');
-function syncQueryClear(){if(queryClear)queryClear.hidden=!cardQuery?.value;}
-cardQuery?.addEventListener('input',syncQueryClear);
-controls?.addEventListener('reset',()=>{if(queryClear)queryClear.hidden=true;});
-queryClear?.addEventListener('click',()=>{if(!cardQuery)return;cardQuery.value='';clearTimeout(queryTimer);syncQueryClear();visibleLimit=24;void renderCards();updateFilterCount();cardQuery.focus();});
+
+// Size the continuation fade to the final row at every responsive breakpoint.
+function updatePreviewFade(){
+ if(!gallery)return;
+ const last=gallery.querySelector<HTMLElement>('.gallery-card:last-child');
+ if(last)gallery.parentElement?.style.setProperty('--preview-fade-height',`${last.getBoundingClientRect().height*.76}px`);
+}
+if(gallery){new ResizeObserver(updatePreviewFade).observe(gallery);updatePreviewFade();}

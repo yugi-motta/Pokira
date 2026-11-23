@@ -40,6 +40,7 @@ const t = copy[lang];
     })}
   </div>
   <p id="no-results" class="no-results" hidden>{t.noResults}</p>
+  <div class="directory-suggestion"><button class="search-suggest" data-suggest type="button">{t.suggestArtist}<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 4h12v9H8l-4 3V4Z"/><path d="M7 7h6M7 10h4"/></svg></button></div>
   <span id="result-count" class="sr-only" aria-live="polite">{artists.length}</span>
   <SuggestionForm lang={lang} />
 </section>
