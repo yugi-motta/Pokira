@@ -4,7 +4,7 @@ Pokira helps visitors discover and follow illustrators. It shows a short selecti
 
 ## Selection and image sources
 
-- Profiles show at most 15 distinct illustrations. The homepage shows the first six from the same selection.
+- Profiles show at most 15 distinct illustrations. The homepage shows the first five from the same selection.
 - Every displayed card image loads directly from `https://www.pokemon-card.com/assets/images/card_images/large/`. No card image is served by Pokira, X, TCGdex, CardCorpus, or another third-party image host.
 - X remains the avatar source. Verified larger public avatar variants replace 96-pixel thumbnails where available; source resolution remains the upper limit.
 - Images stay Japanese in both interface languages. Only the presentation text changes.

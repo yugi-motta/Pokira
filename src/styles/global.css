@@ -330,7 +330,7 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 .directory .artist-content{display:block;padding:20px}
 .directory .artist-artworks{width:calc(100% + 40px);margin:16px -20px -2px;padding:0 20px 2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:auto;overscroll-behavior-x:contain}
 .directory .artist-artworks::-webkit-scrollbar{display:none}
-.directory .artwork-thumb{flex:0 0 max(82px,calc((100% - 35px)/6));width:max(82px,calc((100% - 35px)/6))}
+.directory .artwork-thumb{flex:0 0 max(82px,calc((100% - 28px)/5));width:max(82px,calc((100% - 28px)/5))}
 .directory .artist-socials{flex-wrap:nowrap;max-width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:auto;padding-bottom:2px}
 .directory .artist-socials a{flex:none;max-width:none}.directory .artist-socials a span{overflow:visible}
 .directory .artist-artworks[data-more=true]{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}

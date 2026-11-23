@@ -48,7 +48,7 @@ test('every illustrator has a capped, rarity-ordered official preview with ident
 test('homepage thumbnails use the same rarity-first selection as profiles',()=>{
  for(const lang of ['en','ja']){
   const html=readFileSync(`dist/${lang==='en'?'en/':''}index.html`,'utf8');
-  for(const artist of artists){const article=html.split(`id="${artist.id}"`)[1].split('</article>')[0];const expected=cardsFor(artist.id,lang).slice(0,6);
+  for(const artist of artists){const article=html.split(`id="${artist.id}"`)[1].split('</article>')[0];const expected=cardsFor(artist.id,lang).slice(0,5);
    assert.equal((article.match(/class="artwork-thumb"/g)||[]).length,expected.length);
    for(const card of expected)assert.ok(article.includes(card.thumbnail!.replaceAll('&','&amp;')));
   }
