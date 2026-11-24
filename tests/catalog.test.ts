@@ -63,7 +63,7 @@ test('profiles replace counts, filters and pagination with an external continuat
   for(const obsolete of ['class="profile-count"','gallery-filter-dialog','class="load-more"','illustration-count-info','class="gallery-pagination"'])assert.ok(!html.includes(obsolete),obsolete);
   const source=JSON.parse(readFileSync(`src/data/japanese-catalog/${artist.id}.json`,'utf8')).source;
   assert.ok(html.includes(`class="see-all" href="${source}" target="_blank"`));
-  assert.ok(html.includes(lang==='en'?'See all':'すべて見る'));
+  assert.ok(html.includes(lang==='en'?'See all on artofpkm.com':'artofpkm.comですべて見る'));
   assert.ok(html.includes('class="card-viewer"'));assert.ok(!html.includes('viewer-close'));
  }
 });

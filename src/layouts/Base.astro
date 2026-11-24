@@ -32,7 +32,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       document.documentElement.dataset.theme = initialTheme;
       document.querySelector('meta[name="theme-color"]').content = initialTheme === 'dark' ? '#121214' : '#f5f5f7';
     </script>
-    <link rel="icon" href="/pokira-logo-katakana.png" type="image/png" />
+    <link rel="icon" href="/pokira-icon.svg" type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href="/pokira-touch-icon.png" sizes="180x180" />
     <meta name="description" content={metaDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />

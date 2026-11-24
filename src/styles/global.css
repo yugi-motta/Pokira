@@ -354,7 +354,11 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 .gallery-card .artwork-thumb,.viewer-image-wrap{transform:perspective(1600px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .28s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}
 
 /* A proportional mask shared by every printed and Pocket card at any size. */
-.artwork-thumb,.gallery-card .artwork-thumb,.viewer-image-wrap{border-radius:5.4% / 3.86590909%}
+.artwork-thumb,.gallery-card .artwork-thumb,.viewer-image-wrap{--card-radius-x:5.4%;--card-radius-y:3.86590909%;border-radius:var(--card-radius-x) / var(--card-radius-y);isolation:isolate}
+/* Clip the image's own paint layer, including its first decoded frame. This
+   keeps transformed/fading cards rounded even before ancestor clipping settles. */
+.artwork-thumb img,.viewer-image-wrap img{border-radius:inherit;clip-path:inset(0 round var(--card-radius-x) / var(--card-radius-y))}
+.artwork-thumb::before{border-radius:inherit}
 .illustration-count-wrap{gap:3px}
 .illustration-info{padding:1px}
 .illustration-info svg{width:17px;height:17px;stroke-width:1.7}
@@ -468,3 +472,4 @@ html[data-theme=dark] .profile-identity .artist-socials a:hover{background:#fff;
 .directory #no-results{grid-column:1/-1;margin:10px 0}
 html[data-theme=dark] .suggestion-avatar{background:#303036;color:#9999a4}
 html[data-theme=dark] .suggestion-artwork{border-color:#50505c;background:#25252980}
+@media(max-width:640px){.directory .artist-artworks{grid-template-columns:repeat(4,minmax(0,1fr))}.directory .artist-artworks>:nth-child(n+5){display:none}}
