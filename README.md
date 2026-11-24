@@ -1,6 +1,6 @@
 # Pokira
 
-A Japanese-first directory of Pokémon TCG illustrators and their original X announcements. Built with Astro, TypeScript, file-based JSON, and CSS. A Cloudflare Pages Function handles artist suggestions once email delivery is configured.
+A Japanese-first directory of Pokémon TCG illustrators and their original X announcements. Built with Astro, TypeScript, file-based JSON, and CSS. A Cloudflare Pages Function validates illustrator suggestions before email delivery.
 
 **Live site:** https://pokira.pages.dev/  
 **Source:** https://github.com/yugi-motta/Pokira
@@ -70,19 +70,15 @@ To recreate the deployment in another account: create a free public GitHub repos
 
 Cloudflare Pages serves the directory and runs the suggestion endpoint. Card images depend on X's public image CDN being available in the visitor's browser.
 
-## Artist suggestions
+## Illustrator suggestions
 
-The small form below the directory accepts optional visitor name and email, plus a required artist X profile and an original X post showing the artist's work. Both links must be HTTPS X/Twitter URLs from the same handle. The Pages Function at `functions/api/suggestions.ts` validates them and sends a plain-text email through Resend.
+The suggestion modal accepts optional visitor name and email, plus a required illustrator name and a specific artwork post on X/Twitter or Instagram. Profile-only links are rejected. Suggestions are addressed to **pokirahelp@outlook.com** (configured in `src/lib/suggestions-config.ts`).
 
-The inbox does not exist yet, so email delivery is intentionally unconfigured. Until setup is complete, the endpoint returns `503` and the form tells visitors that the inbox is not ready; it never claims a suggestion was sent. When the address is ready, verify a sending domain with Resend and add these production runtime variables in Cloudflare Pages **Settings → Variables and Secrets**, then redeploy:
+The Pages Function at `functions/api/suggestions.ts` validates each submission. With no email secrets configured, it returns `forward`; the browser then uses [FormSubmit’s documented AJAX endpoint](https://formsubmit.co/ajax-documentation). This is a browser transport, not a server-side proxy. FormSubmit requires the inbox owner to confirm its one-time activation email before messages are delivered. The initial setup submission triggers that email; pending submissions are retained by the provider until confirmation. There is no FormSubmit account or sending-domain setup required.
 
-```text
-SUGGESTIONS_TO_EMAIL=your-real-inbox@example.com
-SUGGESTIONS_FROM_EMAIL=Pokira <suggestions@your-verified-domain.example>
-RESEND_API_KEY=re_your_secret_key
-```
+After the provider accepts a submission, the modal closes without moving the page and a localized toast appears at the top for six seconds. Validation failures and delivery errors keep the form open; they never display the success toast. FormSubmit activation-required responses show the setup-unavailable message instead.
 
-The values in `.env.example` are placeholders only. Keep the API key in Cloudflare Secrets, not in Git. The form will begin sending as soon as the three real values are present.
+Existing Resend delivery remains supported as an alternative. Configure both `SUGGESTIONS_FROM_EMAIL` (on a verified sending domain) and `RESEND_API_KEY` as production runtime values in Cloudflare Pages **Settings → Variables and Secrets**. The recipient remains pokirahelp@outlook.com. Keep the key out of Git. A failed Resend send is not retried through another provider, avoiding duplicate emails.
 
 ## Content verification
 

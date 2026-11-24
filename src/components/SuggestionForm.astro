@@ -1,5 +1,6 @@
 ---
 import { copy, type Lang } from '../lib/i18n';
+import { suggestionsFallback } from '../lib/suggestions-config';
 
 interface Props { lang: Lang; }
 const t = copy[Astro.props.lang];
@@ -11,6 +12,7 @@ const t = copy[Astro.props.lang];
       </button>
       <h2 id="suggestion-title">{t.suggestArtist}</h2>
       <form id="suggestion-form" action="/api/suggestions" method="post"
+    data-fallback={suggestionsFallback}
     data-invalid-link={t.invalidXLink}
     data-link-mismatch={t.linkMismatch}
     data-sending={t.sendingSuggestion}
@@ -41,6 +43,8 @@ const t = copy[Astro.props.lang];
   let previousScroll = { left: 0, top: 0 };
   let lastTrigger:HTMLButtonElement|null=null;
   let openedWithKeyboard=false;
+  let announceOnClose=false;
+  const announceSuccess=()=>document.dispatchEvent(new Event('pokira:suggestion-sent'));
   triggers.forEach(trigger=>trigger.addEventListener('click', event => {
     if (!dialog || dialog.open) return;
     lastTrigger=trigger;
@@ -68,6 +72,7 @@ const t = copy[Astro.props.lang];
     focusTarget?.focus({ preventScroll: true });
     if(!openedWithKeyboard)focusTarget?.blur();
     window.scrollTo({ ...previousScroll, behavior: 'instant' });
+    if(announceOnClose){announceOnClose=false;announceSuccess();}
   });
   const socialLink = (value: string, post: boolean) => {
     try {
@@ -97,11 +102,25 @@ const t = copy[Astro.props.lang];
     button.disabled = true;
     status.textContent = form.dataset.sending || '';
     try {
-      const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-      const result: { code?: string } = await response.json();
+      const fields=new FormData(form);
+      let response = await fetch(form.action, { method: 'POST', body: fields, headers: { Accept: 'application/json' } });
+      let result: { code?: string } = await response.json();
+      // FormSubmit's documented browser AJAX transport needs no sending-domain
+      // credentials. The first request still runs our server-side validation.
+      if(((response.ok&&result.code==='forward')||(response.status===503&&result.code==='unavailable'))&&form.dataset.fallback){
+        fields.set('_honey',String(fields.get('website')||''));fields.delete('website');
+        fields.set('_subject',`Pokira illustrator suggestion: ${artistInput.value.replace(/[\r\n]/g,' ')}`);
+        fields.set('_template','table');fields.set('_captcha','false');
+        fields.set('_url',`${location.origin}${location.pathname}`);
+        response=await fetch(form.dataset.fallback,{method:'POST',body:fields,headers:{Accept:'application/json'}});
+        const delivered:{success?:boolean|string;message?:string}=await response.json();
+        const needsActivation=/activat|confirm.*email|verify.*email/i.test(delivered.message||'');
+        result={code:needsActivation?'unavailable':response.ok&&(delivered.success===true||delivered.success==='true')?'sent':'failed'};
+      }
       if (response.ok && result.code === 'sent') {
-        status.textContent = form.dataset.sent || '';
+        status.textContent = '';
         form.reset();
+        if(dialog?.open){announceOnClose=true;closeDialog();}else announceSuccess();
       } else {
         status.textContent = result.code === 'unavailable' ? form.dataset.unavailable || '' : form.dataset.failed || '';
       }

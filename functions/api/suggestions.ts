@@ -1,6 +1,7 @@
+import { suggestionsInbox } from '../../src/lib/suggestions-config';
+
 interface Env {
   RESEND_API_KEY?: string;
-  SUGGESTIONS_TO_EMAIL?: string;
   SUGGESTIONS_FROM_EMAIL?: string;
 }
 
@@ -60,8 +61,9 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
     return result(400, 'invalid');
   }
 
-  const { RESEND_API_KEY: key, SUGGESTIONS_TO_EMAIL: to, SUGGESTIONS_FROM_EMAIL: from } = env;
-  if (!key || !to || !from || /@[^@]+\.example$/i.test(to) || /@[^@]+\.example(?:>|$)/i.test(from)) {
+  const { RESEND_API_KEY: key, SUGGESTIONS_FROM_EMAIL: from } = env;
+  if (!key && !from) return result(200, 'forward');
+  if (!key || !from || /@[^@]+\.example(?:>|$)/i.test(from)) {
     return result(503, 'unavailable');
   }
 
@@ -75,7 +77,7 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
     const sent = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to: [to], subject: `Pokira illustrator suggestion: ${illustratorName.replace(/[\r\n]/g, " ")}`, text })
+      body: JSON.stringify({ from, to: [suggestionsInbox], subject: `Pokira illustrator suggestion: ${illustratorName.replace(/[\r\n]/g, " ")}`, text })
     });
     return sent.ok ? result(200, 'sent') : result(502, 'failed');
   } catch { return result(502, 'failed'); }

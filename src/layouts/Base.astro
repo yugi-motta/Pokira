@@ -3,6 +3,7 @@ import { copy, pathFor, type Lang } from '../lib/i18n';
 import '../styles/global.css';
 import IllustratorSearchResults from '../components/IllustratorSearchResults.astro';
 import AboutPokira from '../components/AboutPokira.astro';
+import SuggestionToast from '../components/SuggestionToast.astro';
 
 interface Props {
   lang: Lang;
@@ -92,6 +93,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       </footer>
     </div>
     <AboutPokira lang={lang} />
+    <SuggestionToast lang={lang} />
     <script is:inline>
       const menuButton = document.querySelector('.menu-toggle');
       const menuPanel = document.querySelector('#site-menu-panel');
