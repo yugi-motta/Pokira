@@ -55,7 +55,7 @@ export function catalogFor(id: string, lang: Lang) {
   });
   return {cards:selectPreview(eligible,artworkIdentities.images),language:'ja',
     source:japanese?.source||`https://www.artofpkm.com/illustrators/${id}`,
-    updatedAt:japanese?.updatedAt||'',version:`previews-v1:${japanese?.updatedAt||''}`};
+    updatedAt:japanese?.updatedAt||'',version:`previews-v2:${japanese?.updatedAt||''}`};
 }
 export const cardImage = (card: CatalogCard, quality: 'low' | 'high' = 'low') => quality === 'high' ? card.fullImage || (card.image ? `${card.image}/high.webp` : '') : card.thumbnail || (card.image ? `${card.image}/low.webp` : '');
 export const artistPath = (lang: Lang, id: string) => `${lang === 'en' ? '/en' : ''}/${id}/`;

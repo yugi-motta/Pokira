@@ -22,10 +22,16 @@ export function isOfficialCardImage(value:string|null|undefined){
  try{const url=new URL(value);return url.protocol==='https:'&&url.hostname==='www.pokemon-card.com'&&!url.username&&!url.password&&!url.port&&url.pathname.startsWith('/assets/images/card_images/large/');}catch{return false;}
 }
 type PreviewCard={id:string;number:string;releaseDate:string|null;rarity:string|null;image:string|null;fullImage?:string};
+// Official Japanese image filenames identify Trainer cards with the _T_ marker.
+// Names alone are unreliable: some Trainers include a Pokémon's name.
+export function isTrainerCard(card:Pick<PreviewCard,'image'|'fullImage'>){
+ const image=card.fullImage||card.image;
+ return Boolean(image&&isOfficialCardImage(image)&&/\/\d+_T_/.test(new URL(image).pathname));
+}
 export function selectPreview<T extends PreviewCard>(cards:T[],identities:Record<string,string>={}){
  const seen=new Set<string>();
  return cards.filter(c=>isOfficialCardImage(c.fullImage||c.image))
-  .sort((a,b)=>rarityRank(b.rarity)-rarityRank(a.rarity)||compareCards(a,b))
+  .sort((a,b)=>Number(isTrainerCard(a))-Number(isTrainerCard(b))||rarityRank(b.rarity)-rarityRank(a.rarity)||compareCards(a,b))
   .filter(card=>{const image=card.fullImage||card.image!;const key=identities[image]||image;if(seen.has(key))return false;seen.add(key);return true;})
   .slice(0,PREVIEW_LIMIT);
 }

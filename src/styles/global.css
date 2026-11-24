@@ -461,8 +461,12 @@ html[data-theme=dark] .profile-identity .artist-socials a:hover{background:#fff;
 @media(min-width:901px) and (max-width:1100px){.card-gallery .gallery-card:nth-child(n+9){display:none}}
 @media(min-width:641px) and (max-width:900px){.card-gallery .gallery-card:nth-child(n+10){display:none}}
 @media(max-width:640px){.card-gallery .gallery-card:nth-child(n+7){display:none}}
-.suggestion-card,.suggestion-card *{cursor:default}
-.suggestion-card button,.suggestion-card button *{cursor:pointer}
+.suggestion-card,.suggestion-card *{cursor:pointer}
+.suggestion-card-action .search-suggest{position:static}
+.suggestion-card-action .search-suggest::after{content:"";position:absolute;inset:0;z-index:3;border-radius:21px}
+.suggestion-card-action .search-suggest:focus-visible{outline:0}
+.suggestion-card-action .search-suggest:focus-visible::after{outline:2px solid #8e8e93;outline-offset:4px}
+@media(max-width:480px){.suggestion-card-action .search-suggest::after{border-radius:19px}}
 .suggestion-avatar{display:grid;place-items:center;background:#efeff3;color:#a1a1aa}
 .suggestion-avatar svg{width:52%;height:52%;stroke:currentColor;stroke-width:1.4;stroke-linecap:round}
 .suggestion-card-action{margin-top:8px}

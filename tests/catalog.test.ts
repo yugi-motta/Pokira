@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
-import {rarityRank,selectPreview,isOfficialCardImage,PREVIEW_LIMIT} from '../src/lib/card-preview';
+import {rarityRank,selectPreview,isOfficialCardImage,isTrainerCard,PREVIEW_LIMIT} from '../src/lib/card-preview';
 import {illustratorSearchText,matchesIllustrator} from '../src/lib/illustrator-search';
 import type {CatalogCard} from '../src/lib/cards';
 const artists=readdirSync('src/data/artists').filter(f=>f.endsWith('.json')).map(f=>JSON.parse(readFileSync(`src/data/artists/${f}`,'utf8')));
@@ -40,7 +40,10 @@ test('every illustrator has a capped, rarity-ordered official preview with ident
   const seen=new Set<string>();
   en.forEach((card,i)=>{assert.equal(card.language,'ja');assert.equal(card.kind,'physical');assert.ok(isOfficialCardImage(card.fullImage));assert.ok(isOfficialCardImage(card.thumbnail));
    const key=identities[card.fullImage!]||card.fullImage!;assert.ok(!seen.has(key),artist.id);seen.add(key);
-   if(i)assert.ok(rarityRank(en[i-1].rarity)>=rarityRank(card.rarity),artist.id);
+   if(i){
+    assert.ok(!isTrainerCard(en[i-1])||isTrainerCard(card),artist.id);
+    if(isTrainerCard(en[i-1])===isTrainerCard(card))assert.ok(rarityRank(en[i-1].rarity)>=rarityRank(card.rarity),artist.id);
+   }
   });
  }
 });
@@ -95,5 +98,45 @@ test('appearance follows the device until the visitor saves a manual choice',asy
   const root={dataset:{} as Record<string,string>,classList:{add(){}}};const meta={content:''};
   runInNewContext(boot,{document:{documentElement:root,querySelector:()=>meta},localStorage:{getItem(){if(saved==='unreadable')throw Error('Unavailable');return saved;}},matchMedia:()=>({matches:systemDark})});
   assert.equal(root.dataset.theme,saved==='light'||saved==='dark'?saved:systemDark?'dark':'light');
+ }
+});
+
+
+test('Trainers only fill missing preview slots and always follow Pokémon',()=>{
+ const make=(i:number,trainer=false,rarity='C')=>({id:String(i),number:String(i),releaseDate:'2026-01-01',rarity,image:`https://www.pokemon-card.com/assets/images/card_images/large/TEST/${100000+i}_${trainer?'T':'P'}_TEST.jpg`});
+ const pokemon=Array.from({length:18},(_,i)=>make(i));
+ const trainer=make(100,true,'SAR');
+ assert.equal(isTrainerCard(trainer),true);
+ assert.ok(selectPreview([trainer,...pokemon]).every(card=>!isTrainerCard(card)));
+ const rarePokemon=make(99,false,'AR');
+ const result=selectPreview([trainer,...pokemon.slice(0,4),rarePokemon]);
+ assert.equal(result.length,6);assert.equal(result[0].id,rarePokemon.id);assert.equal(result.at(-1)!.id,trainer.id);
+ assert.deepEqual(selectPreview([trainer]).map(c=>c.id),[trainer.id]);
+ const variant={...trainer,id:'variant',image:'https://www.pokemon-card.com/assets/images/card_images/large/TEST/100101_T_TEST.jpg'};
+ assert.equal(selectPreview([trainer,variant],{[variant.image]:trainer.image}).length,1);
+});
+
+test('closing suggestions preserves scroll and returns focus to the opener',async()=>{
+ const {runInNewContext}=await import('node:vm');
+ const ts=await import('typescript');
+ const source=readFileSync('src/components/SuggestionForm.astro','utf8').match(/<script>([\s\S]*?)<\/script>/)![1];
+ const script=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
+ for(const menu of [false,true])for(const dismissal of ['button','cancel','backdrop']){
+  const position={scrollX:12,scrollY:3756,scrollTo(options:{left:number;top:number;behavior:string}){assert.equal(options.behavior,'instant');this.scrollX=options.left;this.scrollY=options.top;}};
+  const focusCalls:{name:string;preventScroll:boolean}[]=[];
+  const closeButton=new EventTarget();
+  const trigger=Object.assign(new EventTarget(),{closest:()=>menu?{}:null,focus:(options:{preventScroll:boolean})=>focusCalls.push({name:'opener',...options})});
+  const menuButton={focus:(options:{preventScroll:boolean})=>focusCalls.push({name:'menu',...options})};
+  const dialog=Object.assign(new EventTarget(),{dataset:{} as Record<string,string>,open:false,
+   querySelector:()=>closeButton,showModal(){this.open=true;},close(this:EventTarget & {open:boolean}){this.open=false;position.scrollY=0;this.dispatchEvent(new Event('close'));}});
+  const body={style:{overflow:'auto'}};
+  const document={body,querySelectorAll:()=>[trigger],querySelector:(selector:string)=>selector==='#suggestion-dialog'?dialog:selector==='.menu-toggle'?menuButton:null};
+  runInNewContext(script,{document,window:position,setTimeout:(callback:()=>void)=>{callback();return 0;}});
+  trigger.dispatchEvent(new Event('click'));assert.equal(dialog.open,true);assert.equal(body.style.overflow,'hidden');
+  if(dismissal==='button')closeButton.dispatchEvent(new Event('click'));
+  if(dismissal==='cancel')dialog.dispatchEvent(new Event('cancel',{cancelable:true}));
+  if(dismissal==='backdrop')dialog.dispatchEvent(new Event('click'));
+  assert.equal(dialog.open,false);assert.equal(body.style.overflow,'auto');assert.equal(position.scrollX,12);assert.equal(position.scrollY,3756);
+  assert.equal(focusCalls.at(-1)!.name,menu?'menu':'opener');assert.ok(focusCalls.every(call=>call.preventScroll));
  }
 });
