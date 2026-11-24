@@ -40,9 +40,11 @@ const t = copy[Astro.props.lang];
   let previousOverflow = '';
   let previousScroll = { left: 0, top: 0 };
   let lastTrigger:HTMLButtonElement|null=null;
-  triggers.forEach(trigger=>trigger.addEventListener('click', () => {
+  let openedWithKeyboard=false;
+  triggers.forEach(trigger=>trigger.addEventListener('click', event => {
     if (!dialog || dialog.open) return;
     lastTrigger=trigger;
+    openedWithKeyboard=event.detail===0;
     previousScroll = { left: window.scrollX, top: window.scrollY };
     // Safari does not always focus a tapped button. Give the native dialog a
     // nearby focus destination before it records the element to return to.
@@ -64,6 +66,7 @@ const t = copy[Astro.props.lang];
     const focusTarget=lastTrigger?.closest('#site-menu-panel')
       ? document.querySelector<HTMLButtonElement>('.menu-toggle') : lastTrigger;
     focusTarget?.focus({ preventScroll: true });
+    if(!openedWithKeyboard)focusTarget?.blur();
     window.scrollTo({ ...previousScroll, behavior: 'instant' });
   });
   const socialLink = (value: string, post: boolean) => {

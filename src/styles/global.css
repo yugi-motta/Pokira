@@ -303,6 +303,9 @@ html[data-theme=dark] .filter-actions .filter-reset:hover{background:#41414a}
 @keyframes viewer-backdrop-out{from{opacity:1}to{opacity:0}}
 .viewer-content{width:min(100%,calc((100dvh - 2 * var(--viewer-gap)) * var(--viewer-ratio,.71590909)));transform-origin:0 0}
 .viewer-image-wrap{cursor:default}
+.card-viewer .viewer-content{touch-action:pinch-zoom;user-select:none;-webkit-user-select:none}
+.viewer-image-wrap img{-webkit-user-drag:none;-webkit-touch-callout:none}
+.viewer-image-wrap[data-dragging=true]{transition:transform .06s linear}
 .artwork-glare{position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse at var(--glare-x,50%) var(--glare-y,50%),#fff9,transparent 65%),linear-gradient(130deg,transparent 30%,#fff6 49%,transparent 68%);mix-blend-mode:screen;opacity:var(--glare-opacity,0);transition:opacity .25s ease}
 @media(max-width:700px){.card-gallery{gap:18px 12px}}
 @media(max-width:480px){.site-shell--wide{padding-inline:16px}.card-gallery{gap:16px 10px}.gallery-toolbar{gap:8px;margin-bottom:22px}}

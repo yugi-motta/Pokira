@@ -1,4 +1,5 @@
 import type { CatalogCard } from './cards';
+import { installViewerTilt } from './viewer-tilt';
 const root = document.querySelector<HTMLElement>('.illustrator-profile');
 const gallery = root?.querySelector<HTMLElement>('.card-gallery');
 const dialog = root?.querySelector<HTMLDialogElement>('.card-viewer');
@@ -69,17 +70,11 @@ gallery?.addEventListener('pointermove',event=>{
 });
 gallery?.addEventListener('pointerout',event=>{if(hoveredCard&&!hoveredCard.contains(event.relatedTarget as Node|null))resetThumbnailTilt();});
 gallery?.addEventListener('pointerleave',resetThumbnailTilt);
-function resetViewerTilt(){
- surface?.style.setProperty('--tilt-x','0deg');surface?.style.setProperty('--tilt-y','0deg');surface?.style.setProperty('--glare-opacity','0');
-}
-flightElement?.addEventListener('pointermove',event=>{
- if(event.pointerType==='touch'||reducedMotion.matches||!finePointer.matches||!dialog?.open||dialog.dataset.closing||flight?.playState==='running'||!surface||!flightElement)return;
- const rect=flightElement.getBoundingClientRect();
- const x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width)),y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
- surface.style.setProperty('--tilt-x',`${(.5-y)*8}deg`);surface.style.setProperty('--tilt-y',`${(x-.5)*8}deg`);
- surface.style.setProperty('--glare-x',`${x*100}%`);surface.style.setProperty('--glare-y',`${y*100}%`);surface.style.setProperty('--glare-opacity','.18');
-});
-flightElement?.addEventListener('pointerleave',resetViewerTilt);
+const viewerTilt=dialog&&flightElement&&surface?installViewerTilt({
+ dialog,frame:flightElement,surface,reducedMotion,finePointer,
+ canTilt:()=>dialog.open&&!dialog.dataset.closing&&flight?.playState!=='running'
+}):null;
+function resetViewerTilt(){viewerTilt?.reset();}
 function sourceTransform(){
  if(!sourceThumb||!flightElement)return 'none';
  const from=sourceThumb.getBoundingClientRect(),to=flightElement.getBoundingClientRect();
@@ -118,7 +113,7 @@ const close=()=>{
 };
 let pointerStart={x:0,y:0};
 dialog?.addEventListener('pointerdown',event=>{pointerStart={x:event.clientX,y:event.clientY};});
-dialog?.addEventListener('click',event=>{if(Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)<8)close();});
+dialog?.addEventListener('click',event=>{if(!viewerTilt?.consumeDragClick()&&Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)<8)close();});
 dialog?.addEventListener('cancel',event=>{event.preventDefault();close();});
 dialog?.addEventListener('close',()=>{
  flight?.cancel();flight=null;resetViewerTilt();document.body.style.overflow=previousOverflow;

@@ -121,22 +121,22 @@ test('closing suggestions preserves scroll and returns focus to the opener',asyn
  const ts=await import('typescript');
  const source=readFileSync('src/components/SuggestionForm.astro','utf8').match(/<script>([\s\S]*?)<\/script>/)![1];
  const script=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
- for(const menu of [false,true])for(const dismissal of ['button','cancel','backdrop']){
+ for(const menu of [false,true])for(const keyboard of [false,true])for(const dismissal of ['button','cancel','backdrop']){
   const position={scrollX:12,scrollY:3756,scrollTo(options:{left:number;top:number;behavior:string}){assert.equal(options.behavior,'instant');this.scrollX=options.left;this.scrollY=options.top;}};
-  const focusCalls:{name:string;preventScroll:boolean}[]=[];
+  const focusCalls:{name:string;preventScroll:boolean}[]=[];let blurred=false;
   const closeButton=new EventTarget();
-  const trigger=Object.assign(new EventTarget(),{closest:()=>menu?{}:null,focus:(options:{preventScroll:boolean})=>focusCalls.push({name:'opener',...options})});
-  const menuButton={focus:(options:{preventScroll:boolean})=>focusCalls.push({name:'menu',...options})};
+  const trigger=Object.assign(new EventTarget(),{closest:()=>menu?{}:null,blur:()=>{blurred=true;},focus:(options:{preventScroll:boolean})=>focusCalls.push({name:'opener',...options})});
+  const menuButton={blur:()=>{blurred=true;},focus:(options:{preventScroll:boolean})=>focusCalls.push({name:'menu',...options})};
   const dialog=Object.assign(new EventTarget(),{dataset:{} as Record<string,string>,open:false,
    querySelector:()=>closeButton,showModal(){this.open=true;},close(this:EventTarget & {open:boolean}){this.open=false;position.scrollY=0;this.dispatchEvent(new Event('close'));}});
   const body={style:{overflow:'auto'}};
   const document={body,querySelectorAll:()=>[trigger],querySelector:(selector:string)=>selector==='#suggestion-dialog'?dialog:selector==='.menu-toggle'?menuButton:null};
   runInNewContext(script,{document,window:position,setTimeout:(callback:()=>void)=>{callback();return 0;}});
-  trigger.dispatchEvent(new Event('click'));assert.equal(dialog.open,true);assert.equal(body.style.overflow,'hidden');
+  trigger.dispatchEvent(Object.assign(new Event('click'),{detail:keyboard?0:1}));assert.equal(dialog.open,true);assert.equal(body.style.overflow,'hidden');
   if(dismissal==='button')closeButton.dispatchEvent(new Event('click'));
   if(dismissal==='cancel')dialog.dispatchEvent(new Event('cancel',{cancelable:true}));
   if(dismissal==='backdrop')dialog.dispatchEvent(new Event('click'));
   assert.equal(dialog.open,false);assert.equal(body.style.overflow,'auto');assert.equal(position.scrollX,12);assert.equal(position.scrollY,3756);
-  assert.equal(focusCalls.at(-1)!.name,menu?'menu':'opener');assert.ok(focusCalls.every(call=>call.preventScroll));
+  assert.equal(blurred,!keyboard);assert.equal(focusCalls.at(-1)!.name,menu?'menu':'opener');assert.ok(focusCalls.every(call=>call.preventScroll));
  }
 });
