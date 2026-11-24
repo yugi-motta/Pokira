@@ -529,3 +529,17 @@ html[data-theme=dark] .share-copy{background:#f5f5f7;color:#1d1d1f}
 html[data-theme=dark] .share-copy:hover{background:#fff}
 @media(max-width:700px){.illustrator-profile .profile-header{gap:22px;padding:36px 0 38px}.profile-header .profile-avatar{width:124px;height:124px}.profile-names h1{font-size:26px}}
 @media(max-width:480px){.illustrator-profile .profile-header{align-items:flex-start;flex-direction:column;gap:18px;padding:28px 0 32px}.profile-header .profile-avatar{align-self:flex-start;width:112px;height:112px}.profile-header .profile-identity{width:100%}.profile-names{column-gap:10px}.profile-names h1{font-size:25px}.profile-japanese-name{font-size:14px}.profile-bio{font-size:12px;margin-top:10px}.profile-actions{width:100%;margin-top:14px}.share-dialog .suggestion-dialog-inner{padding:28px 24px}.share-dialog h2{font-size:22px}}
+
+/* Contact shares the suggestion dialog's typography, spacing and transitions. */
+.contact-fields [hidden]{display:none!important}
+.contact-fields .contact-select{position:relative;display:block;flex-basis:100%;width:100%;margin:0;color:inherit;font-weight:400}
+.contact-fields select,.contact-fields textarea{display:block;width:100%;min-width:0;border:1px solid #e3e3e8;border-radius:10px;background:#fafafa;color:#1d1d1f;font-family:inherit;font-size:12px;font-weight:400;line-height:1.5}
+.contact-fields select{appearance:none;-webkit-appearance:none;height:42px;padding:0 38px 0 12px;cursor:pointer}
+.contact-select svg{position:absolute;right:13px;top:50%;width:16px;height:16px;transform:translateY(-50%);pointer-events:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.contact-fields textarea{min-height:124px;padding:11px 12px;resize:vertical;max-height:300px}
+.contact-fields select:focus-visible,.contact-fields textarea:focus-visible{border-color:#c4c4cc;box-shadow:0 0 0 2px #82828e21;outline:0}
+.contact-fields .contact-removal-note{grid-column:1/-1;margin:-10px 0 -2px;font-size:11px;line-height:1.6;color:#6e6e73}
+.contact-fields input:disabled,.contact-fields textarea:disabled,.contact-fields select:disabled{opacity:.65}
+html[data-theme=dark] .contact-fields select,html[data-theme=dark] .contact-fields textarea{background:#29292e;border-color:#3b3b42;color:#d3d3da}
+html[data-theme=dark] .contact-fields .contact-removal-note{color:#b8b8c1}
+@media(max-width:480px){.contact-fields{grid-template-columns:minmax(0,1fr)}}

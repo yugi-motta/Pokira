@@ -67,7 +67,7 @@ test('delivery completion still announces success when the visitor already close
  const c=client([response({code:'sent'})]);const pending=c.submit();c.dialog.close();await pending;c.finishClose();assert.equal(c.notices,1);assert.equal(c.reset,1);
 });
 test('the top toast dismisses after six seconds and repeated successes reset its timer',()=>{
- const events=new EventTarget();const toast={hidden:true,dataset:{} as Record<string,string>};let id=0;
+ const events=new EventTarget();const label={textContent:'Suggestion received'};const toast={hidden:true,dataset:{contactMessage:'Message received'} as Record<string,string>,querySelector:()=>label};let id=0;
  const timers=new Map<number,{callback:()=>void;delay:number}>();
  runInNewContext(script('src/components/SuggestionToast.astro'),{document:{querySelector:()=>toast,addEventListener:(type:string,listener:EventListener)=>events.addEventListener(type,listener)},
   setTimeout:(callback:()=>void,delay:number)=>{timers.set(++id,{callback,delay});return id;},clearTimeout:(key:number)=>timers.delete(key)});
@@ -76,4 +76,6 @@ test('the top toast dismisses after six seconds and repeated successes reset its
  advance(6000);assert.equal(toast.dataset.closing,'true');
  events.dispatchEvent(new Event('pokira:suggestion-sent'));advance(180);assert.equal(toast.hidden,false);assert.equal(toast.dataset.closing,undefined);
  advance(6000);advance(180);assert.equal(toast.hidden,true);
+ events.dispatchEvent(new Event('pokira:contact-sent'));assert.equal(label.textContent,'Message received');
+ events.dispatchEvent(new Event('pokira:suggestion-sent'));assert.equal(label.textContent,'Suggestion received');
 });

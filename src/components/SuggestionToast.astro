@@ -4,22 +4,27 @@ interface Props { lang: Lang; }
 const t=copy[Astro.props.lang];
 ---
 <div role="status" aria-live="polite" aria-atomic="true">
-<div id="suggestion-toast" class="site-toast" hidden>
+<div id="suggestion-toast" class="site-toast" data-contact-message={t.contactReview} hidden>
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
   <p>{t.suggestionReview}</p>
 </div>
 </div>
 <script>
  const toast=document.querySelector<HTMLElement>('#suggestion-toast');
+ const label=toast?.querySelector('p');
+ const suggestionMessage=label?.textContent||'';
  let hideTimer:ReturnType<typeof setTimeout>;
  let exitTimer:ReturnType<typeof setTimeout>;
- document.addEventListener('pokira:suggestion-sent',()=>{
+ const showToast=(message:string)=>{
   if(!toast)return;
+  if(label)label.textContent=message;
   clearTimeout(hideTimer);clearTimeout(exitTimer);
   delete toast.dataset.closing;toast.hidden=false;
   hideTimer=setTimeout(()=>{
    toast.dataset.closing='true';
    exitTimer=setTimeout(()=>{toast.hidden=true;delete toast.dataset.closing;},180);
   },6000);
- });
+ };
+ document.addEventListener('pokira:suggestion-sent',()=>showToast(suggestionMessage));
+ document.addEventListener('pokira:contact-sent',()=>showToast(toast?.dataset.contactMessage||''));
 </script>

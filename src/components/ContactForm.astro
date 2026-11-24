@@ -1,0 +1,29 @@
+---
+import { copy, type Lang } from '../lib/i18n';
+import { suggestionsFallback } from '../lib/suggestions-config';
+interface Props { lang: Lang; }
+const t = copy[Astro.props.lang];
+const path = Astro.url.pathname;
+const profile = /^\/(?:en\/)?(?!en\/$)[a-z0-9-]+\/$/.test(path) ? new URL(path, Astro.site).href : '';
+---
+<dialog id="contact-dialog" class="suggestion-dialog contact-dialog" aria-labelledby="contact-title">
+  <div class="suggestion-dialog-inner">
+    <button class="suggestion-close" type="button" aria-label={t.closeContact}><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button>
+    <h2 id="contact-title">{t.contact}</h2>
+    <form id="contact-form" action="/api/contact" method="post" data-fallback={suggestionsFallback} data-sending={t.sendingSuggestion} data-failed={t.contactFailed} data-unavailable={t.contactUnavailable} data-invalid={t.contactInvalid} data-invalid-profile={t.contactInvalidProfile}>
+      <div class="suggestion-fields contact-fields">
+        <label>{t.yourName}<span>{t.optional}</span><input name="name" type="text" autocomplete="name" maxlength="120"/></label>
+        <label>{t.yourEmail}<input name="email" type="email" autocomplete="email" maxlength="254" required/></label>
+        <label>{t.contactTopic}<span class="contact-select"><select name="topic" required><option value="" disabled selected>{t.contactChooseTopic}</option><option value="general">{t.contactGeneral}</option><option value="correction">{t.contactCorrection}</option><option value="removal">{t.contactRemoval}</option></select><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m6 8 4 4 4-4"/></svg></span></label>
+        <label class="contact-profile-field" hidden>{t.contactProfile}<span class="contact-profile-optional">{t.optional}</span><input name="profileUrl" type="url" maxlength="500" placeholder="https://pokira.pages.dev/…" value={profile} disabled/></label>
+        <p class="contact-removal-note" id="contact-removal-note" hidden>{t.contactRemovalNote}</p>
+        <label>{t.contactMessage}<textarea name="message" rows="5" maxlength="5000" required/></label>
+      </div>
+      <label class="suggestion-trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"/></label>
+      <div class="suggestion-actions"><button type="submit">{t.contactSend} <span aria-hidden="true">↗</span></button><p id="contact-status" role="status" aria-live="polite"></p></div>
+    </form>
+  </div>
+</dialog>
+<script>
+  import '../lib/contact-client';
+</script>
