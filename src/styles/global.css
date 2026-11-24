@@ -327,8 +327,8 @@ html[data-theme=dark] .filter-actions .filter-reset:hover{background:#41414a}
 .filter-switches input:checked{background:#34c759}
 html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 .profile-header .profile-avatar{align-self:flex-start;margin-top:3px}
-/* Edge-aligned navigation and two-column illustrator directory. */
-.site-shell,.site-shell--wide{width:100%;max-width:none;padding-inline:clamp(16px,3vw,56px)}
+/* Shared desktop width limit and two-column illustrator directory. */
+.site-shell,.site-shell--wide{width:100%;max-width:1600px;padding-inline:clamp(16px,3vw,56px)}
 .site-header{max-width:none;margin-inline:0}
 .artist-grid{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .directory .artist-content{display:block;padding:20px}
@@ -347,7 +347,8 @@ html[data-theme=dark] .filter-switches input:checked{background:#30d158}
 .profile-identity .artist-socials{grid-column:2;grid-row:2}
 .profile-count-row{grid-column:2;grid-row:3;display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0;margin-top:12px}
 .profile-count-row .illustration-count-wrap,.profile-count-row .profile-filter-action{margin-top:0}
-@media(max-width:700px){.artist-grid{grid-template-columns:minmax(0,1fr);gap:12px}.directory .artist-content{padding:18px}.directory .artist-artworks{width:calc(100% + 36px);margin-inline:-18px;padding-inline:18px}}
+@media(max-width:1000px){.artist-grid{grid-template-columns:minmax(0,1fr);gap:12px}}
+@media(max-width:700px){.directory .artist-content{padding:18px}.directory .artist-artworks{width:calc(100% + 36px);margin-inline:-18px;padding-inline:18px}}
 @media(max-width:640px){.illustrator-profile .profile-header{grid-template-columns:84px minmax(0,1fr);column-gap:16px}.profile-header .profile-avatar{width:84px;height:84px;grid-row:1/span 2}.profile-count-row{grid-column:1/-1;grid-row:3}}
 @media(max-width:480px){.site-shell,.site-shell--wide{padding-inline:16px}.directory .artist-content{padding:15px}.directory .artist-artworks{width:calc(100% + 30px);margin-inline:-15px;padding-inline:15px}}
 
@@ -501,8 +502,9 @@ html[data-theme=dark] .site-toast svg{stroke:#53cf7f}
 .profile-bio{margin:11px 0 0;color:#6e6e73;font-size:13px;line-height:1.7;text-wrap:pretty;overflow-wrap:anywhere}
 .profile-actions{display:flex;align-items:center;gap:8px;max-width:100%;margin-top:16px}
 .profile-identity .artist-socials{justify-content:flex-start;gap:6px;width:auto;min-width:0;max-width:100%;margin:0;padding:2px 0;flex:0 1 auto;overflow-x:auto}
-.profile-identity .artist-socials a{min-height:34px;padding:7px 12px;font-size:11px;line-height:1.45;box-shadow:none}
+.profile-identity .artist-socials a{min-height:34px;padding:7px 12px;font-size:11px;line-height:1.45;box-shadow:none;transition:background .2s,color .2s,box-shadow .2s,transform .2s}
 .profile-identity .artist-socials a:hover{box-shadow:none}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.illustrator-profile .artist-socials a:hover{transform:translateY(-1px)}}
 .profile-identity .artist-socials a svg{width:14px;height:14px}
 .profile-share{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:#e8e8ed;color:#6e6e73;cursor:pointer;transition:background .2s,color .2s,transform .2s}
 .profile-share svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}

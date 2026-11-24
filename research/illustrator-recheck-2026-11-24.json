@@ -1,0 +1,1404 @@
+{
+  "checkedAt": "2026-11-24",
+  "dateWindow": [
+    "2026-09-24",
+    "2026-11-24"
+  ],
+  "scope": "The exact 143 profile_unavailable entries from the earlier 497-profile audit.",
+  "earlierAuditCorrection": "Every earlier unavailable URL had an erroneous trailing colon. Removing it and revisiting the original profile allowed all 143 to be read. A temporary 429 for the final 23 pages was retried slowly; all succeeded.",
+  "method": [
+    "Read all 143 corrected Art of Pokémon profiles and extract listed X links.",
+    "Exclude company/studio credits and compare with the 42 existing Pokira illustrator IDs/names.",
+    "Review publicly accessible quoted original posts for the eleven individual accounts, including the artist-linked Pokémon account for Akira Komayama.",
+    "Verify the three qualifying original announcements, authors, and dates with official X oEmbed.",
+    "Use professional biographies and illustrator-owned websites for independent-status evidence."
+  ],
+  "summary": {
+    "no_x_link_on_readable_artofpkm_profile": 128,
+    "recent_own_work_post_not_verified": 8,
+    "company_or_studio": 4,
+    "verified_match": 3
+  },
+  "limitations": [
+    "Accessible timeline excerpts and search indexes do not guarantee exhaustive X history. Unverified individuals remain unverified rather than rejected.",
+    "No illustrator was added to Pokira and no production deployment was made for this research."
+  ],
+  "entries": [
+    {
+      "name": "2018 Pikachu Project",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/2018-pikachu-project",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "2014 Pikachu Project",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/2014-pikachu-project",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "2004 Pikachu Project",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/2004-pikachu-project",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "2006 Pikachu Project",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/2006-pikachu-project",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "2019 Pikachu Project",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/2019-pikachu-project",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "\"Big Mama\" Tagawa",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/big-mama-tagawa",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "2020 Pikachu Project",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/2020-pikachu-project",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Alex Braun",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/alex-braun",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/axbraun"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "Arisa Sugino",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/arisa-sugino",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "bee4",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/bee4",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Akira Komayama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/akira-komayama",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "http://twitter.com/Akira_Komayama"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "ConceptLab",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/conceptlab",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/ConceptLab8680"
+      ],
+      "alreadyOnPokira": false,
+      "status": "company_or_studio",
+      "reason": "Corporate/studio credit rather than an independent individual illustrator."
+    },
+    {
+      "name": "BERUBURI",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/beruburi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Avec Yoko",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/avec-yoko",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "cochi8i",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/cochi8i",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/cochi8i"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "D.A.G Inc.",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/d-a-g-inc",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/DigitalArtGuild"
+      ],
+      "alreadyOnPokira": false,
+      "status": "company_or_studio",
+      "reason": "Corporate/studio credit rather than an independent individual illustrator."
+    },
+    {
+      "name": "Daisuke Iwamoto",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/daisuke-iwamoto",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "CR CG gangs",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/cr-cg-gangs",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Daisuke Ochiai",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/daisuke-ochiai",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Emi Ando",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/emi-ando",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Dr.Ooyama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/dr-ooyama",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Emi Miwa",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/emi-miwa",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Emi Yoshida",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/emi-yoshida",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Fuzichoco",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/fuzichoco",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/fuzichoco"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "Gabi",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/gabi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Gakuji Nomoto",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/gakuji-nomoto",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "GAME FREAK inc.",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/game-freak-inc",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Ginga",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/ginga",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "gogotake",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/gogotake",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Eske Yoshinob",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/eske-yoshinob",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/EskeYoshinob"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "Haruka Uekura",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/haruka-uekura",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hasegawa Saki",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hasegawa-saki",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hideaki Hakozaki",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hideaki-hakozaki",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hideki Kazama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hideki-kazama",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hikaru Okawa",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hikaru-okawa",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hideyuki Nakajima",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hideyuki-nakajima",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hiroki Fuchino",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hiroki-fuchino",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hiromichi Sugiyama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hiromichi-sugiyama",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hiromi Ito",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hiromi-ito",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "HiRON",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hiron",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hirotaka Marufuji",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hirotaka-marufuji",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Ito Kyoko",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/ito-kyoko",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "iwaiya",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/iwaiya",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Huang Tzu En",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/huang-tzu-en",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Hiroyuki Sasaki",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/hiroyuki-sasaki",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Jumpei Akasaka",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/jumpei-akasaka",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Jungo Suzuki",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/jungo-suzuki",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kai Ishikawa",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kai-ishikawa",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kaori Someya",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kaori-someya",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Katie Gross",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/katie-gross",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Junsei Kuninobu",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/junsei-kuninobu",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "KASSEN",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kassen",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://x.com/KASSEN_VFX"
+      ],
+      "alreadyOnPokira": false,
+      "status": "company_or_studio",
+      "reason": "Corporate/studio credit rather than an independent individual illustrator."
+    },
+    {
+      "name": "Katsura Tabata",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/katsura-tabata",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kazuaki Aihara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kazuaki-aihara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kazuhiko Nishihara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kazuhiko-nishihara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kazuyuki Kano",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kazuyuki-kano",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kazuo Yazawa",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kazuo-yazawa",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Keita Hagiwara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/keita-hagiwara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Keiko Moritsugu",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/keiko-moritsugu",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Keita Komatsuya",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/keita-komatsuya",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Keita Mizuno",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/keita-mizuno",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Ken Ikuji",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/ken-ikuji",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kenkichi Toyama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kenkichi-toyama",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kouhei Yoshihisa",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kouhei-yoshihisa",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "K. Hoshiba",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/k-hoshiba",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kouji Tajima",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kouji-tajima",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kousuke Mori",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kousuke-mori",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kouki Yanagihara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kouki-yanagihara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "K. Utsunomiya",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/k-utsunomiya",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kyoko Koizumi",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kyoko-koizumi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Kozue Omi",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/kozue-omi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Lyu YiFei",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/lyu-yifei",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mahiro Shinozaki",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mahiro-shinozaki",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Maiko Fujiwara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/maiko-fujiwara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "M. Akiyama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/m-akiyama",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Makoto Mizobuchi",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/makoto-mizobuchi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mark Kraus",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mark-kraus",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mame Akimaru",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mame-akimaru",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Masatoshi Hamada",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/masatoshi-hamada",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Masahiko Ishii",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/masahiko-ishii",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "May Do",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/may-do",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Megu Taniguchi",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/megu-taniguchi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Meiko Akiba",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/meiko-akiba",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Miho Sugano",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/miho-sugano",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Miho Asada",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/miho-asada",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mikiko Takeda",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mikiko-takeda",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mikio Menjo",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mikio-menjo",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mikako Nishizaki",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mikako-nishizaki",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mio Muroi",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mio-muroi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Miyuki Matsumoto",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/miyuki-matsumoto",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Misaki Hashimoto",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/misaki-hashimoto",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mina Akuhara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mina-akuhara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Miyuki Ogino",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/miyuki-ogino",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "MPC Film",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mpc-film",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Motofumi Fujiwara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/motofumi-fujiwara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "MUGENUP",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mugenup",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Mt. TBT",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/mt-tbt",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Nabana Kensaku",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/nabana-kensaku",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Natsu Sato",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/natsu-sato",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Noriaki Tanimura",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/noriaki-tanimura",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Nobuyuki Fujimoto",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/nobuyuki-fujimoto",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "nagimiso",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/nagimiso",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/nagimiso"
+      ],
+      "alreadyOnPokira": false,
+      "status": "verified_match",
+      "handle": "nagimiso",
+      "date": "2026-11-19",
+      "post": "https://x.com/nagimiso/status/2123316747516490054",
+      "work": "A selection of their own Pokémon TCG illustrations",
+      "independentEvidence": [
+        "https://nagimiso.blog.shinobi.jp/",
+        "https://www.journaldujapon.com/2025/10/28/lectures-du-japon-9-de-nouveaux-mangas-inedits-en-france-pour-finir-lannee/"
+      ],
+      "officialXEmbed": {
+        "url": "https://x.com/nagimiso/status/2123316747516490054",
+        "author_name": "凪水そう／イズミと竜の図鑑③巻発売中！",
+        "author_url": "https://x.com/nagimiso",
+        "html": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">わたくしがイラストを描きましたポケモンカードを紹介いたします！これからもよろしくお願いします！！<a href=\"https://x.com/hashtag/Pokemon?src=hash&amp;ref_src=twsrc%5Etfw\">#Pokemon</a> <a href=\"https://x.com/hashtag/%E3%83%9D%E3%82%B1%E3%82%AB?src=hash&amp;ref_src=twsrc%5Etfw\">#ポケカ</a><a href=\"https://t.co/ONsFdqUs2I\">https://t.co/ONsFdqUs2I</a> <a href=\"https://t.co/978G3MguUV\">pic.twitter.com/978G3MguUV</a></p>&mdash; 凪水そう／イズミと竜の図鑑③巻発売中！ (@nagimiso) <a href=\"https://x.com/nagimiso/status/2123316747516490054?ref_src=twsrc%5Etfw\">November 19, 2026</a></blockquote>\n\n",
+        "width": 550,
+        "height": null,
+        "type": "rich",
+        "cache_age": "3153600000",
+        "provider_name": "X",
+        "provider_url": "https://x.com",
+        "version": "1.0"
+      }
+    },
+    {
+      "name": "Noriko Hotta",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/noriko-hotta",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Noriko Takaya",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/noriko-takaya",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Noriko Uono",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/noriko-uono",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "PLANETA Saito",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/planeta-saito",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "PLANETA Otani",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/planeta-otani",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/tanidesuyo"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "Reiko Tanoue",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/reiko-tanoue",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Ryota Saito",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/ryota-saito",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Ryusuke Mori",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/ryusuke-mori",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Ryoga Kawai",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/ryoga-kawai",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Sachiko Eba",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/sachiko-eba",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Sakiko Maeda",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/sakiko-maeda",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Sachi Matoba",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/sachi-matoba",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Sayaka Maruyama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/sayaka-maruyama",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Shizuka Kusakabe",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/shizuka-kusakabe",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "SENZAKI MAKOTO",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/senzaki-makoto",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Shiburingaru",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/shiburingaru",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/shiburingaru321"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "Spike Chunsoft.",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/spike-chunsoft",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Shunsuke Takemori",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/shunsuke-takemori",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Taisei Fujita",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/taisei-fujita",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Suwama Chiaki",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/suwama-chiaki",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/suwama_chiaki"
+      ],
+      "alreadyOnPokira": false,
+      "status": "verified_match",
+      "handle": "suwama_chiaki",
+      "date": "2026-11-02",
+      "post": "https://x.com/suwama_chiaki/status/2117238569559609423",
+      "work": "Porygon in Pokémon TCG Pocket: Dual Fusion",
+      "independentEvidence": [
+        "https://www.tamayura-an.net/profile"
+      ],
+      "officialXEmbed": {
+        "url": "https://x.com/suwama_chiaki/status/2117238569559609423",
+        "author_name": "たまゆら庵　諏訪間千晃",
+        "author_url": "https://x.com/suwama_chiaki",
+        "html": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">『Pokémon Trading Card Game Pocket』通称ポケポケ最新リリース「デュアルフュージョン」に私のイラスト「ポリゴン」が採用されました！ポケポケをプレイ中の方はぜひチェックしてみてください。<br><br>My illustration of Porygon has been featured in the latest release of Pokémon Trading Card Game… <a href=\"https://t.co/0yZaZM3I00\">pic.twitter.com/0yZaZM3I00</a></p>&mdash; たまゆら庵　諏訪間千晃 (@suwama_chiaki) <a href=\"https://x.com/suwama_chiaki/status/2117238569559609423?ref_src=twsrc%5Etfw\">November 2, 2026</a></blockquote>\n\n",
+        "width": 550,
+        "height": null,
+        "type": "rich",
+        "cache_age": "3153600000",
+        "provider_name": "X",
+        "provider_url": "https://x.com",
+        "version": "1.0"
+      }
+    },
+    {
+      "name": "Sylvia Forrest",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/sylvia-forrest",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Takao Unno",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/takao-unno",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Takabon",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/takabon",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Takahiro Yamashita",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/takahiro-yamashita",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Taku Anekawa",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/taku-anekawa",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Shoki Nakamura",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/shoki-nakamura",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Tetsu Kayama",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/tetsu-kayama",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/kayamatetsu"
+      ],
+      "alreadyOnPokira": false,
+      "status": "verified_match",
+      "handle": "kayamatetsu",
+      "date": "2026-10-05",
+      "post": "https://x.com/kayamatetsu/status/2106998602740760833",
+      "work": "Team Rocket’s Hypno in Pokémon TCG Pocket: Team Rocket’s Ambition",
+      "independentEvidence": [
+        "https://magazine.genseki.me/entry/06eomgm9vh",
+        "https://kayamatetsu.com/about/"
+      ],
+      "officialXEmbed": {
+        "url": "https://x.com/kayamatetsu/status/2106998602740760833",
+        "author_name": "Tetsu Kayama",
+        "author_url": "https://x.com/kayamatetsu",
+        "html": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">アプリ「Pokémon Trading Card Game Pocket」のパック「ロケット団の野望」で、カードのイラストを描きました！（「ロケット団のスリーパー」）<br>よかったら見てみてください<a href=\"https://x.com/hashtag/%E3%83%9D%E3%82%B1%E3%83%9D%E3%82%B1?src=hash&amp;ref_src=twsrc%5Etfw\">#ポケポケ</a> <a href=\"https://t.co/V6JNPkQtPx\">pic.twitter.com/V6JNPkQtPx</a></p>&mdash; Tetsu Kayama (@kayamatetsu) <a href=\"https://x.com/kayamatetsu/status/2106998602740760833?ref_src=twsrc%5Etfw\">October 5, 2026</a></blockquote>\n\n",
+        "width": 550,
+        "height": null,
+        "type": "rich",
+        "cache_age": "3153600000",
+        "provider_name": "X",
+        "provider_url": "https://x.com",
+        "version": "1.0"
+      }
+    },
+    {
+      "name": "Tomohiro Kitakaze",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/tomohiro-kitakaze",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "T. Honda",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/t-honda",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "whomor Inc.",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/whomor-inc",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/whomor_official"
+      ],
+      "alreadyOnPokira": false,
+      "status": "company_or_studio",
+      "reason": "Corporate/studio credit rather than an independent individual illustrator."
+    },
+    {
+      "name": "Yasuki Watanabe",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yasuki-watanabe",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Yamazaki Rei",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yamazaki-rei",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Yasuda Shuhei",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yasuda-shuhei",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Yoshiyuki Sadamoto",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yoshiyuki-sadamoto",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "yeinART",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yeinart",
+      "httpStatus": 200,
+      "listedXLinks": [
+        "https://twitter.com/yein_ART/status/1801969023971692767/"
+      ],
+      "alreadyOnPokira": false,
+      "status": "recent_own_work_post_not_verified",
+      "reason": "An X link is listed, but no qualifying original Pokémon-work post dated 2026-09-24 through 2026-11-24 was verified in accessible material. This does not prove none exists."
+    },
+    {
+      "name": "Yui Tanaka",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yui-tanaka",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Youki Tanaka",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/youki-tanaka",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Yuka Matsubara",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yuka-matsubara",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Zu-Ka",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/zu-ka",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Yusuke Shimada",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yusuke-shimada",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    },
+    {
+      "name": "Yumi",
+      "artOfPokemon": "https://www.artofpkm.com/illustrators/yumi",
+      "httpStatus": 200,
+      "listedXLinks": [],
+      "alreadyOnPokira": false,
+      "status": "no_x_link_on_readable_artofpkm_profile",
+      "reason": "No X/Twitter link appeared in the profile HTML; fails the required listing criterion, not a claim that no X account exists."
+    }
+  ]
+}
