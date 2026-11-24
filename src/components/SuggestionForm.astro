@@ -1,6 +1,6 @@
 ---
 import { copy, type Lang } from '../lib/i18n';
-import { suggestionsFallback, web3formsAccessKey } from '../lib/suggestions-config';
+import { suggestionsFallback, suggestionAccessKey } from '../lib/suggestions-config';
 
 interface Props { lang: Lang; }
 const t = copy[Astro.props.lang];
@@ -12,7 +12,7 @@ const t = copy[Astro.props.lang];
       </button>
       <h2 id="suggestion-title">{t.suggestArtist}</h2>
       <form id="suggestion-form" action="/api/suggestions" method="post"
-    data-fallback={suggestionsFallback} data-email-key={web3formsAccessKey}
+    data-fallback={suggestionsFallback} data-email-key={suggestionAccessKey}
     data-invalid-link={t.invalidXLink}
     data-link-mismatch={t.linkMismatch}
     data-sending={t.sendingSuggestion}
