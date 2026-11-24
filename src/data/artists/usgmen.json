@@ -116,5 +116,16 @@
         }
       ]
     }
-  ]
+  ],
+  "japaneseName": "うさぎメン",
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/usgmen",
+  "website": "https://usgmen.com/",
+  "websiteSource": "https://usgmen.com/profil",
+  "bio": {
+    "en": "A freelance illustrator creating playful, simple characters, GIF animations and four-panel comics. Loves drawing cute creatures and shares life with two rescue cats.",
+    "ja": "ゆるく可愛らしい生き物を描くフリーランスイラストレーター。キャラクターデザインに加え、GIFアニメーションや4コマ漫画なども制作。2匹の保護猫と暮らしている。",
+    "sources": [
+      "https://usgmen.com/profil"
+    ]
+  }
 }

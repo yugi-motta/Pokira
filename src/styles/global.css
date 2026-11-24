@@ -490,3 +490,42 @@ html[data-theme=dark] .site-toast{background:#303036;color:#f5f5f7;box-shadow:0 
 html[data-theme=dark] .site-toast svg{stroke:#53cf7f}
 @keyframes toast-in{from{opacity:0;transform:translate(-50%,-12px)}to{opacity:1;transform:translate(-50%,0)}}
 @keyframes toast-out{to{opacity:0;transform:translate(-50%,-8px)}}
+
+/* Introduce the illustrator before the work: a portrait, a few words, and ways to follow. */
+.illustrator-profile .profile-header{display:flex;flex-direction:row;align-items:center;gap:26px;max-width:680px;padding:48px 0 50px;margin-inline:auto;text-align:left}
+.profile-header .profile-avatar{flex:none;align-self:center;width:144px;height:144px;object-fit:cover;border-radius:50%}
+.profile-header .profile-identity{align-items:flex-start;flex:1;min-width:0;width:auto}
+.profile-names{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:12px;row-gap:4px}
+.profile-names h1{margin:0;font-size:28px;line-height:1.2;letter-spacing:-.035em;overflow-wrap:anywhere}
+.profile-japanese-name{margin:0;color:#8e8e93;font-size:16px;line-height:1.5;font-weight:450;letter-spacing:0}
+.profile-bio{margin:11px 0 0;color:#6e6e73;font-size:13px;line-height:1.7;text-wrap:pretty;overflow-wrap:anywhere}
+.profile-actions{display:flex;align-items:center;gap:8px;max-width:100%;margin-top:16px}
+.profile-identity .artist-socials{justify-content:flex-start;gap:6px;width:auto;min-width:0;max-width:100%;margin:0;padding:2px 0;flex:0 1 auto;overflow-x:auto}
+.profile-identity .artist-socials a{min-height:34px;padding:7px 12px;font-size:11px;line-height:1.45;box-shadow:none}
+.profile-identity .artist-socials a:hover{box-shadow:none}
+.profile-identity .artist-socials a svg{width:14px;height:14px}
+.profile-share{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:#e8e8ed;color:#6e6e73;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.profile-share svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.profile-share:hover{background:#dcdce3;color:#1d1d1f;transform:translateY(-1px)}
+.profile-share:active{transform:scale(.95)}
+.profile-share:focus-visible{outline:2px solid #8e8e93;outline-offset:4px}
+.share-dialog{width:min(480px,calc(100% - 32px))}
+.share-dialog .suggestion-dialog-inner{padding:32px}
+.share-dialog h2{margin:0 42px 28px 0;font-size:24px;letter-spacing:-.035em;line-height:1.2}
+.share-link-label{display:block;font-size:12px;font-weight:600;margin:0 0 10px}
+.share-link-input{display:block;appearance:none;width:100%;min-width:0;min-height:46px;padding:12px 14px;border:1px solid #dedee5;border-radius:12px;background:transparent;color:inherit;font:inherit;font-size:13px;line-height:1.5}
+.share-link-input:focus{border-color:#a6a6b0;box-shadow:0 0 0 3px #8e8e9314;outline:0}
+.share-copy-row{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:18px}
+.share-copy{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:11px 18px;border:0;border-radius:999px;background:#1d1d1f;color:#fff;font:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s,transform .2s}
+.share-copy:hover{background:#393940}
+.share-copy:active{transform:scale(.97)}
+.share-copy svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.share-status{margin:0;max-width:100%;font-size:12px;line-height:1.5;color:#6e6e73}
+html[data-theme=dark] .profile-bio,html[data-theme=dark] .share-status{color:#b8b8c1}
+html[data-theme=dark] .profile-share{background:#2b2b30;color:#c2c2cb}
+html[data-theme=dark] .profile-share:hover{background:#38383f;color:#fff}
+html[data-theme=dark] .share-link-input{border-color:#414148}
+html[data-theme=dark] .share-copy{background:#f5f5f7;color:#1d1d1f}
+html[data-theme=dark] .share-copy:hover{background:#fff}
+@media(max-width:700px){.illustrator-profile .profile-header{gap:22px;padding:36px 0 38px}.profile-header .profile-avatar{width:124px;height:124px}.profile-names h1{font-size:26px}}
+@media(max-width:480px){.illustrator-profile .profile-header{align-items:flex-start;flex-direction:column;gap:18px;padding:28px 0 32px}.profile-header .profile-avatar{align-self:flex-start;width:112px;height:112px}.profile-header .profile-identity{width:100%}.profile-names{column-gap:10px}.profile-names h1{font-size:25px}.profile-japanese-name{font-size:14px}.profile-bio{font-size:12px;margin-top:10px}.profile-actions{width:100%;margin-top:14px}.share-dialog .suggestion-dialog-inner{padding:28px 24px}.share-dialog h2{font-size:22px}}

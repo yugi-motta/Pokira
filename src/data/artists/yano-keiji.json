@@ -2,7 +2,7 @@
   "id": "yano-keiji",
   "name": "Yano Keiji",
   "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/45869",
-  "japaneseName": "矢野恵司",
+  "japaneseName": "矢野 恵司",
   "handle": "yano_keiji",
   "instagram": "keiji_yano_",
   "instagramSource": "https://www.instagram.com/keiji_yano_/",
@@ -50,5 +50,15 @@
         }
       ]
     }
-  ]
+  ],
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/yano-keiji",
+  "website": "https://www.yano-keiji.com/",
+  "websiteSource": "https://www.yano-keiji.com/profile",
+  "bio": {
+    "en": "An illustrator from Kochi who studied sculpture at Tokyo University of the Arts. After working as a 3D designer at Nintendo, began working independently as an illustrator in 2017.",
+    "ja": "高知県出身。東京藝術大学で彫刻を学び、同大学院を修了。任天堂で3Dデザイナーとして勤務した後、2017年からイラストレーターとして活動。",
+    "sources": [
+      "https://www.yano-keiji.com/profile"
+    ]
+  }
 }

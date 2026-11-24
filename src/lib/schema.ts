@@ -35,6 +35,13 @@ export const artistSchema = z.object({
   creditSource: z.url(),
   workSources: z.array(z.url()).optional(),
   japaneseName: z.string().min(1).optional(),
+  japaneseNameSource: z.url().optional(),
+  website: z.url().refine(value => {
+    try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password; }
+    catch { return false; }
+  }).optional(),
+  websiteSource: z.url().optional(),
+  bio: z.object({ en: z.string().trim().min(1).max(500), ja: z.string().trim().min(1).max(500), sources: z.array(z.url()).min(1) }).optional(),
   romanizedName: z.string().min(1).optional(),
   handle: z.string().regex(/^[A-Za-z0-9_]{1,15}$/).optional(),
   instagram: z.string().regex(/^(?!.*\.\.)(?!.*\.$)[A-Za-z0-9._]{1,30}$/).optional(),
@@ -47,6 +54,7 @@ export const artistSchema = z.object({
 }).superRefine((artist, ctx) => {
   if (!artist.handle && !artist.instagram) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'An X or Instagram profile is required.' });
   if (artist.instagram && !artist.instagramSource) ctx.addIssue({ code: 'custom', path: ['instagramSource'], message: 'Instagram profiles need identity evidence.' });
+  if (artist.website && !artist.websiteSource) ctx.addIssue({ code: 'custom', path: ['websiteSource'], message: 'Personal websites need identity evidence.' });
   if (artist.announcements.length && !artist.handle) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'X announcements require an X handle.' });
   if (!artist.announcements.length && !artist.gallery.length && !/^https:\/\/www\.pokemon-card\.com\/card-search\/details\.php\/card\/\d+\/regu\/all$/.test(artist.creditSource)) ctx.addIssue({ code: 'custom', path: ['creditSource'], message: 'Artists without announcements or gallery images need an official card credit.' });
 });

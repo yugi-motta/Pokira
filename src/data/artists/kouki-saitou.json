@@ -2,7 +2,7 @@
   "id": "kouki-saitou",
   "name": "Kouki Saitou",
   "creditSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/series/ex9/62",
-  "japaneseName": "斉藤コーキ",
+  "japaneseName": "斉藤 コーキ",
   "handle": "Kouglof0513",
   "instagram": "kouglof0513",
   "instagramSource": "https://www.instagram.com/kouglof0513/",
@@ -50,5 +50,6 @@
         }
       ]
     }
-  ]
+  ],
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/kouki-saitou"
 }

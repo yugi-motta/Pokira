@@ -50,5 +50,15 @@
     }
   ],
   "instagram": "nara_lalana",
-  "instagramSource": "https://www.instagram.com/nara_lalana/"
+  "instagramSource": "https://www.instagram.com/nara_lalana/",
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/narano",
+  "website": "https://nara-lalana.com/",
+  "websiteSource": "https://nara-lalana.com/",
+  "bio": {
+    "en": "An Osaka-based illustrator who began illustrating professionally in September 2019 after working in childcare in Taiwan and Osaka. Creates warm, sometimes bittersweet worlds, often featuring children.",
+    "ja": "大阪府在住。台湾と大阪で保育士として働いた後、2019年9月からイラストレーターとして活動。あたたかく、どこか切ない世界観や子どもたちを描くことを大切にしている。",
+    "sources": [
+      "https://nara-lalana.com/"
+    ]
+  }
 }

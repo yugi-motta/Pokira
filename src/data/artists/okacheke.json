@@ -10,5 +10,16 @@
   ],
   "gallery": [],
   "announcements": [],
-  "avatar": "https://pbs.twimg.com/profile_images/1790342682142998528/wOR7assd_400x400.jpg"
+  "avatar": "https://pbs.twimg.com/profile_images/1790342682142998528/wOR7assd_400x400.jpg",
+  "japaneseName": "おかちぇけ",
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/okacheke",
+  "website": "https://okacheke.com/",
+  "websiteSource": "https://okacheke.com/about/",
+  "bio": {
+    "en": "An illustrator from Sendai, based in Tokyo. Studied design and worked in social-game illustration before going freelance; also creates concept art and color scripts for animation.",
+    "ja": "宮城県仙台市出身・東京在住。デザインを学び、ソーシャルゲームのイラスト制作を経てフリーランスに。アニメーションのコンセプトアートやカラースクリプトなども手がける。",
+    "sources": [
+      "https://okacheke.com/about/"
+    ]
+  }
 }

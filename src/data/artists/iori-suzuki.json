@@ -8,5 +8,16 @@
   ],
   "gallery": [],
   "announcements": [],
-  "avatar": "https://pbs.twimg.com/profile_images/1978372557381500928/7pfcNcLo_400x400.jpg"
+  "avatar": "https://pbs.twimg.com/profile_images/1978372557381500928/7pfcNcLo_400x400.jpg",
+  "japaneseName": "スズキイオリ",
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/iori-suzuki",
+  "website": "https://www.suzukispace.com/",
+  "websiteSource": "https://www.suzukispace.com/profile",
+  "bio": {
+    "en": "An illustrator and manga creator from Hokkaido, based in Tokyo. Freelance since 2020 after working at a game company, creating illustrations, comics and character designs with landscapes and living creatures.",
+    "ja": "北海道出身・東京在住のイラストレーター、漫画家。ゲーム会社勤務を経て2020年に独立。風景や生き物を描きながら、ゲームや印刷物のイラスト、漫画、キャラクターデザインを手がける。",
+    "sources": [
+      "https://www.suzukispace.com/profile"
+    ]
+  }
 }

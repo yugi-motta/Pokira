@@ -50,5 +50,15 @@
         }
       ]
     }
-  ]
+  ],
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/amelicart",
+  "website": "https://www.amelicart.com/",
+  "websiteSource": "https://www.amelicart.com/about",
+  "bio": {
+    "en": "An illustrator and character designer based in Japan, and a visiting professor at Kyoto University of the Arts. Uses shapes and color without outlines, working across games, advertising and publishing.",
+    "ja": "日本を拠点に活動するイラストレーター・キャラクターデザイナー、京都芸術大学客員教授。主線を使わない色面表現とデフォルメを特徴に、ゲームや広告、出版などで活動。",
+    "sources": [
+      "https://www.amelicart.com/about"
+    ]
+  }
 }

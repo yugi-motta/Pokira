@@ -8,5 +8,14 @@
   ],
   "gallery": [],
   "announcements": [],
-  "avatar": "https://pbs.twimg.com/profile_images/1483274128702734337/eO2yEBhy_400x400.jpg"
+  "avatar": "https://pbs.twimg.com/profile_images/1483274128702734337/eO2yEBhy_400x400.jpg",
+  "website": "https://www.foriio.com/youcapriccio",
+  "websiteSource": "https://www.foriio.com/youcapriccio",
+  "bio": {
+    "en": "A Tokyo-based illustrator and character designer. Became a freelancer in 2018 after working at a game company, with work spanning games, character design and VTubers.",
+    "ja": "東京を拠点に活動するイラストレーター・キャラクターデザイナー。ゲーム会社勤務を経て2018年に独立。ゲームやキャラクターデザイン、VTuber関連のイラストなどを手がける。",
+    "sources": [
+      "https://www.foriio.com/youcapriccio"
+    ]
+  }
 }

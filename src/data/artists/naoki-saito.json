@@ -50,5 +50,15 @@
         }
       ]
     }
-  ]
+  ],
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/naoki-saito",
+  "website": "https://saito-naoki.com/",
+  "websiteSource": "https://saito-naoki.com/",
+  "bio": {
+    "en": "An illustrator from Yamagata whose work spans Pokémon cards and game character design. Known for colorful, dynamic illustrations, and shares drawing advice on YouTube, where he began posting in 2019.",
+    "ja": "山形県山形市出身。ポケモンカードやゲームのキャラクターデザインを手がけ、カラフルで躍動感のある表現を得意とする。2019年からYouTubeでイラストの上達法や描き方も発信。",
+    "sources": [
+      "https://saito-naoki.com/"
+    ]
+  }
 }

@@ -50,5 +50,15 @@
         }
       ]
     }
-  ]
+  ],
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/hitoshi-ariga",
+  "website": "https://arigamegamix-e-blog.tumblr.com/",
+  "websiteSource": "https://potofu.me/ariga-megamix",
+  "bio": {
+    "en": "A manga creator and illustrator whose work includes the Pokémon Fossil Museum’s key visuals and Excavation Pikachu costume design. Received the Inkpot Award at San Diego Comic-Con in 2024.",
+    "ja": "漫画やイラストを手がけ、ポケモン化石博物館のメインビジュアルと発掘ピカチュウの衣装を担当。2024年にサンディエゴ・コミコンのインクポット賞を受賞。",
+    "sources": [
+      "https://potofu.me/ariga-megamix"
+    ]
+  }
 }

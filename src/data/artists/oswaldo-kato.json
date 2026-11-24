@@ -8,5 +8,18 @@
   ],
   "gallery": [],
   "announcements": [],
-  "avatar": "https://pbs.twimg.com/profile_images/790070791/anime_icon_400x400.gif"
+  "avatar": "https://pbs.twimg.com/profile_images/790070791/anime_icon_400x400.gif",
+  "japaneseName": "加藤オズワルド",
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/oswaldo-kato",
+  "instagram": "oswaldo_kato",
+  "instagramSource": "https://www.artofpkm.com/illustrators/oswaldo-kato",
+  "website": "https://note.com/oswaldo",
+  "websiteSource": "https://note.com/oswaldo/n/n3c0d9cfc79fb",
+  "bio": {
+    "en": "Born and raised in São Paulo, now based in Tokyo. A freelance illustrator and animation creator working across films, games and trading cards, including concept art and animation color scripts.",
+    "ja": "ブラジルのサンパウロで生まれ育ち、現在は東京を拠点に活動。フリーランスのアニメ作家・イラストレーターとして、映像やゲーム、カードイラスト、コンセプトアートなどを手がける。",
+    "sources": [
+      "https://note.com/oswaldo/n/n3c0d9cfc79fb"
+    ]
+  }
 }

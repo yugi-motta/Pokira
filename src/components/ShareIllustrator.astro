@@ -1,0 +1,21 @@
+---
+import type { Artist } from '../lib/schema';
+import { artistPath } from '../lib/cards';
+import { copy, type Lang } from '../lib/i18n';
+interface Props { artist: Artist; lang: Lang; }
+const { artist, lang } = Astro.props;
+const t = copy[lang];
+const url = new URL(artistPath(lang, artist.id), Astro.site).href;
+---
+<dialog id="share-illustrator-dialog" class="suggestion-dialog share-dialog" aria-labelledby="share-title" data-copied={t.linkCopied} data-copy-failed={t.copyLinkFailed}>
+  <div class="suggestion-dialog-inner">
+    <button class="suggestion-close" type="button" aria-label={t.closeShare}><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button>
+    <h2 id="share-title">{t.shareTitle}</h2>
+    <label class="share-link-label" for="share-profile-link">{t.profileLink}</label>
+    <input id="share-profile-link" class="share-link-input" type="url" value={url} readonly spellcheck="false" />
+    <div class="share-copy-row"><button class="share-copy" type="button"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h2"/></svg><span>{t.copyLink}</span></button><p class="share-status" role="status" aria-live="polite"></p></div>
+  </div>
+</dialog>
+<script>
+  import '../lib/share-client';
+</script>

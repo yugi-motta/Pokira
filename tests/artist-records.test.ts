@@ -15,3 +15,11 @@ test('a profile without announcements or permitted gallery images needs an offic
   assert.equal(artistSchema.safeParse({...profile,creditSource}).success,false);
  }
 });
+
+test('biographies need both languages and verifiable sources; personal websites need identity evidence',()=>{
+ assert.equal(artistSchema.safeParse({...profile,website:'https://example.com'}).success,false);
+ assert.equal(artistSchema.safeParse({...profile,bio:{en:'A verified biography.',ja:'確認済みの紹介文。',sources:[]}}).success,false);
+ assert.equal(artistSchema.safeParse({...profile,bio:{en:'A verified biography.',sources:['https://example.com/about']}}).success,false);
+ for (const website of ['javascript:alert(1)', 'not a url', 'https://user:password@example.com']) assert.equal(artistSchema.safeParse({...profile,website,websiteSource:'https://example.com'}).success,false);
+ assert.equal(artistSchema.safeParse({...profile,website:'https://example.com',websiteSource:'https://example.com/about',bio:{en:'A verified biography.',ja:'確認済みの紹介文。',sources:['https://example.com/about']}}).success,true);
+});

@@ -48,5 +48,15 @@
         }
       ]
     }
-  ]
+  ],
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/yoko-hishida",
+  "website": "https://choroblr.tumblr.com/",
+  "websiteSource": "https://choroblr.tumblr.com/about/",
+  "bio": {
+    "en": "A Nagoya-based illustrator from Gifu, freelance since 2014. Creates warm illustrations of animals, children and everyday life, alongside original characters, merchandise and logo designs.",
+    "ja": "岐阜県出身・名古屋在住。デザイナー勤務を経て2014年からフリーランスに。動物や子ども、日々の楽しみを温かく描き、オリジナルキャラクターやグッズ、ロゴの制作も行う。",
+    "sources": [
+      "https://choroblr.tumblr.com/about/"
+    ]
+  }
 }

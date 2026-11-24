@@ -5,4 +5,4 @@ import { artists } from '../lib/content';
 export function getStaticPaths() { return artists.map(artist => ({ params: { id: artist.id }, props: { artist } })); }
 const { artist } = Astro.props;
 ---
-<Base wide lang="ja" title={artist.name} description={`${artist.name}のポケモンイラストとプロフィール。`}><IllustratorProfile artist={artist} lang="ja" /></Base>
+<Base wide lang="ja" title={artist.name} description={artist.bio?.ja || `${artist.name}のポケモンイラストとプロフィール。`}><IllustratorProfile artist={artist} lang="ja" /></Base>

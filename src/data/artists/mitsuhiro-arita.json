@@ -91,5 +91,16 @@
       ]
     }
   ],
-  "featuredTweetId": "1450759244622352384"
+  "featuredTweetId": "1450759244622352384",
+  "japaneseName": "有田 満弘",
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/mitsuhiro-arita",
+  "website": "https://mitsuhiroarita.com/",
+  "websiteSource": "https://mitsuhiroarita.com/artist/",
+  "bio": {
+    "en": "A freelance illustrator from Fukuoka whose first professional project was the Pokémon TCG in 1996. Also creates artwork for games, comics and animation, including Final Fantasy XI and the Berserk film trilogy.",
+    "ja": "福岡県出身。1996年、ポケモンカードゲームを最初の仕事としてフリーランスの活動を開始。ゲームやコミック、アニメーションなどで活躍し、『ファイナルファンタジーXI』や映画『ベルセルク』三部作にも参加。",
+    "sources": [
+      "https://mitsuhiroarita.com/artist/"
+    ]
+  }
 }

@@ -8,5 +8,18 @@
   ],
   "gallery": [],
   "announcements": [],
-  "avatar": "https://pbs.twimg.com/profile_images/2039601517179887616/CcIfsYFq_400x400.jpg"
+  "avatar": "https://pbs.twimg.com/profile_images/2039601517179887616/CcIfsYFq_400x400.jpg",
+  "japaneseName": "江川 あきら",
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/akira-egawa",
+  "instagram": "rev_akiraegawa",
+  "instagramSource": "https://www.artofpkm.com/illustrators/akira-egawa",
+  "website": "https://akiraegawa.stars.ne.jp/",
+  "websiteSource": "https://akiraegawa.stars.ne.jp/pf.html",
+  "bio": {
+    "en": "A Tokyo-based illustrator and character designer who previously worked as a 3D modeler. Creates bold, textured artwork for trading card games and art books, often using red accents.",
+    "ja": "東京を拠点に活動するイラストレーター・キャラクターデザイナー。ゲーム会社での3Dモデラー経験を経て独立し、赤を生かした重厚で力強い作風でカードゲームや技法書などを手がける。",
+    "sources": [
+      "https://akiraegawa.stars.ne.jp/pf.html"
+    ]
+  }
 }

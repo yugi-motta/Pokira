@@ -10,5 +10,14 @@
   ],
   "gallery": [],
   "announcements": [],
-  "avatar": "https://pbs.twimg.com/profile_images/1039092728791891968/qKiKWcPo_400x400.jpg"
+  "avatar": "https://pbs.twimg.com/profile_images/1039092728791891968/qKiKWcPo_400x400.jpg",
+  "website": "https://www.hyogonosuke.com/",
+  "websiteSource": "https://www.hyogonosuke.com/",
+  "bio": {
+    "en": "A Tokyo-based illustrator working across books, film posters and games. Credits include Pokémon TCG and Pocket artwork, book illustrations for The Code Busters Club, and a Doraemon film poster.",
+    "ja": "東京在住のイラストレーター。ポケモンカードやポケポケのイラストをはじめ、『暗号クラブ』シリーズの挿絵、映画ドラえもんのポスターなど、書籍・映画・ゲームの分野で活動。",
+    "sources": [
+      "https://www.hyogonosuke.com/"
+    ]
+  }
 }
