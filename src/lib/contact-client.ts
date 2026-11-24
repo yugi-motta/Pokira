@@ -1,3 +1,4 @@
+import { prepareEmailFields } from './email-transport';
 import { contactTopics, readContactFields, validateContact, type ContactTopic } from './contact';
 const dialog = document.querySelector<HTMLDialogElement>('#contact-dialog');
 const trigger = document.querySelector<HTMLButtonElement>('.contact-trigger');
@@ -73,19 +74,17 @@ form?.addEventListener('submit', async event => {
   status.textContent = form.dataset.sending || '';
   const controls = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input,textarea,select')];
   controls.forEach(field => { field.disabled = true; });
+  const controller = new AbortController();
+  const deadline = setTimeout(() => controller.abort(), 30_000);
   try {
-    let response = await fetch(form.action, { method: 'POST', body: fields, headers: { Accept: 'application/json' } });
+    let response = await fetch(form.action, { method: 'POST', body: fields, headers: { Accept: 'application/json' }, signal: controller.signal });
     let result: { code?: string } = await response.json();
     if (((response.ok && result.code === 'forward') || (response.status === 503 && result.code === 'unavailable')) && form.dataset.fallback) {
-      fields.set('_honey', String(fields.get('website') || '')); fields.delete('website');
-      fields.set('_subject', `Pokira contact: ${contactTopics[data.topic as ContactTopic]}`);
-      fields.set('_template', 'table'); fields.set('_captcha', 'false');
-      fields.set('_url', `${location.origin}${location.pathname}`);
-      fields.set('topic', contactTopics[data.topic as ContactTopic]);
-      response = await fetch(form.dataset.fallback, { method: 'POST', body: fields, headers: { Accept: 'application/json' } });
-      const delivered: { success?: boolean | string; message?: string } = await response.json();
-      const activation = /activat|confirm.*email|verify.*email/i.test(delivered.message || '');
-      result = { code: activation ? 'unavailable' : response.ok && (delivered.success === true || delivered.success === 'true') ? 'sent' : 'failed' };
+      const deliveryFields = prepareEmailFields(fields, form.dataset.emailKey || '', `Pokira contact: ${contactTopics[data.topic as ContactTopic]}`, `${location.origin}${location.pathname}`);
+      deliveryFields.set('topic', contactTopics[data.topic as ContactTopic]);
+      response = await fetch(form.dataset.fallback, { method: 'POST', body: deliveryFields, headers: { Accept: 'application/json' }, signal: controller.signal });
+      const delivered: { success?: boolean } = await response.json();
+      result = { code: response.ok && delivered.success === true ? 'sent' : 'failed' };
     }
     if (response.ok && result.code === 'sent') {
       status.textContent = '';
@@ -95,8 +94,9 @@ form?.addEventListener('submit', async event => {
       status.textContent = result.code === 'unavailable' ? form.dataset.unavailable || '' : form.dataset.failed || '';
     }
   } catch {
-    status.textContent = form.dataset.failed || '';
+    status.textContent = controller.signal.aborted ? form.dataset.timedOut || form.dataset.failed || '' : form.dataset.failed || '';
   } finally {
+    clearTimeout(deadline);
     sending = false;
     button.disabled = false;
     controls.forEach(field => { field.disabled = false; });

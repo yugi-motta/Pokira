@@ -1,6 +1,6 @@
 ---
 import { copy, type Lang } from '../lib/i18n';
-import { suggestionsFallback } from '../lib/suggestions-config';
+import { suggestionsFallback, web3formsAccessKey } from '../lib/suggestions-config';
 
 interface Props { lang: Lang; }
 const t = copy[Astro.props.lang];
@@ -12,10 +12,11 @@ const t = copy[Astro.props.lang];
       </button>
       <h2 id="suggestion-title">{t.suggestArtist}</h2>
       <form id="suggestion-form" action="/api/suggestions" method="post"
-    data-fallback={suggestionsFallback}
+    data-fallback={suggestionsFallback} data-email-key={web3formsAccessKey}
     data-invalid-link={t.invalidXLink}
     data-link-mismatch={t.linkMismatch}
     data-sending={t.sendingSuggestion}
+    data-timed-out={t.contactTimedOut}
     data-sent={t.suggestionSent}
     data-unavailable={t.suggestionsUnavailable}
     data-failed={t.suggestionFailed}>
@@ -31,6 +32,7 @@ const t = copy[Astro.props.lang];
     </div>
 </dialog>
 <script>
+  import { prepareEmailFields } from '../lib/email-transport';
   const triggers = document.querySelectorAll<HTMLButtonElement>('.suggestion-trigger,[data-suggest]');
   const dialog = document.querySelector<HTMLDialogElement>('#suggestion-dialog');
   const closeButton = dialog?.querySelector<HTMLButtonElement>('.suggestion-close');
@@ -94,28 +96,25 @@ const t = copy[Astro.props.lang];
   for (const field of [artistInput, postInput]) field?.addEventListener('input', () => field.setCustomValidity(''));
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (!artistInput || !postInput || !button || !status) return;
+    if (!artistInput || !postInput || !button || !status || button.disabled) return;
     status.textContent = '';
     const post = socialLink(postInput.value, true);
     if (!post) postInput.setCustomValidity(form.dataset.invalidLink || '');
     if (!form.reportValidity()) return;
     button.disabled = true;
     status.textContent = form.dataset.sending || '';
+    const controller = new AbortController();
+    const deadline = setTimeout(() => controller.abort(), 30_000);
     try {
       const fields=new FormData(form);
-      let response = await fetch(form.action, { method: 'POST', body: fields, headers: { Accept: 'application/json' } });
+      let response = await fetch(form.action, { method: 'POST', body: fields, headers: { Accept: 'application/json' }, signal: controller.signal });
       let result: { code?: string } = await response.json();
-      // FormSubmit's documented browser AJAX transport needs no sending-domain
-      // credentials. The first request still runs our server-side validation.
+      // Keep server validation before Web3Forms' browser-only free transport.
       if(((response.ok&&result.code==='forward')||(response.status===503&&result.code==='unavailable'))&&form.dataset.fallback){
-        fields.set('_honey',String(fields.get('website')||''));fields.delete('website');
-        fields.set('_subject',`Pokira illustrator suggestion: ${artistInput.value.replace(/[\r\n]/g,' ')}`);
-        fields.set('_template','table');fields.set('_captcha','false');
-        fields.set('_url',`${location.origin}${location.pathname}`);
-        response=await fetch(form.dataset.fallback,{method:'POST',body:fields,headers:{Accept:'application/json'}});
-        const delivered:{success?:boolean|string;message?:string}=await response.json();
-        const needsActivation=/activat|confirm.*email|verify.*email/i.test(delivered.message||'');
-        result={code:needsActivation?'unavailable':response.ok&&(delivered.success===true||delivered.success==='true')?'sent':'failed'};
+        const deliveryFields = prepareEmailFields(fields, form.dataset.emailKey || '', `Pokira illustrator suggestion: ${artistInput.value}`, `${location.origin}${location.pathname}`);
+        response=await fetch(form.dataset.fallback,{method:'POST',body:deliveryFields,headers:{Accept:'application/json'},signal:controller.signal});
+        const delivered:{success?:boolean}=await response.json();
+        result={code:response.ok&&delivered.success===true?'sent':'failed'};
       }
       if (response.ok && result.code === 'sent') {
         status.textContent = '';
@@ -125,8 +124,9 @@ const t = copy[Astro.props.lang];
         status.textContent = result.code === 'unavailable' ? form.dataset.unavailable || '' : form.dataset.failed || '';
       }
     } catch {
-      status.textContent = form.dataset.failed || '';
+      status.textContent = controller.signal.aborted ? form.dataset.timedOut || form.dataset.failed || '' : form.dataset.failed || '';
     } finally {
+      clearTimeout(deadline);
       button.disabled = false;
     }
   });

@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
 import ts from 'typescript';
 import {onRequestPost} from '../functions/api/suggestions';
+import {prepareEmailFields} from '../src/lib/email-transport';
 import {suggestionsFallback} from '../src/lib/suggestions-config';
 
 const post='https://x.com/amelicart/status/1851206902438052235';
@@ -30,7 +31,7 @@ test('configured email delivery sends all visitor details to the Outlook inbox',
  assert.deepEqual(body?.to,['pokirahelp@outlook.com']);assert.match(String(body?.text),/Visitor/);assert.match(String(body?.text),/visitor@example.org/);assert.match(String(body?.text),/Amelicart/);assert.match(String(body?.text),/https:\/\/x.com\/amelicart\/status\//);
 });
 
-const script=(path:string)=>ts.transpileModule(readFileSync(path,'utf8').match(/<script>([\s\S]*?)<\/script>/)![1],{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
+const script=(path:string)=>ts.transpileModule(readFileSync(path,'utf8').match(/<script>([\s\S]*?)<\/script>/)![1],{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText.replace(/^import .*;\n/gm,'');
 function client(responses:Response[]){
  const documentEvents=new EventTarget();const trigger=Object.assign(new EventTarget(),{focus(){},blur(){},closest(){return null;}});
  const closeButton=new EventTarget();const timers:(()=>void)[]=[];let reset=0;let notices=0;
@@ -39,7 +40,7 @@ function client(responses:Response[]){
  const artistInput=Object.assign(new EventTarget(),{value:'Amelicart',setCustomValidity(){}});
  const postInput=Object.assign(new EventTarget(),{value:post,setCustomValidity(){}});
  const button={disabled:false};const status={textContent:''};let submit:(event:Event)=>Promise<void>;
- const form={action:'https://pokira.pages.dev/api/suggestions',dataset:{fallback:suggestionsFallback,invalidLink:'invalid',sending:'sending',sent:'sent',unavailable:'unavailable',failed:'failed'},
+ const form={action:'https://pokira.pages.dev/api/suggestions',dataset:{emailKey:'test-public-form-key',fallback:suggestionsFallback,invalidLink:'invalid',sending:'sending',sent:'sent',unavailable:'unavailable',failed:'failed'},
   querySelector:(selector:string)=>selector==='[name="illustratorName"]'?artistInput:selector==='[name="postUrl"]'?postInput:button,
   reportValidity:()=>true,reset:()=>{reset++;},addEventListener:(_type:string,handler:typeof submit)=>{submit=handler;}};
  const calls:{url:string;fields:Record<string,FormDataEntryValue>}[]=[];
@@ -47,18 +48,18 @@ function client(responses:Response[]){
   dispatchEvent:(event:Event)=>documentEvents.dispatchEvent(event)};
  documentEvents.addEventListener('pokira:suggestion-sent',()=>{assert.equal(dialog.open,false);notices++;});
  class BrowserFormData extends FormData{constructor(){super();this.set('illustratorName','Amelicart');this.set('postUrl',post);this.set('website','');}}
- runInNewContext(script('src/components/SuggestionForm.astro'),{document,window:{scrollX:0,scrollY:500,scrollTo(){}},location:{origin:'https://pokira.pages.dev',pathname:'/en/'},Event,FormData:BrowserFormData,
-  setTimeout:(callback:()=>void)=>{timers.push(callback);return timers.length;},fetch:async(url:string,options:{body:FormData})=>{calls.push({url,fields:Object.fromEntries(options.body)});const response=responses.shift();if(!response)throw Error('Unexpected send');return response;}});
+ runInNewContext(script('src/components/SuggestionForm.astro'),{document,window:{scrollX:0,scrollY:500,scrollTo(){}},location:{origin:'https://pokira.pages.dev',pathname:'/en/'},Event,URL,AbortController,prepareEmailFields,FormData:BrowserFormData,
+  setTimeout:(callback:()=>void,delay:number)=>{if(delay===180)timers.push(callback);return timers.length;},clearTimeout(){},fetch:async(url:string,options:{body:FormData})=>{calls.push({url,fields:Object.fromEntries(options.body)});const response=responses.shift();if(!response)throw Error('Unexpected send');return response;}});
  trigger.dispatchEvent(Object.assign(new Event('click'),{detail:1}));
  return {dialog,button,status,calls,submit:()=>submit(new Event('submit',{cancelable:true})),finishClose:()=>{while(timers.length)timers.shift()!();},get reset(){return reset;},get notices(){return notices;}};
 }
 const response=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status});
 test('successful forwarding closes the modal and announces review once',async()=>{
- const c=client([response({code:'forward'}),response({success:'true',message:'Form submitted successfully'})]);
+ const c=client([response({code:'forward'}),response({success:true})]);
  await c.submit();assert.equal(c.notices,0);c.finishClose();assert.equal(c.dialog.open,false);assert.equal(c.notices,1);assert.equal(c.reset,1);assert.equal(c.button.disabled,false);
- assert.equal(c.calls[1].url,suggestionsFallback);assert.equal(c.calls[1].fields._subject,'Pokira illustrator suggestion: Amelicart');assert.equal(c.calls[1].fields.postUrl,post);assert.equal(c.calls[1].fields._url,'https://pokira.pages.dev/en/');assert.equal(c.calls[1].fields._honey,'');
+ assert.equal(c.calls[1].url,suggestionsFallback);assert.equal(c.calls[1].fields.subject,'Pokira illustrator suggestion: Amelicart');assert.equal(c.calls[1].fields.postUrl,post);assert.equal(c.calls[1].fields.page_url,'https://pokira.pages.dev/en/');assert.equal(c.calls[1].fields.website,undefined);assert.equal(c.calls[1].fields.access_key,'test-public-form-key');
 });
-test('validation, activation and delivery failures never show the success toast',async()=>{
+test('validation and delivery failures never show the success toast',async()=>{
  for(const responses of [[response({code:'invalid'},400)],[response({code:'failed'},502)],[response({code:'forward'}),response({success:false,message:'Please activate your form'})],[response({code:'forward'}),response({success:'false',message:'Unable to submit form'})]]){
   const c=client(responses);await c.submit();c.finishClose();assert.equal(c.dialog.open,true);assert.equal(c.notices,0);assert.equal(c.reset,0);assert.ok(c.status.textContent);assert.equal(c.button.disabled,false);
  }

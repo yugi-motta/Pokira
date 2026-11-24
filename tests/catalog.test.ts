@@ -120,7 +120,7 @@ test('closing suggestions preserves scroll and returns focus to the opener',asyn
  const {runInNewContext}=await import('node:vm');
  const ts=await import('typescript');
  const source=readFileSync('src/components/SuggestionForm.astro','utf8').match(/<script>([\s\S]*?)<\/script>/)![1];
- const script=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
+ const script=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText.replace(/^import .*;\n/gm,'');
  for(const menu of [false,true])for(const keyboard of [false,true])for(const dismissal of ['button','cancel','backdrop']){
   const position={scrollX:12,scrollY:3756,scrollTo(options:{left:number;top:number;behavior:string}){assert.equal(options.behavior,'instant');this.scrollX=options.left;this.scrollY=options.top;}};
   const focusCalls:{name:string;preventScroll:boolean}[]=[];let blurred=false;
