@@ -21,6 +21,14 @@ for (const filename of readdirSync(directory).filter((name) => name.endsWith('.j
   if (artist.handle) handles.add(artist.handle.toLowerCase());
   if (artist.instagram) instagramHandles.add(artist.instagram.toLowerCase());
   artistCount++;
+  if (!artist.announcements.length && !artist.gallery.length) {
+    const catalogPath = resolve('src/data/japanese-catalog', `${artist.id}.json`);
+    if (!existsSync(catalogPath)) throw new Error(`Missing official card catalog: ${artist.id}`);
+    const catalog = JSON.parse(readFileSync(catalogPath, 'utf8'));
+    if (catalog.artistId !== artist.id || !catalog.cards.some((card: { imageSource?: string; high?: string }) => card.imageSource === artist.creditSource && card.high?.startsWith('https://www.pokemon-card.com/assets/images/card_images/large/'))) {
+      throw new Error(`Official credit must identify a card in the illustrator's catalog: ${artist.id}`);
+    }
+  }
   for (const post of artist.announcements) {
     const expected = `https://x.com/${artist.handle}/status/${post.tweetId}`;
     if (post.url.toLowerCase() !== expected.toLowerCase()) throw new Error(`Post URL mismatch: ${post.url}`);

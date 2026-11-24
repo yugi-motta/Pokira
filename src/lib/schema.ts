@@ -33,6 +33,7 @@ export const artistSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
   creditSource: z.url(),
+  workSources: z.array(z.url()).optional(),
   japaneseName: z.string().min(1).optional(),
   romanizedName: z.string().min(1).optional(),
   handle: z.string().regex(/^[A-Za-z0-9_]{1,15}$/).optional(),
@@ -47,7 +48,7 @@ export const artistSchema = z.object({
   if (!artist.handle && !artist.instagram) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'An X or Instagram profile is required.' });
   if (artist.instagram && !artist.instagramSource) ctx.addIssue({ code: 'custom', path: ['instagramSource'], message: 'Instagram profiles need identity evidence.' });
   if (artist.announcements.length && !artist.handle) ctx.addIssue({ code: 'custom', path: ['handle'], message: 'X announcements require an X handle.' });
-  if (!artist.announcements.length && !artist.gallery.length) ctx.addIssue({ code: 'custom', path: ['gallery'], message: 'Artists without X announcements need permitted gallery images.' });
+  if (!artist.announcements.length && !artist.gallery.length && !/^https:\/\/www\.pokemon-card\.com\/card-search\/details\.php\/card\/\d+\/regu\/all$/.test(artist.creditSource)) ctx.addIssue({ code: 'custom', path: ['creditSource'], message: 'Artists without announcements or gallery images need an official card credit.' });
 });
 
 export type Artist = z.infer<typeof artistSchema>;
