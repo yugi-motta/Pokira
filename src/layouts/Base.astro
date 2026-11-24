@@ -60,7 +60,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
           <label class="sr-only" for="artist-search">{t.searchLabel}</label>
           <input id="artist-search" name="q" type="search" placeholder={t.search} autocomplete="off" readonly data-search-overlay="true" aria-haspopup="dialog" aria-expanded="false" aria-controls="home-search-dialog" />
-          <button class="search-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button>
         </form>
         <div class="site-menu">
           <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-menu-panel">

@@ -55,3 +55,10 @@ test('blank searches have no keyboard options and a nonmatching query can focus 
 test('returning focus from the suggestion form does not reopen search',async()=>{
  const c=setup();c.trigger.focus();c.suggest.click();await c.finishClose();c.closeSuggestion();assert.equal(c.dialog.open,false);await Promise.resolve();c.trigger.click();assert.equal(c.dialog.open,true);
 });
+
+test('the inactive search stays empty while typing, after closing, and when reopening',async()=>{
+ const c=setup();c.trigger.focus();c.input.value='ariga';c.input.dispatchEvent(new Event('input'));
+ assert.equal(c.trigger.value,'');assert.equal(c.input.value,'ariga');assert.equal(c.rows[0].hidden,false);
+ c.key(c.input,'Escape');await c.finishClose();assert.equal(c.trigger.value,'');assert.equal(c.dialog.open,false);
+ c.trigger.click();assert.equal(c.trigger.value,'');assert.equal(c.input.value,'ariga');assert.equal(c.rows[0].hidden,false);
+});

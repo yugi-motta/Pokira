@@ -3,7 +3,6 @@ const dialog=document.querySelector<HTMLDialogElement>('#home-search-dialog');
 const trigger=document.querySelector<HTMLInputElement>('[data-search-overlay="true"]');
 const input=dialog?.querySelector<HTMLInputElement>('#home-search-input');
 const clear=dialog?.querySelector<HTMLButtonElement>('.home-search-clear');
-const outsideClear=trigger?.closest('form')?.querySelector<HTMLButtonElement>('.search-clear');
 const sheet=dialog?.querySelector<HTMLElement>('.search-sheet');
 const suggestionRow=sheet?.querySelector<HTMLElement>('.search-suggestion-row');
 const rows=[...(sheet?.querySelectorAll<HTMLElement>('li[data-search]')||[])];
@@ -23,15 +22,14 @@ function update(){
   const announcement=dialog?.querySelector<HTMLElement>('.home-search-count');
   if(announcement)announcement.textContent=query?`${count} ${document.documentElement.lang==='ja'?'件':count===1?'result':'results'}`:'';
   if(clear)clear.hidden=!input.value;
-  if(trigger)trigger.value=input.value;
-  if(outsideClear)outsideClear.hidden=!input.value;
+  if(trigger)trigger.value='';
 }
 function open(){
   if(!dialog||!input||!trigger||dialog.open||restoringFocus||document.querySelector('dialog[open]'))return;
   clearTimeout(closeTimer);delete dialog.dataset.closing;
   handoff=false;previousOverflow=document.body.style.overflow;
   previousScroll={left:window.scrollX,top:window.scrollY};
-  input.value=trigger.value;update();
+  update();
   document.body.style.overflow='hidden';trigger.setAttribute('aria-expanded','true');
   dialog.showModal();input.focus({preventScroll:true});
 }
@@ -48,7 +46,6 @@ trigger?.addEventListener('click',open);
 trigger?.closest('form')?.addEventListener('submit',event=>{event.preventDefault();open();});
 input?.addEventListener('input',update);
 clear?.addEventListener('click',()=>{if(input){input.value='';update();input.focus({preventScroll:true});}});
-outsideClear?.addEventListener('click',event=>{event.preventDefault();if(input){input.value='';update();}});
 dialog?.addEventListener('cancel',event=>{event.preventDefault();close();});
 dialog?.addEventListener('click',event=>{
   if(event.target!==dialog)return;
@@ -86,4 +83,5 @@ document.addEventListener('keydown',event=>{
   if((event.key==='/'&&!editing)||((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k')){event.preventDefault();open();}
 });
 const query=new URLSearchParams(location.search).get('q');
-if(trigger&&query){trigger.value=query;open();}
+if(trigger)trigger.value='';
+if(input&&query){input.value=query;open();}
