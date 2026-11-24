@@ -13,7 +13,10 @@ h1,h2,h3,p{margin-top:0}
 .site-shell{max-width:1480px;min-height:100vh;margin:auto;padding:0 clamp(20px,4vw,56px);display:flex;flex-direction:column}
 .site-header{width:100%;max-width:760px;height:66px;margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px) minmax(0,1fr);align-items:center;gap:12px}
 .wordmark{justify-self:start;display:flex;align-items:center;width:80px;max-width:100%;height:38px;overflow:hidden;line-height:0}
-.brand-logo{display:block;flex:none;width:141.4%;max-width:none;height:auto;margin-left:-20.1%}
+.brand-logo{display:block;flex:none;width:100%;height:100%;object-fit:contain}
+.brand-logo--dark{display:none}
+html[data-theme=dark] .brand-logo--light{display:none}
+html[data-theme=dark] .brand-logo--dark{display:block}
 .site-menu{position:relative;justify-self:end;z-index:20}
 .menu-toggle{display:grid;place-items:center;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:#fff;color:#45454a;box-shadow:none}
 .menu-toggle svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
