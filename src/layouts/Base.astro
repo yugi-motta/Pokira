@@ -1,18 +1,19 @@
 ---
 import { copy, pathFor, type Lang } from '../lib/i18n';
 import '../styles/global.css';
-import IllustratorSearchResults from '../components/IllustratorSearchResults.astro';
 import AboutPokira from '../components/AboutPokira.astro';
 import SuggestionToast from '../components/SuggestionToast.astro';
 import ContactForm from '../components/ContactForm.astro';
+import HomeSearch from '../components/HomeSearch.astro';
 
 interface Props {
   lang: Lang;
   wide?: boolean;
+  homeHero?: boolean;
   title?: string;
   description?: string;
 }
-const { lang, title, description, wide = false } = Astro.props;
+const { lang, title, description, wide = false, homeHero = false } = Astro.props;
 const t = copy[lang];
 const fullTitle = title ? `${title} — ${t.siteTitle}` : t.siteTitle;
 const metaDescription = description || t.siteDescription;
@@ -50,16 +51,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <div class:list={["site-shell",wide && "site-shell--wide"]}>
-      <header class="site-header">
+      <header class:list={["site-header", homeHero && "site-header--home"]}>
         <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>
           <img class="brand-logo" src="/pokira-logo-katakana.png" width="2172" height="724" alt="" decoding="async" />
         </a>
+        {homeHero && <p class="home-intro">{t.homeIntro}</p>}
         <form class="search-wrap" action={pathFor(lang)} method="get">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
           <label class="sr-only" for="artist-search">{t.searchLabel}</label>
-          <input id="artist-search" name="q" type="search" placeholder={t.search} autocomplete="off" aria-controls={pagePath!=='/'?'illustrator-search-results':undefined} />
+          <input id="artist-search" name="q" type="search" placeholder={t.search} autocomplete="off" readonly data-search-overlay="true" aria-haspopup="dialog" aria-expanded="false" aria-controls="home-search-dialog" />
           <button class="search-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8" /></svg></button>
-          {pagePath!=='/' && <IllustratorSearchResults lang={lang} />}
         </form>
         <div class="site-menu">
           <button class="menu-toggle" type="button" aria-label={t.menu} aria-expanded="false" aria-controls="site-menu-panel">
@@ -94,6 +95,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <p>{t.unofficial}</p>
       </footer>
     </div>
+    <HomeSearch lang={lang} />
     <AboutPokira lang={lang} />
     <ContactForm lang={lang} />
     <SuggestionToast lang={lang} />

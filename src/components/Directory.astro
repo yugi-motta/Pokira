@@ -47,6 +47,7 @@ const t = copy[lang];
 </section>
 <script>
   const input = document.querySelector<HTMLInputElement>('#artist-search');
+  const overlaySearch = input?.dataset.searchOverlay === 'true';
   const count = document.querySelector<HTMLElement>('#result-count');
   const noResults = document.querySelector<HTMLElement>('#no-results');
   const cards = [...document.querySelectorAll<HTMLElement>('.artist-entry[data-profile]')];
@@ -92,10 +93,13 @@ const t = copy[lang];
     requestAnimationFrame(() => strips.forEach(updateStrip));
   };
   const clear = document.querySelector<HTMLButtonElement>('.search-clear');
+  if (!overlaySearch) {
   input?.addEventListener('input', () => { update(); if (clear) clear.hidden = !input.value; });
   if (input) { input.value = new URLSearchParams(location.search).get('q') || ''; if (clear) clear.hidden = !input.value; update(); }
   clear?.addEventListener('click', () => { if (input) { input.value = ''; update(); clear.hidden = true; input.focus(); } });
+  }
   document.addEventListener('keydown', (event) => {
+    if (overlaySearch) return;
     if (event.key === '/' && document.activeElement !== input && !['INPUT','TEXTAREA'].includes((document.activeElement as HTMLElement)?.tagName)) {
       event.preventDefault();
       input?.focus();

@@ -3,6 +3,7 @@ export type Lang = 'ja' | 'en';
 export const copy = {
   ja: {
     siteTitle: 'ポキラ',
+    homeIntro: 'ポケモンカードを彩るイラストレーターたちを、もっと身近に。作品を楽しみ、描き手を知り、SNSで応援しよう。',
     siteDescription: 'ポケモンカードの美しいイラストを手がけるイラストレーターと出会い、SNSで応援する場所。',
     directory: 'イラストレーター',
     backToDirectory: 'イラストレーター一覧',
@@ -25,6 +26,8 @@ export const copy = {
     dataSource: 'カードデータ・画像：TCGdex',
     search: 'イラストレーターを検索',
     clearSearch: '検索をクリア',
+    closeSearch: '検索を閉じる',
+    searchSuggestHint: 'まだ掲載されていないイラストレーターを教えてください。',
     searchLabel: 'イラストレーターを検索',
     noResults: '該当するイラストレーターが見つかりません。',
     socialProfiles: 'プロフィール',
@@ -81,6 +84,7 @@ export const copy = {
   },
   en: {
     siteTitle: 'Pokira',
+    homeIntro: 'Meet the illustrators behind your favorite Pokémon cards. Discover their art, get to know them, and follow along.',
     siteDescription: 'Discover and follow the independent illustrators behind beautiful Pokémon TCG artwork.',
     directory: 'Illustrators',
     backToDirectory: 'Illustrator directory',
@@ -103,6 +107,8 @@ export const copy = {
     dataSource: 'Card data and images: TCGdex',
     search: 'Search illustrators',
     clearSearch: 'Clear search',
+    closeSearch: 'Close search',
+    searchSuggestHint: 'Help us discover an illustrator we haven’t featured yet.',
     searchLabel: 'Search illustrators',
     noResults: 'No illustrators found.',
     socialProfiles: 'profiles',

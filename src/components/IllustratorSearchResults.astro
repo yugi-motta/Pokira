@@ -8,38 +8,13 @@ const {lang}=Astro.props;
 const t=copy[lang];
 ---
 <nav id="illustrator-search-results" class="search-sheet" aria-label={t.searchLabel} hidden>
-  <ul>{artists.map(artist=><li data-search={illustratorSearchText(artist)} hidden><a href={artistPath(lang,artist.id)}>{artist.avatar?<img src={artist.avatar} width="34" height="34" alt="" loading="lazy"/>:<span class="search-result-avatar">{artist.name.slice(0,1)}</span>}<span><strong>{artist.name}</strong><small>{[artist.handle,artist.instagram].filter(Boolean).filter((handle,index,all)=>all.indexOf(handle)===index).join(' · ')}</small></span></a></li>)}</ul>
   <p class="search-sheet-empty" role="status" hidden>{t.noResults}</p>
-  <button class="search-suggest" data-suggest type="button">{t.suggestArtist}<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 4h12v9H8l-4 3V4Z"/><path d="M7 7h6M7 10h4"/></svg></button>
+  <ul>{artists.map(artist=><li data-search={illustratorSearchText(artist)} hidden><a href={artistPath(lang,artist.id)}>{artist.avatar?<img src={artist.avatar} width="34" height="34" alt="" loading="lazy"/>:<span class="search-result-avatar">{artist.name.slice(0,1)}</span>}<span><strong>{artist.name}</strong><small>{[artist.handle,artist.instagram].filter(Boolean).filter((handle,index,all)=>all.indexOf(handle)===index).join(' · ')}</small></span></a></li>)}
+    <li class="search-suggestion-row" hidden>
+      <button class="search-suggest" data-home-search-suggest type="button" aria-haspopup="dialog" aria-controls="suggestion-dialog">
+        <span class="search-result-avatar suggestion-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></span>
+        <span><strong>{t.suggestArtist}</strong><small>{t.searchSuggestHint}</small></span>
+      </button>
+    </li>
+  </ul>
 </nav>
-<script>
- import { matchesIllustrator } from '../lib/illustrator-search';
- const sheet=document.querySelector<HTMLElement>('#illustrator-search-results');
- const input=document.querySelector<HTMLInputElement>('#artist-search');
- const clear=document.querySelector<HTMLButtonElement>('.search-clear');
- const rows=[...(sheet?.querySelectorAll<HTMLElement>('li[data-search]')||[])];
- function close(){if(sheet)sheet.hidden=true;}
- function update(){
-  if(!sheet||!input)return;
-  const query=input.value.trim();let count=0;
-  for(const row of rows){row.hidden=!query||!matchesIllustrator(row.dataset.search||'',query);if(!row.hidden)count++;}
-  sheet.hidden=!query;
-  const empty=sheet.querySelector<HTMLElement>('.search-sheet-empty');if(empty)empty.hidden=count!==0;
-  if(clear)clear.hidden=!input.value;
- }
- input?.addEventListener('input',update);input?.addEventListener('focus',update);
- clear?.addEventListener('click',()=>{if(input){input.value='';update();input.focus();}});
- input?.addEventListener('keydown',event=>{
-  if(event.key==='Escape'){event.preventDefault();close();}
-  if(event.key==='ArrowDown'&&!sheet?.hidden){event.preventDefault();sheet?.querySelector<HTMLElement>('li:not([hidden]) a,[data-suggest]')?.focus();}
- });
- sheet?.addEventListener('keydown',event=>{
-  if(event.key==='Escape'){event.preventDefault();input?.focus();close();return;}
-  if(!['ArrowDown','ArrowUp'].includes(event.key))return;
-  const links=[...sheet.querySelectorAll<HTMLElement>('li:not([hidden]) a,[data-suggest]')];
-  const index=links.indexOf(document.activeElement as HTMLElement);event.preventDefault();
-  const next=index+(event.key==='ArrowDown'?1:-1);if(next<0)input?.focus();else links[Math.min(next,links.length-1)]?.focus();
- });
- document.addEventListener('pointerdown',event=>{if(!(event.target as HTMLElement).closest('.search-wrap'))close();});
- document.addEventListener('focusin',event=>{if(!(event.target as HTMLElement).closest('.search-wrap'))close();});
-</script>

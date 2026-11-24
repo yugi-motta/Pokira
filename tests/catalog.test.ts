@@ -75,8 +75,11 @@ test('suggestion action is present after profile search results even when no row
  for(const lang of ['en','ja']){
   const html=readFileSync(`dist/${lang==='en'?'en/':''}usgmen/index.html`,'utf8');
   const sheet=html.split('id="illustrator-search-results"')[1].split('</nav>')[0];
-  assert.equal((sheet.match(/<li /g)||[]).length,artists.length);
-  assert.ok(sheet.indexOf('data-suggest')>sheet.indexOf('</ul>'));
+  assert.equal((sheet.match(/<li data-search=/g)||[]).length,artists.length);
+  assert.ok(sheet.indexOf('data-home-search-suggest')>sheet.lastIndexOf('data-search='));
+  assert.ok(sheet.includes('suggestion-avatar'));assert.ok(sheet.includes('search-suggestion-row'));
+  assert.ok(html.includes('id="home-search-dialog"'));
+  assert.ok(!html.includes('class="home-search-close"'));
   assert.ok(sheet.includes('search-sheet-empty'));
  }
  const jerky=artists.find(a=>a.id==='jerky');assert.equal(matchesIllustrator(illustratorSearchText(jerky),'sa'),false);

@@ -1,0 +1,21 @@
+---
+import { copy, type Lang } from '../lib/i18n';
+import IllustratorSearchResults from './IllustratorSearchResults.astro';
+interface Props { lang: Lang; }
+const {lang}=Astro.props;
+const t=copy[lang];
+---
+<dialog id="home-search-dialog" class="home-search-dialog" aria-labelledby="home-search-title">
+  <h2 id="home-search-title" class="sr-only">{t.searchLabel}</h2>
+  <form class="home-search-field" role="search">
+    <svg class="home-search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+    <label class="sr-only" for="home-search-input">{t.searchLabel}</label>
+    <input id="home-search-input" type="search" placeholder={t.search} autocomplete="off" aria-controls="illustrator-search-results" autofocus />
+    <button class="search-clear home-search-clear" type="button" aria-label={t.clearSearch} hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button>
+  </form>
+  <IllustratorSearchResults lang={lang} />
+  <p class="sr-only home-search-count" role="status" aria-live="polite" aria-atomic="true"></p>
+</dialog>
+<script>
+  import '../lib/home-search';
+</script>
