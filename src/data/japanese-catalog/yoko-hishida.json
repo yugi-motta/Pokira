@@ -146,14 +146,13 @@
       "number": "184/131",
       "setName": "Dual Fusion",
       "setId": "921",
-      "high": "https://pokira.pages.dev/images/cards/ja/yoko-hishida-c1-184.webp",
-      "thumbnail": "https://pokira.pages.dev/images/cards/ja/yoko-hishida-c1-184.webp",
-      "width": 1074,
-      "height": 1498,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-10-29",
       "setJapaneseName": "デュアルフュージョン",
-      "setCode": "C1",
-      "imageSource": "https://www.artofpkm.com/sets/921/card/184"
+      "setCode": "C1"
     },
     {
       "kind": "pocket",
@@ -163,14 +162,13 @@
       "number": "160/233",
       "setName": "Ruler of the Skies",
       "setId": "618",
-      "high": "https://pbs.twimg.com/media/HXEdUBpbIAABjj8.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HXEdUBpbIAABjj8.jpg?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-07-30",
       "setJapaneseName": "天空の支配者",
-      "setCode": "B4",
-      "imageSource": "https://x.com/choro_o/status/2121509403044331931/photo/8"
+      "setCode": "B4"
     },
     {
       "kind": "pocket",
@@ -180,14 +178,13 @@
       "number": "028/106",
       "setName": "Everyday Wonders",
       "setId": "617",
-      "high": "https://pbs.twimg.com/media/HXEdhqnbkAAK0DL.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HXEdhqnbkAAK0DL.jpg?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-06-30",
       "setJapaneseName": "ミラクルデイズ",
-      "setCode": "B3b",
-      "imageSource": "https://x.com/choro_o/status/2121509403044331931/photo/9"
+      "setCode": "B3b"
     },
     {
       "kind": "pocket",
@@ -197,14 +194,13 @@
       "number": "166/234",
       "setName": "Pulsing Aura",
       "setId": "615",
-      "high": "https://pbs.twimg.com/media/HXEb3XqbMAEyXUS.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HXEb3XqbMAEyXUS.jpg?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-04-28",
       "setJapaneseName": "波動ビート",
-      "setCode": "B3",
-      "imageSource": "https://x.com/choro_o/status/2121509403044331931/photo/5"
+      "setCode": "B3"
     },
     {
       "kind": "pocket",
@@ -214,14 +210,13 @@
       "number": "211/331",
       "setName": "Mega Rising",
       "setId": "610",
-      "high": "https://pbs.twimg.com/media/HXEc_rjbwAAkzuy.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HXEc_rjbwAAkzuy.jpg?format=jpg&name=small",
-      "width": 1074,
-      "height": 1498,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2025-10-30",
       "setJapaneseName": "メガライジング",
-      "setCode": "B1",
-      "imageSource": "https://x.com/choro_o/status/2121509403044331931/photo/7"
+      "setCode": "B1"
     },
     {
       "kind": "pocket",
@@ -231,15 +226,14 @@
       "number": "171/155",
       "setName": "Celestial Guardians",
       "setId": "604",
-      "high": "https://pbs.twimg.com/media/HXEcCZiaAAAQYiD.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HXEcCZiaAAAQYiD.jpg?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2025-04-30",
       "setJapaneseName": "双天の守護者",
-      "setCode": "A3",
-      "imageSource": "https://x.com/choro_o/status/2121509403044331931/photo/6"
+      "setCode": "A3"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }

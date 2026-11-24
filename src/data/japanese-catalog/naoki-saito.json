@@ -1684,12 +1684,12 @@
     },
     {
       "kind": "physical",
-      "source": "https://www.artofpkm.com/sets/419/card/198",
       "en": "Marnie",
       "ja": "マリィ",
       "number": "198/190",
       "setName": "Shiny Star V",
       "setId": "419",
+      "source": "https://www.artofpkm.com/sets/419#198%2F190",
       "high": "https://www.pokemon-card.com/assets/images/card_images/large/S4a/038930_T_MARII.jpg",
       "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/S4a/038930_T_MARII.jpg",
       "width": 868,
@@ -6504,5 +6504,5 @@
       "setCode": "A1"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }

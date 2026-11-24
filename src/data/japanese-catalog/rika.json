@@ -4,6 +4,23 @@
   "cards": [
     {
       "kind": "physical",
+      "source": "https://www.artofpkm.com/sets/1223/card/10",
+      "en": "Wellspring Mask Ogerpon",
+      "ja": "オーガポン いどのめん",
+      "number": "008/038",
+      "setName": "Special Deck Set MEGA Mega Feraligatr & Mega Dragonite & Mega Gengar",
+      "setId": "1223",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/MG/050821_P_OGAPONIDONOMEN.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/MG/050821_P_OGAPONIDONOMEN.jpg",
+      "width": 868,
+      "height": 1212,
+      "setCode": "MG",
+      "setJapaneseName": "スペシャルデッキセットMEGA メガオーダイル・メガカイリュー・メガゲンガー",
+      "releaseDate": "2026-11-13",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50821/regu/all"
+    },
+    {
+      "kind": "physical",
       "source": "https://www.artofpkm.com/sets/581/card/190",
       "en": "Lapras",
       "ja": "ラプラス",
@@ -825,5 +842,5 @@
       "setCode": "A1a"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }

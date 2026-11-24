@@ -4,6 +4,23 @@
   "cards": [
     {
       "kind": "physical",
+      "source": "https://www.artofpkm.com/sets/1224/card/10",
+      "en": "Shelmet",
+      "ja": "チョボマキ",
+      "number": "010/078",
+      "setName": "Aura Seeker",
+      "setId": "1224",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050865_P_CHIXYOBOMAKI.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050865_P_CHIXYOBOMAKI.jpg",
+      "width": 868,
+      "height": 1212,
+      "setCode": "M7",
+      "setJapaneseName": "拡張パック「ハドウシーカー」",
+      "releaseDate": "2026-11-27",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50865/regu/all"
+    },
+    {
+      "kind": "physical",
       "source": "https://www.artofpkm.com/sets/592/card/28",
       "en": "Pikachu",
       "ja": "ピカチュウ",
@@ -146,14 +163,13 @@
       "number": "197/233",
       "setName": "Ruler of the Skies",
       "setId": "618",
-      "high": "https://pbs.twimg.com/media/HRC-asBbwAACW9v.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HRC-asBbwAACW9v?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-07-30",
       "setJapaneseName": "天空の支配者",
-      "setCode": "B4",
-      "imageSource": "https://x.com/USGMEN_GIF/status/2094383198272946634"
+      "setCode": "B4"
     },
     {
       "kind": "pocket",
@@ -163,14 +179,13 @@
       "number": "011/106",
       "setName": "Everyday Wonders",
       "setId": "617",
-      "high": "https://usgmen.com/wp-content/uploads/2026/07/171330dc0829cb233d93de2be0f24c11.png",
-      "thumbnail": "https://usgmen.com/wp-content/uploads/2026/07/171330dc0829cb233d93de2be0f24c11-215x300.png",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-06-30",
       "setJapaneseName": "ミラクルデイズ",
-      "setCode": "B3b",
-      "imageSource": "https://usgmen.com/work/3092"
+      "setCode": "B3b"
     },
     {
       "kind": "pocket",
@@ -180,14 +195,13 @@
       "number": "026/106",
       "setName": "Everyday Wonders",
       "setId": "617",
-      "high": "https://usgmen.com/wp-content/uploads/2026/07/56d7c6529596ea169219ec628eb60c81.png",
-      "thumbnail": "https://usgmen.com/wp-content/uploads/2026/07/56d7c6529596ea169219ec628eb60c81-215x300.png",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-06-30",
       "setJapaneseName": "ミラクルデイズ",
-      "setCode": "B3b",
-      "imageSource": "https://usgmen.com/work/3092"
+      "setCode": "B3b"
     },
     {
       "kind": "pocket",
@@ -197,14 +211,13 @@
       "number": "037/106",
       "setName": "Everyday Wonders",
       "setId": "617",
-      "high": "https://usgmen.com/wp-content/uploads/2026/07/544c5d12af7d458afde86a3eaf44c5b2.png",
-      "thumbnail": "https://usgmen.com/wp-content/uploads/2026/07/544c5d12af7d458afde86a3eaf44c5b2-215x300.png",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-06-30",
       "setJapaneseName": "ミラクルデイズ",
-      "setCode": "B3b",
-      "imageSource": "https://usgmen.com/work/3092"
+      "setCode": "B3b"
     },
     {
       "kind": "pocket",
@@ -214,14 +227,13 @@
       "number": "048/106",
       "setName": "Everyday Wonders",
       "setId": "617",
-      "high": "https://usgmen.com/wp-content/uploads/2026/07/ae52061b87e90c617e5679da9d4d3a1a.png",
-      "thumbnail": "https://usgmen.com/wp-content/uploads/2026/07/ae52061b87e90c617e5679da9d4d3a1a-215x300.png",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-06-30",
       "setJapaneseName": "ミラクルデイズ",
-      "setCode": "B3b",
-      "imageSource": "https://usgmen.com/work/3092"
+      "setCode": "B3b"
     },
     {
       "kind": "pocket",
@@ -231,14 +243,13 @@
       "number": "083/117",
       "setName": "Mega Shine",
       "setId": "614",
-      "high": "https://pbs.twimg.com/media/HHeOcyybwAAyDL0.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HHeOcyybwAAyDL0?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-03-26",
       "setJapaneseName": "シャイニングメガ",
-      "setCode": "B2b",
-      "imageSource": "https://x.com/USGMEN_GIF/status/2051264785485062341"
+      "setCode": "B2b"
     },
     {
       "kind": "pocket",
@@ -248,14 +259,13 @@
       "number": "032/234",
       "setName": "Fantastical Parade",
       "setId": "612",
-      "high": "https://pbs.twimg.com/media/HAJVULmbAAArkfZ.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/HAJVULmbAAArkfZ?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2026-01-29",
       "setJapaneseName": "夢幻パレード",
-      "setCode": "B2",
-      "imageSource": "https://x.com/USGMEN_GIF/status/2018269394493968454"
+      "setCode": "B2"
     },
     {
       "kind": "pocket",
@@ -265,14 +275,13 @@
       "number": "165/155",
       "setName": "Celestial Guardians",
       "setId": "604",
-      "high": "https://pbs.twimg.com/media/GsbtWkebIAAQEuT.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/GsbtWkebIAAQEuT?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2025-04-30",
       "setJapaneseName": "双天の守護者",
-      "setCode": "A3",
-      "imageSource": "https://x.com/USGMEN_GIF/status/1929490467269272056"
+      "setCode": "A3"
     },
     {
       "kind": "pocket",
@@ -282,15 +291,14 @@
       "number": "095/072",
       "setName": "Shining Revelry",
       "setId": "603",
-      "high": "https://pbs.twimg.com/media/GqLdyxFbMAAkJn_.jpg",
-      "thumbnail": "https://pbs.twimg.com/media/GqLdyxFbMAAkJn_?format=jpg&name=small",
-      "width": 734,
-      "height": 1024,
+      "high": null,
+      "thumbnail": null,
+      "width": 600,
+      "height": 825,
       "releaseDate": "2025-03-27",
       "setJapaneseName": "シャイニングハイ",
-      "setCode": "A2b",
-      "imageSource": "https://x.com/USGMEN_GIF/status/1919340260191879474"
+      "setCode": "A2b"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }

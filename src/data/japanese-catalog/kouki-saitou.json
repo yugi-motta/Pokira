@@ -4,6 +4,23 @@
   "cards": [
     {
       "kind": "physical",
+      "source": "https://www.artofpkm.com/sets/1224/card/52",
+      "en": "Malamar",
+      "ja": "カラマネロ",
+      "number": "052/078",
+      "setName": "Aura Seeker",
+      "setId": "1224",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050907_P_KARAMANERO.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050907_P_KARAMANERO.jpg",
+      "width": 868,
+      "height": 1212,
+      "setCode": "M7",
+      "setJapaneseName": "拡張パック「ハドウシーカー」",
+      "releaseDate": "2026-11-27",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50907/regu/all"
+    },
+    {
+      "kind": "physical",
       "source": "https://www.artofpkm.com/sets/594/card/18",
       "en": "Murkrow",
       "ja": "ヤミカラス",
@@ -1683,12 +1700,12 @@
     },
     {
       "kind": "physical",
-      "source": "https://www.artofpkm.com/sets/482/card/12",
       "en": "Capsakid",
       "ja": "カプサイジ",
       "number": "012/078",
       "setName": "Violet ex",
       "setId": "482",
+      "source": "https://www.artofpkm.com/sets/482#012%2F078",
       "high": "https://www.pokemon-card.com/assets/images/card_images/large/SV1V/042636_P_KAPUSAIJI.jpg",
       "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/SV1V/042636_P_KAPUSAIJI.jpg",
       "width": 868,
@@ -14717,5 +14734,5 @@
       "setCode": "A1"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }

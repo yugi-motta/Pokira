@@ -10,13 +10,14 @@
       "number": "133/103",
       "setName": "30th CELEBRATION",
       "setId": "592",
-      "high": null,
-      "thumbnail": null,
-      "width": 600,
-      "height": 825,
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050963_P_BOMANDAIEKKUSU.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050963_P_BOMANDAIEKKUSU.jpg",
+      "width": 868,
+      "height": 1212,
       "setCode": "M6a",
       "setJapaneseName": "30th セレブレーション",
-      "releaseDate": "2026-09-16"
+      "releaseDate": "2026-09-16",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50963/regu/all"
     },
     {
       "kind": "physical",
@@ -1903,5 +1904,5 @@
       "setCode": "A1"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }

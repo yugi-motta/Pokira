@@ -4,19 +4,37 @@
   "cards": [
     {
       "kind": "physical",
+      "source": "https://www.artofpkm.com/sets/1223/card/9",
+      "en": "Glastrier",
+      "ja": "ブリザポス",
+      "number": "007/038",
+      "setName": "Special Deck Set MEGA Mega Feraligatr & Mega Dragonite & Mega Gengar",
+      "setId": "1223",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/MG/050820_P_BURIZAPOSU.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/MG/050820_P_BURIZAPOSU.jpg",
+      "width": 868,
+      "height": 1212,
+      "setCode": "MG",
+      "setJapaneseName": "スペシャルデッキセットMEGA メガオーダイル・メガカイリュー・メガゲンガー",
+      "releaseDate": "2026-11-13",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50820/regu/all"
+    },
+    {
+      "kind": "physical",
       "source": "https://www.artofpkm.com/sets/592/card/105",
       "en": "Moltres",
       "ja": "ファイヤー",
       "number": "105/103",
       "setName": "30th CELEBRATION",
       "setId": "592",
-      "high": null,
-      "thumbnail": null,
-      "width": 600,
-      "height": 825,
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050935_P_FUAIYA.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050935_P_FUAIYA.jpg",
+      "width": 868,
+      "height": 1212,
       "setCode": "M6a",
       "setJapaneseName": "30th セレブレーション",
-      "releaseDate": "2026-09-16"
+      "releaseDate": "2026-09-16",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50935/regu/all"
     },
     {
       "kind": "physical",
@@ -26,13 +44,14 @@
       "number": "107/103",
       "setName": "30th CELEBRATION",
       "setId": "592",
-      "high": null,
-      "thumbnail": null,
-      "width": 600,
-      "height": 825,
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050937_P_FURIZA.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050937_P_FURIZA.jpg",
+      "width": 868,
+      "height": 1212,
       "setCode": "M6a",
       "setJapaneseName": "30th セレブレーション",
-      "releaseDate": "2026-09-16"
+      "releaseDate": "2026-09-16",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50937/regu/all"
     },
     {
       "kind": "physical",
@@ -42,13 +61,14 @@
       "number": "108/103",
       "setName": "30th CELEBRATION",
       "setId": "592",
-      "high": null,
-      "thumbnail": null,
-      "width": 600,
-      "height": 825,
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050938_P_SANDA.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050938_P_SANDA.jpg",
+      "width": 868,
+      "height": 1212,
       "setCode": "M6a",
       "setJapaneseName": "30th セレブレーション",
-      "releaseDate": "2026-09-16"
+      "releaseDate": "2026-09-16",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50938/regu/all"
     },
     {
       "kind": "physical",
@@ -648,5 +668,5 @@
       "setCode": "A2b"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }

@@ -4,19 +4,37 @@
   "cards": [
     {
       "kind": "physical",
+      "source": "https://www.artofpkm.com/sets/1224/card/47",
+      "en": "Falinks",
+      "ja": "タイレーツ",
+      "number": "047/078",
+      "setName": "Aura Seeker",
+      "setId": "1224",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050902_P_TAIRETSU.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050902_P_TAIRETSU.jpg",
+      "width": 868,
+      "height": 1212,
+      "setCode": "M7",
+      "setJapaneseName": "拡張パック「ハドウシーカー」",
+      "releaseDate": "2026-11-27",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50902/regu/all"
+    },
+    {
+      "kind": "physical",
       "source": "https://www.artofpkm.com/sets/592/card/106",
       "en": "Lapras",
       "ja": "ラプラス",
       "number": "106/103",
       "setName": "30th CELEBRATION",
       "setId": "592",
-      "high": null,
-      "thumbnail": null,
-      "width": 600,
-      "height": 825,
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050936_P_RAPURASU.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M6a/050936_P_RAPURASU.jpg",
+      "width": 868,
+      "height": 1212,
       "setCode": "M6a",
       "setJapaneseName": "30th セレブレーション",
-      "releaseDate": "2026-09-16"
+      "releaseDate": "2026-09-16",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50936/regu/all"
     },
     {
       "kind": "physical",
@@ -576,5 +594,5 @@
       "setCode": "A1"
     }
   ],
-  "updatedAt": "2026-11-21T00:53:35+00:00"
+  "updatedAt": "2026-11-24T04:23:39+00:00"
 }
