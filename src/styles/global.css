@@ -551,13 +551,13 @@ html[data-theme=dark] .contact-fields .contact-removal-note{color:#b8b8c1}
 
 /* Local homepage exploration: introduce the project before the directory. */
 .site-header--home{position:relative;display:flex;flex-direction:column;align-items:center;gap:0;height:auto;padding:58px 0 34px}
-.site-header--home .wordmark{flex:none;justify-content:flex-start;width:240px;height:114px;max-width:70%;overflow:hidden}
+.site-header--home .wordmark{flex:none;justify-content:flex-start;width:300px;height:169px;max-width:85%;overflow:hidden}
 .site-header--home .home-intro{max-width:440px;margin:23px 0 25px;text-align:center;color:#6e6e73;font-size:15px;line-height:1.65;text-wrap:pretty}
 .site-header--home .search-wrap{flex:none;width:min(420px,100%);height:46px;padding-inline:17px}
 .site-header--home .search-wrap input{font-size:13px}
 .site-header--home .site-menu{position:absolute;top:14px;right:0}
 html[data-theme=dark] .home-intro{color:#b8b8c1}
-@media(max-width:640px){.site-header--home{padding:60px 0 28px}.site-header--home .wordmark{width:190px;height:90px}.site-header--home .home-intro{max-width:340px;margin:20px 0 22px;font-size:14px}.site-header--home .search-wrap{width:min(380px,100%);height:44px}.site-header--home .site-menu{top:12px}}
+@media(max-width:640px){.site-header--home{padding:60px 0 28px}.site-header--home .wordmark{width:230px;height:130px}.site-header--home .home-intro{max-width:340px;margin:20px 0 22px;font-size:14px}.site-header--home .search-wrap{width:min(380px,100%);height:44px}.site-header--home .site-menu{top:12px}}
 
 /* Keep homepage discovery inside a focused, keyboard-accessible search dialog. */
 .site-header--home input[data-search-overlay]{cursor:text}
