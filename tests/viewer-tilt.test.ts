@@ -36,7 +36,7 @@ test('touch dragging tilts the enlarged card and follows the finger with glare',
  f.emit('pointerdown');assert.ok(f.captures.has(1));
  f.emit('pointermove',300,100);assert.equal(f.callbacks.size,1);
  f.emit('pointermove',999,-100);assert.equal(f.callbacks.size,1);f.flush();
- assert.equal(f.properties.get('--tilt-x'),'12deg');assert.equal(f.properties.get('--tilt-y'),'12deg');
+ assert.equal(f.properties.get('--tilt-x'),'15deg');assert.equal(f.properties.get('--tilt-y'),'15deg');
  assert.equal(f.properties.get('--glare-x'),'100%');assert.equal(f.properties.get('--glare-y'),'0%');
  assert.equal(f.properties.get('--glare-opacity'),'.22');assert.equal(f.surface.dataset.dragging,'true');
  f.emit('pointerup',999,-100);
@@ -65,7 +65,7 @@ test('cancelled gestures and lost capture reset the surface and cancel pending p
 test('touch motion respects reduced motion, opening animations and closed viewers',t=>{
  const f=fixture(t);f.setAnimating(true);f.emit('pointerdown');f.emit('pointermove',300,100);f.flush();assert.equal(f.properties.size,0);
  f.setAnimating(false);f.reducedMotion.matches=true;f.emit('pointermove',300,100);f.flush();assert.equal(f.properties.size,0);
- f.reducedMotion.matches=false;f.emit('pointermove',300,100);f.flush();assert.equal(f.properties.get('--tilt-y'),'12deg');
+ f.reducedMotion.matches=false;f.emit('pointermove',300,100);f.flush();assert.equal(f.properties.get('--tilt-y'),'15deg');
  f.tilt.reset();assert.equal(f.captures.size,0);assert.equal(f.properties.get('--tilt-y'),'0deg');
  f.dialog.open=false;f.emit('pointerdown');f.emit('pointermove',300,100);f.flush();assert.equal(f.captures.size,0);assert.equal(f.properties.get('--tilt-y'),'0deg');
 });
@@ -73,7 +73,7 @@ test('touch motion respects reduced motion, opening animations and closed viewer
 test('secondary fingers do not take over the gesture',t=>{
  const f=fixture(t);f.emit('pointerdown');f.emit('pointerdown',300,100,'touch',2,false);
  f.emit('pointermove',300,100,'touch',2,false);f.flush();assert.equal(f.properties.size,0);assert.deepEqual([...f.captures],[1]);
- f.emit('pointermove',300,100);f.flush();assert.equal(f.properties.get('--tilt-y'),'12deg');f.tilt.reset();
+ f.emit('pointermove',300,100);f.flush();assert.equal(f.properties.get('--tilt-y'),'15deg');f.tilt.reset();
 });
 
 test('desktop hover tilt remains available without capturing the pointer',t=>{

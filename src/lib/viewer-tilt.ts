@@ -52,7 +52,7 @@ export function installViewerTilt({dialog,frame,surface,reducedMotion,finePointe
    if(!rect.width||!rect.height)return;
    const x=Math.max(0,Math.min(1,(point.x-rect.left)/rect.width));
    const y=Math.max(0,Math.min(1,(point.y-rect.top)/rect.height));
-   const extent=point.touch?24:8;
+   const extent=point.touch?30:8;
    if(point.touch)surface.dataset.dragging='true';
    surface.style.setProperty('--tilt-x',`${(.5-y)*extent}deg`);
    surface.style.setProperty('--tilt-y',`${(x-.5)*extent}deg`);
