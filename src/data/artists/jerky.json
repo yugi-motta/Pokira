@@ -94,5 +94,14 @@
       ]
     }
   ],
-  "avatar": "https://pbs.twimg.com/profile_images/953563835373314048/CiZIHfwI_400x400.jpg"
+  "avatar": "https://pbs.twimg.com/profile_images/953563835373314048/CiZIHfwI_400x400.jpg",
+  "website": "https://banana-jerky.com/",
+  "websiteSource": "https://banana-jerky.com/about/",
+  "bio": {
+    "en": "Illustrator and designer from Saga Prefecture, based in Nara. Publishes illustration and design work under the name BANANA JERKY.",
+    "ja": "佐賀県出身、奈良県在住のイラストレーター・デザイナー。BANANA JERKYの名でイラストやデザインの作品を発表している。",
+    "sources": [
+      "https://banana-jerky.com/about/"
+    ]
+  }
 }

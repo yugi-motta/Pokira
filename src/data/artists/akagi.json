@@ -12,5 +12,12 @@
   "japaneseName": "あかぎ うんど",
   "japaneseNameSource": "https://www.artofpkm.com/illustrators/akagi",
   "website": "https://mozecek.tumblr.com/",
-  "websiteSource": "https://www.artofpkm.com/illustrators/akagi"
+  "websiteSource": "https://www.artofpkm.com/illustrators/akagi",
+  "bio": {
+    "en": "Freelance illustrator working on Pokémon, Duel Masters, Magic: The Gathering, ONE PIECE Card Game and TEPPEN, alongside design work for console games.",
+    "ja": "フリーランスのイラストレーター。ポケモンカード、デュエル・マスターズ、マジック：ザ・ギャザリング、ONE PIECEカードゲーム、TEPPENなどのイラストや、コンシューマーゲームのデザインを手がける。",
+    "sources": [
+      "https://x.com/akagiund"
+    ]
+  }
 }

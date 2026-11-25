@@ -8,5 +8,14 @@
   ],
   "gallery": [],
   "announcements": [],
-  "avatar": "https://pbs.twimg.com/profile_images/1218198781709012992/VOt6ypLl_400x400.jpg"
+  "avatar": "https://pbs.twimg.com/profile_images/1218198781709012992/VOt6ypLl_400x400.jpg",
+  "website": "https://umemotodesign.myportfolio.com/",
+  "websiteSource": "https://umemotodesign.myportfolio.com/profile",
+  "bio": {
+    "en": "Freelance designer and illustrator with a background in advertising design. Creates illustrations and theater publicity artwork, alongside Pokémon card illustrations and Poké Lids.",
+    "ja": "広告系デザイン出身のフリーランスのデザイナー・イラストレーター。デザイン全般や平面イラスト、演劇の宣伝美術のほか、ポケモンカードゲームのカードイラストやポケふたの作画を手がける。",
+    "sources": [
+      "https://umemotodesign.myportfolio.com/profile"
+    ]
+  }
 }

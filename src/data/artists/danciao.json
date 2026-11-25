@@ -10,5 +10,14 @@
   "announcements": [],
   "avatar": "https://pbs.twimg.com/profile_images/1690311077203206144/jQI2HGxN_400x400.jpg",
   "japaneseName": "だんちゃお",
-  "japaneseNameSource": "https://www.artofpkm.com/illustrators/danciao"
+  "japaneseNameSource": "https://www.artofpkm.com/illustrators/danciao",
+  "instagram": "danciao",
+  "instagramSource": "https://www.instagram.com/danciao/",
+  "bio": {
+    "en": "Illustrator whose work includes Ivan the Terrible and Xiang Yu for Fate/Grand Order, as well as Pokémon cards, Magic: The Gathering, Duel Masters and Eiketsu Taisen.",
+    "ja": "イラストレーター。『Fate/Grand Order』のイヴァン雷帝・項羽をはじめ、ポケモンカード、マジック：ザ・ギャザリング、デュエル・マスターズ、『英傑大戦』などのイラストを手がける。",
+    "sources": [
+      "https://x.com/danciao"
+    ]
+  }
 }

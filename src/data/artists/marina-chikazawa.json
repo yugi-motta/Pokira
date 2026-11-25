@@ -53,5 +53,12 @@
   ],
   "japaneseNameSource": "https://www.artofpkm.com/illustrators/marina-chikazawa",
   "website": "https://marinachikazawa.tumblr.com/",
-  "websiteSource": "https://www.artofpkm.com/illustrators/marina-chikazawa"
+  "websiteSource": "https://www.artofpkm.com/illustrators/marina-chikazawa",
+  "bio": {
+    "en": "Freelance since 2022 after around five years as a 2D designer at a game company. Creates illustrations, background art and manga, with a fondness for science fiction and landscapes with plants.",
+    "ja": "ゲーム会社で約5年間2Dデザイナーを務めた後、2022年からフリーランスとして活動。イラストや背景、漫画を制作し、SFや植物のある景色を好む。",
+    "sources": [
+      "https://marinachikazawa.tumblr.com/profile"
+    ]
+  }
 }

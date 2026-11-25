@@ -51,5 +51,12 @@
     }
   ],
   "website": "https://www.tumblr.com/mumashu",
-  "websiteSource": "https://www.artofpkm.com/illustrators/mashu"
+  "websiteSource": "https://www.artofpkm.com/illustrators/mashu",
+  "bio": {
+    "en": "Illustrator, designer and instructor based in Japan’s Kanto region. Creates Pokémon card illustrations, key visuals and packaging, writes books on illustration and design, and teaches at Vantan Design Institute.",
+    "ja": "関東を拠点に活動するイラストレーター・デザイナー・講師。ポケモンカードやキービジュアル、パッケージなどを手がけ、イラストとデザインに関する書籍も執筆。バンタンデザイン研究所で講師を務める。",
+    "sources": [
+      "https://x.com/mu_mashu"
+    ]
+  }
 }

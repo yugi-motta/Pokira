@@ -50,5 +50,14 @@
         }
       ]
     }
-  ]
+  ],
+  "website": "https://kirisaki29.myportfolio.com/",
+  "websiteSource": "https://kirisaki29.myportfolio.com/profile",
+  "bio": {
+    "en": "A Tokyo-based illustrator and painter born in Shinjuku’s Golden Gai. Began freelancing while at vocational school and also exhibits work with girls as a central motif.",
+    "ja": "新宿ゴールデン街生まれ、東京都在住のイラストレーター・画家。専門学校在学中からフリーで活動し、少女を主なモチーフにした作品の展示・発表も行う。",
+    "sources": [
+      "https://kirisaki29.myportfolio.com/profile"
+    ]
+  }
 }

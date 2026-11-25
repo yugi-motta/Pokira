@@ -48,5 +48,12 @@
         }
       ]
     }
-  ]
+  ],
+  "bio": {
+    "en": "Illustrator creating Pokémon card artwork and Gunpla package art. Also teaches at Kyoto Seika University and Vantan Game Academy, and offers art instruction at disability welfare facilities.",
+    "ja": "ポケモンカードやガンプラのパッケージアートを手がけるイラストレーター。京都精華大学とバンタンゲームアカデミーで講師を務め、障がい福祉事業所でも絵を教えている。",
+    "sources": [
+      "https://x.com/yonyon760"
+    ]
+  }
 }
