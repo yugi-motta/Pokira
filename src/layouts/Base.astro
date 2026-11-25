@@ -53,8 +53,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <div class:list={["site-shell",wide && "site-shell--wide"]}>
       <header class:list={["site-header", homeHero && "site-header--home"]}>
         <a class="wordmark" href={pathFor(lang)} aria-label={t.siteTitle}>
-          <img class="brand-logo brand-logo--light" src="/pokira-logo-light.svg" width="2213" height="1247" alt="" decoding="async" />
-          <img class="brand-logo brand-logo--dark" src="/pokira-logo-dark.svg" width="2213" height="1247" alt="" decoding="async" />
+          <img class="brand-logo brand-logo--light" src={lang === 'en' ? '/pokira-logo-english-light.svg' : '/pokira-logo-light.svg'} width="2213" height="1247" alt="" decoding="async" />
+          <img class="brand-logo brand-logo--dark" src={lang === 'en' ? '/pokira-logo-english-dark.svg' : '/pokira-logo-dark.svg'} width="2213" height="1247" alt="" decoding="async" />
         </a>
         {homeHero && <p class="home-intro">{t.homeIntro}</p>}
         <form class="search-wrap" action={pathFor(lang)} method="get">
