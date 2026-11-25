@@ -17182,5 +17182,369 @@
   "https://www.pokemon-card.com/assets/images/card_images/large/SV5M/045260_P_FUORETOSU.jpg": {
     "rarity": "U",
     "source": "https://www.pokemon-card.com/card-search/details.php/card/45260/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M5/050253_P_HITOMOSHI.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/M5-034"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M4/050139_P_DASUTODASU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/50139/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M1L/047734_P_FUSHIGIDANE.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/M1L-001"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M1S/047852_P_KITERUGUMA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/M1S-056"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV9a/047316_P_OGAPONKAMADONOMEN.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/47316/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV8/046388_P_YUKUSHI.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV8-048"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV8/046389_P_EMURITTO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV8-049"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV8/046390_P_AGUNOMU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV8-050"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV7/046026_P_BAIURU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/46026/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV6/045775_P_RAKKI.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV6-084"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV5a/045579_P_KAIROSU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV5a-003"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV5K/045168_P_NAMIIRUKA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV5K-022"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV4K/044263_P_TATTSU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV4K-017"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV4M/044366_P_CHIRUTTO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV4M-054"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV3a/044094_P_GURAIGA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV3a-022"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV3/043848_P_MITSUHANI.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV3-006"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV3/043938_P_GURUTON.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV3-096"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV2D/043166_P_SHIRODESUNA.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/43166/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV1a/042987_P_KOIKINGU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV1a-022"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV1V/042685_P_HOSHIGARISU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV1V-061"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S11a/041968_P_CHIXYURINE.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S11a-007"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S11/041869_P_ISHIHENJIN.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/41869/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S10a/041544_P_MUUMA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S10a-025"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S10P/041487_P_NEKKOARA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S10P-059"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9a/041224_P_SAIDON.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S9a-038"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9/040933_P_MANAFUI.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/40933/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9/040942_P_PACHIRISU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S9-040"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S8/040012_P_DORONCHI.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/40012/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S7D/039711_P_MONOZU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S7D-042"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S6K/039452_P_SHIMAMA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S6K-021"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039409_P_KODORA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S6H-049"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S6K/039490_P_YOKUBARISU.jpg": {
+    "rarity": "R",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/39490/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S5R/039151_P_GARARUBARIKOORU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/39151/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S5R/039152_P_TEPPOUO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S5R-022"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S5I/039117_P_BERORINGA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S5I-057"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S5I/039263_P_BANGIRASUV.jpg": {
+    "rarity": "SR",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/39263/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM12/037078_P_SHISHIKO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM12-014"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM11b/037025_P_MIMIKKYU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM11b-028"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM11/036763_P_PUROTOGA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM11-016"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM10/036359_P_NYASUPA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM10-040"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM10/036397_P_PERAPPU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM10-078"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM9/035965_P_ZENIGAME.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM9-021"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM9/035995_P_RUJURA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM9-051"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM8a/035423_P_MIKARUGE.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SM8a-024"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SM8a/035433_P_JIRACHI.jpg": {
+    "rarity": "R",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/35433/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M6/050366_P_TAIKAIDEN.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/50366/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M3/049640_P_KOFUKIMUSHI.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/M3-007"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M3/049664_P_KUCHITO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/M3-031"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M2/048396_P_EREZUN.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/M2-056"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV11B/047584_P_MOGURIXYU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV11B-048"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV9a/047336_P_HIBIKINOUSOKKI.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV9a-041"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV7a/046243_P_UERUKAMO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV7a-014"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV7/045982_P_MAHOMIRU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV7-043"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV7/046001_P_MARUNOMU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/46001/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV6/045715_P_NIXYOROZO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV6-024"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV5a/045601_P_UUU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/45601/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV5a/045625_P_KAMITCHIXYU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/45625/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV5K/045149_P_NAETORU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV5K-003"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV2a/043400_P_YADON.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV2a-079"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV2a/043401_P_YADORAN.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/43401/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV2D/043153_P_PIKACHIXYUU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV2D-017"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV1a/043009_P_DEIGUDA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV1a-044"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV1S/042568_P_SHIXYARITATSU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/42568/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV1V/042662_P_SURIPU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/SV1V-038"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/SV1V/042695_T_PIKUNIKKUBASUKETTO.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/42695/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S12/042145_P_IWANKO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S12-053"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S11a/041974_P_UINDEI.jpg": {
+    "rarity": "Uncommon",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S11a-013"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S11/041888_P_PORIGON2.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S11-084"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9a/041233_P_HISUIHARISEN.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S9a-047"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9/040937_P_EREBU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S9-035"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9/040971_P_GIARU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S9-069"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9/040984_P_BIDARU.jpg": {
+    "rarity": "R",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/40984/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S8/040014_P_ISHITSUBUTE.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S8-052"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S8/040049_P_KOKOGARA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S8-087"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S7D/039719_P_NAMAKERO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S7D-050"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S6K/039440_P_KODAKKU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S6K-009"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S6H/039396_P_KAGEBOUZU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S6H-036"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S6K/039489_P_HOSHIGARISU.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S6K-058"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S12a/042840_P_GARARUFUAIYA.jpg": {
+    "rarity": "AR",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/42840/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S12/042121_P_MAGGIXYO.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S12-029"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S12/042136_P_OBEMU.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/42136/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S11/041847_P_SURIPA.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/41847/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S11/042086_P_GIRATEINAV.jpg": {
+    "rarity": "SR",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/42086/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S10P/041477_P_DOTAKUN.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/41477/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9a/041208_P_NAMAZUN.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/41208/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9/040918_P_BUBA.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S9-016"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/S9/040959_P_DAGEKI.jpg": {
+    "rarity": "Common",
+    "source": "https://api.tcgdex.net/v2/ja/cards/S9-057"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/MG/050853_T_BOSUNOSHIREI.jpg": {
+    "rarity": null,
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/50853/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/MF/050606_T_BOSUNOSHIREI.jpg": {
+    "rarity": null,
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/50606/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M7/050904_P_ICHIGEKIURAOSU.jpg": {
+    "rarity": "R",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/50904/regu/all"
+  },
+  "https://www.pokemon-card.com/assets/images/card_images/large/M7/050923_P_JIJIRON.jpg": {
+    "rarity": "U",
+    "source": "https://www.pokemon-card.com/card-search/details.php/card/50923/regu/all"
   }
 }
