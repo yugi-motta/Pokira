@@ -22,7 +22,7 @@ function setup(){
   querySelector:(q:string)=>q==='#home-search-input'?input:q==='.home-search-clear'?clear:q==='.search-sheet'?sheet:q==='.home-search-count'?count:q==='.home-search-close'?closeButton:q==='[data-home-search-suggest]'?suggest:q==='form'?form:null});
  const suggestionDialog=element();
  const menuSuggestion=element();menuSuggestion.addEventListener('click',()=>{assert.equal(body.style.overflow,'auto');assert.equal(dialog.open,false);notices++;otherDialog=true;body.style.overflow='hidden';});
- const document={body,documentElement:{lang:'en'},get activeElement(){return active;},querySelector:(q:string)=>q==='#suggestion-dialog'?suggestionDialog:q==='#home-search-dialog'?dialog:q==='[data-search-overlay="true"]'?trigger:q==='dialog[open]'?(dialog.open||otherDialog?dialog:null):q==='.suggestion-trigger'?menuSuggestion:null,addEventListener:(...args:Parameters<EventTarget['addEventListener']>)=>documentEvents.addEventListener(...args)};
+ const document={body,documentElement:{lang:'en'},get activeElement(){return active;},querySelector:(q:string)=>q==='#suggestion-dialog'?suggestionDialog:q==='#home-search-dialog'?dialog:q==='[data-search-overlay="true"]'?trigger:q==='dialog[open]'?(otherDialog?suggestionDialog:dialog.open?dialog:null):q==='.suggestion-trigger'?menuSuggestion:null,addEventListener:(...args:Parameters<EventTarget['addEventListener']>)=>documentEvents.addEventListener(...args)};
  const timers=new Map<number,()=>void>();let nextTimer=0;
  const code=ts.transpileModule(readFileSync('src/lib/home-search.ts','utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText.replace(/^import .*;\n/gm,'');
  runInNewContext(code,{document,window:{scrollX:0,get scrollY(){return scrollY;},scrollTo(value:{top:number}){scrollY=value.top;}},location:{search:''},matchesIllustrator,URLSearchParams,queueMicrotask,matchMedia:()=>({matches:false}),setTimeout:(callback:()=>void)=>{timers.set(++nextTimer,callback);return nextTimer;},clearTimeout:(id:number)=>timers.delete(id)});
@@ -61,4 +61,17 @@ test('the inactive search stays empty while typing, after closing, and when reop
  assert.equal(c.trigger.value,'');assert.equal(c.input.value,'ariga');assert.equal(c.rows[0].hidden,false);
  c.key(c.input,'Escape');await c.finishClose();assert.equal(c.trigger.value,'');assert.equal(c.dialog.open,false);
  c.trigger.click();assert.equal(c.trigger.value,'');assert.equal(c.input.value,'ariga');assert.equal(c.rows[0].hidden,false);
+});
+
+test('Command+F and Control+F replace browser find and refocus an already-open search',()=>{
+ for(const modifier of ['metaKey','ctrlKey']){
+  const c=setup();const shortcut=()=>Object.assign(new Event('keydown',{cancelable:true}),{key:'f',[modifier]:true});
+  const first=shortcut();c.documentEvents.dispatchEvent(first);assert.equal(first.defaultPrevented,true);assert.equal(c.dialog.open,true);assert.equal(c.active,c.input);
+  c.linkA.focus();const repeat=shortcut();c.documentEvents.dispatchEvent(repeat);assert.equal(repeat.defaultPrevented,true);assert.equal(c.active,c.input);
+ }
+});
+test('find shortcuts leave an open suggestion form intact',async()=>{
+ const c=setup();c.trigger.focus();c.suggest.click();await c.finishClose();
+ const event=Object.assign(new Event('keydown',{cancelable:true}),{key:'f',ctrlKey:true});c.documentEvents.dispatchEvent(event);
+ assert.equal(c.dialog.open,false);assert.equal(c.body.style.overflow,'hidden');
 });

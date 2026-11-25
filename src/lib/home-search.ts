@@ -78,9 +78,18 @@ dialog?.querySelector('[data-home-search-suggest]')?.addEventListener('click',()
   handoff=true;close(true);
 });
 document.addEventListener('keydown',event=>{
-  if(!dialog||document.querySelector('dialog[open]'))return;
+  if(!dialog)return;
+  const activeDialog=document.querySelector('dialog[open]');
+  if(activeDialog&&activeDialog!==dialog)return;
+  const shortcut=(event.metaKey||event.ctrlKey)&&!event.altKey&&!event.shiftKey&&['f','k'].includes(event.key.toLowerCase());
+  if(shortcut){
+    event.preventDefault();
+    if(dialog.open)input?.focus({preventScroll:true});else open();
+    return;
+  }
+  if(activeDialog)return;
   const editing=(event.target as HTMLElement)?.closest('input,textarea,select,[contenteditable="true"]');
-  if((event.key==='/'&&!editing)||((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k')){event.preventDefault();open();}
+  if(event.key==='/'&&!editing){event.preventDefault();open();}
 });
 const query=new URLSearchParams(location.search).get('q');
 if(trigger)trigger.value='';
