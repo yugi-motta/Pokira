@@ -99,3 +99,22 @@ Pokémon filter IDs and localized species labels use the checked-in `src/data/po
 
 
 Profiles now count unique illustrations, keeping the first displayed print of a shared artwork. `scripts/index-artwork.ts` analyzes public illustration crops in memory, caches numerical fingerprints, and checks in only `src/data/artwork-identities.json`; it does not copy image files into the site. Exact scan URLs and conservative crop matches group reprints/finishes without grouping solely by Pokémon name. Daily refresh includes this index before publishing. The expanded view uses a thumbnail-to-center transform. Profile thumbnails and expanded illustrations have fine-pointer perspective tilt and a subtle reflection; reduced-motion preferences disable these effects.
+
+## Visitor analytics
+
+Cloudflare Web Analytics is installed manually through `WebAnalytics.astro` and
+`analytics-client.ts`. The public site token is in `analytics-config.ts`.
+Do not enable Cloudflare Pages' automatic Web Analytics injection: the manual
+loader must check the browser exclusion before the beacon can run.
+
+To exclude your own traffic, open <https://pokira.pages.dev/analytics/exclude/>
+in each regular browser you use on your computer and phone, including an in-app
+browser if you use one. Check that it confirms the preference was saved. This
+stores only the boolean `pokira-analytics-excluded` in that browser's localStorage;
+it is not a visitor identifier and works across network changes. Clearing site
+data or using a different/private browser can require opening the link again.
+The exclusion page itself, localhost and preview deployments are never counted.
+
+View results in Cloudflare → Observability → Analytics → Web analytics →
+`pokira.pages.dev`. Counts start after installation; they are aggregate visits,
+not identities of individual friends, and blocked analytics may be undercounted.

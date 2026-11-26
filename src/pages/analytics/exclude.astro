@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Exclude this browser — Pokira</title>
+    <link rel="icon" href="/pokira-icon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main>
+      <h1>Exclude this browser</h1>
+      <p id="analytics-exclusion-status" role="status" aria-live="polite">Saving your preference…</p>
+      <p class="hint">Open this link in each browser you use on your computer and phone. The exclusion works on both Wi-Fi and mobile data.</p>
+      <p class="hint">Clearing browser data, using private browsing, or switching browsers may reset this preference. Keep this link so you can exclude the browser again.</p>
+      <noscript><p>JavaScript needs to be enabled to save this preference.</p></noscript>
+      <a href="/en/">Back to Pokira</a>
+    </main>
+    <script>
+      import '../../lib/analytics-client';
+    </script>
+  </body>
+</html>
+<style>
+  :global(body){margin:0;min-height:100svh;display:grid;place-items:center;background:#f5f5f7;color:#1d1d1f;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;padding:24px;box-sizing:border-box}
+  main{width:100%;max-width:440px;padding:32px;border-radius:24px;background:#fff;box-sizing:border-box;box-shadow:0 8px 40px #0001}
+  h1{margin:0 0 18px;font-size:26px;letter-spacing:-.03em}p{font-size:15px;line-height:1.6}.hint{font-size:13px;color:#6e6e73}a{display:inline-flex;margin-top:14px;padding:12px 20px;border-radius:999px;background:#1d1d1f;color:#fff;text-decoration:none;font-size:13px;font-weight:600}
+  @media(prefers-color-scheme:dark){:global(body){background:#121214;color:#f5f5f7}main{background:#232327}.hint{color:#b8b8c1}a{background:#f5f5f7;color:#1d1d1f}}
+</style>

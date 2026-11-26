@@ -5,6 +5,7 @@ import AboutPokira from '../components/AboutPokira.astro';
 import SuggestionToast from '../components/SuggestionToast.astro';
 import ContactForm from '../components/ContactForm.astro';
 import HomeSearch from '../components/HomeSearch.astro';
+import WebAnalytics from '../components/WebAnalytics.astro';
 
 interface Props {
   lang: Lang;
@@ -99,6 +100,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <AboutPokira lang={lang} />
     <ContactForm lang={lang} />
     <SuggestionToast lang={lang} />
+    <WebAnalytics />
     <script is:inline>
       const menuButton = document.querySelector('.menu-toggle');
       const menuPanel = document.querySelector('#site-menu-panel');
