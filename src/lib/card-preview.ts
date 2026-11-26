@@ -28,10 +28,14 @@ export function isTrainerCard(card:Pick<PreviewCard,'image'|'fullImage'>){
  const image=card.fullImage||card.image;
  return Boolean(image&&isOfficialCardImage(image)&&/\/\d+_T_/.test(new URL(image).pathname));
 }
-export function selectPreview<T extends PreviewCard>(cards:T[],identities:Record<string,string>={}){
+export type PreviewSelection={featured?:string[];excluded?:string[]};
+export function selectPreview<T extends PreviewCard>(cards:T[],identities:Record<string,string>={},selection:PreviewSelection={}){
  const seen=new Set<string>();
- return cards.filter(c=>isOfficialCardImage(c.fullImage||c.image))
-  .sort((a,b)=>Number(isTrainerCard(a))-Number(isTrainerCard(b))||rarityRank(b.rarity)-rarityRank(a.rarity)||compareCards(a,b))
+ const excluded=new Set((selection.excluded||[]).map(image=>identities[image]||image));
+ const featured=new Map((selection.featured||[]).map((image,index)=>[image,index]));
+ const priority=(card:T)=>featured.get(card.fullImage||card.image||'')??Number.MAX_SAFE_INTEGER;
+ return cards.filter(c=>isOfficialCardImage(c.fullImage||c.image)&&!excluded.has(identities[c.fullImage||c.image!]||c.fullImage||c.image!))
+  .sort((a,b)=>priority(a)-priority(b)||Number(isTrainerCard(a))-Number(isTrainerCard(b))||rarityRank(b.rarity)-rarityRank(a.rarity)||compareCards(a,b))
   .filter(card=>{const image=card.fullImage||card.image!;const key=identities[image]||image;if(seen.has(key))return false;seen.add(key);return true;})
   .slice(0,PREVIEW_LIMIT);
 }

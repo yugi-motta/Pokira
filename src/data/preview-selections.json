@@ -1,0 +1,14 @@
+{
+  "akira-egawa": {
+    "featured": [
+      "https://www.pokemon-card.com/assets/images/card_images/large/SV4a/045135_P_RIZADONEX.jpg",
+      "https://www.pokemon-card.com/assets/images/card_images/large/SV6/045852_P_IINEINU.jpg",
+      "https://www.pokemon-card.com/assets/images/card_images/large/S8b/041026_P_ZEKUROMU.jpg"
+    ],
+    "excluded": [
+      "https://www.pokemon-card.com/assets/images/card_images/large/S12a/044941_P_ORIJINPARUKIAVSTAR.jpg",
+      "https://www.pokemon-card.com/assets/images/card_images/large/S12a/044942_P_ORIJINDEIARUGAVSTAR.jpg",
+      "https://www.pokemon-card.com/assets/images/card_images/large/S12a/044943_P_GIRATEINAVSTAR.jpg"
+    ]
+  }
+}

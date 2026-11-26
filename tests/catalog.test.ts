@@ -5,6 +5,7 @@ import {rarityRank,selectPreview,isOfficialCardImage,isTrainerCard,PREVIEW_LIMIT
 import {illustratorSearchText,matchesIllustrator} from '../src/lib/illustrator-search';
 import type {CatalogCard} from '../src/lib/cards';
 const artists=readdirSync('src/data/artists').filter(f=>f.endsWith('.json')).map(f=>JSON.parse(readFileSync(`src/data/artists/${f}`,'utf8')));
+const selections:Record<string,{featured?:string[];excluded?:string[]}>=JSON.parse(readFileSync('src/data/preview-selections.json','utf8'));
 const identities:Record<string,string>=JSON.parse(readFileSync('src/data/artwork-identities.json','utf8')).images;
 function cardsFor(id:string,lang:string):CatalogCard[]{return JSON.parse(readFileSync(`dist/api/artists/${id}/${lang}/all.json`,'utf8')).cards;}
 
@@ -34,13 +35,15 @@ test('every illustrator has a capped, rarity-ordered official preview with ident
  for(const artist of artists){
   const en=cardsFor(artist.id,'en'),ja=cardsFor(artist.id,'ja');
   const source=JSON.parse(readFileSync(`src/data/japanese-catalog/${artist.id}.json`,'utf8'));
-  const expected=new Set(source.cards.filter((c:{high:string|null})=>isOfficialCardImage(c.high)).map((c:{high:string})=>identities[c.high]||c.high));
+  const excluded=new Set((selections[artist.id]?.excluded||[]).map(image=>identities[image]||image));
+  const featured=new Set(selections[artist.id]?.featured||[]);
+  const expected=new Set(source.cards.filter((c:{high:string|null})=>isOfficialCardImage(c.high)&&!excluded.has(identities[c.high!]||c.high!)).map((c:{high:string})=>identities[c.high]||c.high));
   assert.equal(en.length,Math.min(PREVIEW_LIMIT,expected.size),artist.id);
   assert.deepEqual(en.map(c=>[c.id,c.image]),ja.map(c=>[c.id,c.image]),artist.id);
   const seen=new Set<string>();
   en.forEach((card,i)=>{assert.equal(card.language,'ja');assert.equal(card.kind,'physical');assert.ok(isOfficialCardImage(card.fullImage));assert.ok(isOfficialCardImage(card.thumbnail));
    const key=identities[card.fullImage!]||card.fullImage!;assert.ok(!seen.has(key),artist.id);seen.add(key);
-   if(i){
+   if(i&&!featured.has(en[i-1].fullImage!)&&!featured.has(card.fullImage!)){
     assert.ok(!isTrainerCard(en[i-1])||isTrainerCard(card),artist.id);
     if(isTrainerCard(en[i-1])===isTrainerCard(card))assert.ok(rarityRank(en[i-1].rarity)>=rarityRank(card.rarity),artist.id);
    }
@@ -142,4 +145,20 @@ test('closing suggestions preserves scroll and returns focus to the opener',asyn
   assert.equal(dialog.open,false);assert.equal(body.style.overflow,'auto');assert.equal(position.scrollX,12);assert.equal(position.scrollY,3756);
   assert.equal(blurred,!keyboard);assert.equal(focusCalls.at(-1)!.name,menu?'menu':'opener');assert.ok(focusCalls.every(call=>call.preventScroll));
  }
+});
+
+test('AKIRA EGAWA previews feature the requested printings and omit the three VSTAR illustrations',()=>{
+ const selection=selections['akira-egawa'];
+ for(const lang of ['en','ja']){
+  const cards=cardsFor('akira-egawa',lang);
+  assert.deepEqual(cards.slice(0,3).map(c=>c.fullImage),selection.featured);
+  assert.ok(cards.every(c=>!selection.excluded!.includes(c.fullImage!)));
+ }
+});
+test('preview exclusions also omit alternate printings of the excluded artwork',()=>{
+ const image=(name:string)=>`https://www.pokemon-card.com/assets/images/card_images/large/${name}.jpg`;
+ const base={id:'first',number:'1',releaseDate:'2024-01-01',rarity:'SAR',image:image('first')};
+ const variant={...base,id:'variant',image:image('variant')};
+ const featured={...base,id:'featured',rarity:'CHR',image:image('featured')};
+ assert.deepEqual(selectPreview([base,variant,featured],{[variant.image]:base.image},{excluded:[base.image],featured:[featured.image]}).map(c=>c.id),['featured']);
 });

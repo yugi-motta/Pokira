@@ -4,7 +4,8 @@ import type { MatchFacts } from './card-identity';
 import { pokemonFor } from './pokemon';
 import artworkIdentities from '../data/artwork-identities.json';
 import previewRarities from '../data/preview-rarities.json';
-import { isOfficialCardImage, PREVIEW_LIMIT, selectPreview } from './card-preview';
+import previewSelections from '../data/preview-selections.json';
+import { isOfficialCardImage, PREVIEW_LIMIT, selectPreview, type PreviewSelection } from './card-preview';
 export const catalogCardSchema = z.object({
   kind:z.enum(['physical','pocket']).optional(),pokemon:z.array(z.object({id:z.number(),name:z.string()})).optional(),
   sortReleaseDate: z.string().nullable().optional(), sortNumber: z.string().optional(), editionIds: z.array(z.string()).optional(), otherLanguageOnly: z.boolean().optional(),
@@ -53,7 +54,7 @@ export function catalogFor(id: string, lang: Lang) {
       setId:`ja:${card.setId}`,setName:lang==='ja'?card.setJapaneseName||details?.setName||card.setName:card.setName,
       releaseDate:card.releaseDate};
   });
-  return {cards:selectPreview(eligible,artworkIdentities.images),language:'ja',
+  return {cards:selectPreview(eligible,artworkIdentities.images,(previewSelections as Record<string,PreviewSelection>)[id]),language:'ja',
     source:japanese?.source||`https://www.artofpkm.com/illustrators/${id}`,
     updatedAt:japanese?.updatedAt||'',version:`previews-v2:${japanese?.updatedAt||''}`};
 }
