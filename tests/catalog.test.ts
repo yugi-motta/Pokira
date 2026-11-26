@@ -5,7 +5,7 @@ import {rarityRank,selectPreview,isOfficialCardImage,isTrainerCard,PREVIEW_LIMIT
 import {illustratorSearchText,matchesIllustrator} from '../src/lib/illustrator-search';
 import type {CatalogCard} from '../src/lib/cards';
 const artists=readdirSync('src/data/artists').filter(f=>f.endsWith('.json')).map(f=>JSON.parse(readFileSync(`src/data/artists/${f}`,'utf8')));
-const selections:Record<string,{featured?:string[];excluded?:string[]}>=JSON.parse(readFileSync('src/data/preview-selections.json','utf8'));
+const selections:Record<string,{featured?:string[];excluded?:string[];rarities?:string[]}>=JSON.parse(readFileSync('src/data/preview-selections.json','utf8'));
 const identities:Record<string,string>=JSON.parse(readFileSync('src/data/artwork-identities.json','utf8')).images;
 function cardsFor(id:string,lang:string):CatalogCard[]{return JSON.parse(readFileSync(`dist/api/artists/${id}/${lang}/all.json`,'utf8')).cards;}
 
@@ -161,4 +161,16 @@ test('preview exclusions also omit alternate printings of the excluded artwork',
  const variant={...base,id:'variant',image:image('variant')};
  const featured={...base,id:'featured',rarity:'CHR',image:image('featured')};
  assert.deepEqual(selectPreview([base,variant,featured],{[variant.image]:base.image},{excluded:[base.image],featured:[featured.image]}).map(c=>c.id),['featured']);
+});
+
+test('Yuka Morii has only Common and Uncommon illustrations in both language previews',()=>{
+ for(const lang of ['en','ja']){
+  const cards=cardsFor('yuka-morii',lang);
+  assert.equal(cards.length,15);
+  assert.ok(cards.every(card=>['C','U'].includes(card.rarity||'')));
+ }
+});
+test('rarity restrictions reject rare and unlabeled printings before filling preview slots',()=>{
+ const cards=['C','U','Common','Uncommon','AR','SAR','R',null].map((rarity,i)=>({id:String(i),number:String(i),releaseDate:'2025-01-01',rarity,image:`https://www.pokemon-card.com/assets/images/card_images/large/test/${i}.jpg`}));
+ assert.deepEqual(new Set(selectPreview(cards,{}, {rarities:['C','U']}).map(c=>c.id)),new Set(['0','1','2','3']));
 });

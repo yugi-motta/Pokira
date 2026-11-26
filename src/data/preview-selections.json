@@ -10,5 +10,11 @@
       "https://www.pokemon-card.com/assets/images/card_images/large/S12a/044942_P_ORIJINDEIARUGAVSTAR.jpg",
       "https://www.pokemon-card.com/assets/images/card_images/large/S12a/044943_P_GIRATEINAVSTAR.jpg"
     ]
+  },
+  "yuka-morii": {
+    "rarities": [
+      "C",
+      "U"
+    ]
   }
 }
