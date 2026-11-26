@@ -114,8 +114,8 @@ html[data-theme=dark] .artwork-thumb::before{background:linear-gradient(105deg,#
 
 /* Compact motion, with the reduced-motion override below. */
 .js .artist-entry{opacity:0}
-.js .directory.is-ready .artist-entry{animation:illustrator-in .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--entry-delay,0ms)}
-@keyframes illustrator-in{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:translateY(0)}}
+.js .directory.is-ready .artist-entry{opacity:1;animation:illustrator-in .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:var(--entry-delay,0ms)}
+@keyframes illustrator-in{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:none}}
 .menu-panel{transform-origin:top right;animation:menu-in .22s cubic-bezier(.16,1,.3,1) both}
 @keyframes menu-in{from{opacity:0;transform:translateY(-7px) scale(.96)}to{opacity:1;transform:none}}
 .menu-panel[data-closing=true]{animation:menu-out .16s ease both}
@@ -457,7 +457,12 @@ html[data-theme=dark] .search-sheet li a:hover,html[data-theme=dark] .search-she
 
 /* Keep all five homepage previews in view, including on phones. */
 .directory .artist-artworks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;width:100%;margin:16px 0 0;padding:0;overflow:visible;scroll-snap-type:none;-webkit-mask-image:none;mask-image:none}
-.directory .artwork-thumb{width:100%;min-width:0}
+/* Let decoded homepage images paint directly. The rounded wrapper and image
+   border radius already mask them; nested opacity/clip layers can stay blank
+   until hover invalidates paint after the parent entrance animation. */
+.directory .artwork-thumb{width:100%;min-width:0;isolation:auto}
+.directory .artwork-thumb img{clip-path:none}
+.js .directory .artwork-thumb img{opacity:1;transition:none}
 .profile-identity .artist-socials{gap:10px}
 .profile-identity .artist-socials a{min-height:44px;padding:12px 24px;border:0;background:#1d1d1f;color:#fff;font-size:13px;line-height:1.45;box-shadow:0 6px 24px #0001;transition:background .2s,box-shadow .2s}
 .profile-identity .artist-socials a:hover{background:#393940;color:#fff;box-shadow:0 8px 28px #0002}
