@@ -80,7 +80,7 @@ main{flex:1}
 .suggestion-dialog :focus-visible{outline:0}
 .suggestion-fields input:focus-visible{border-color:#c4c4cc;box-shadow:0 0 0 2px rgba(130,130,142,.13)}
 .suggestion-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
-.suggestion-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:16px}
+.suggestion-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:28px}
 .suggestion-actions button{flex:none;white-space:nowrap;border:0;border-radius:10px;background:#1d1d1f;color:#fff;padding:11px 15px;font-size:12px;font-weight:600}
 .suggestion-actions button:disabled{opacity:.55;cursor:wait}
 .suggestion-actions button span{margin-left:5px}
