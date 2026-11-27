@@ -1,0 +1,24 @@
+{
+  "id": "svlt",
+  "name": "svlt",
+  "instagram": "svltart",
+  "instagramSource": "https://svlt.art/",
+  "website": "https://svlt.art/",
+  "websiteSource": "https://x.com/svltart",
+  "bio": {
+    "en": "Painter and traditional artist whose illustration work includes Pokémon cards.",
+    "ja": "絵画やアナログ表現を手がけるイラストレーター。ポケモンカードのイラストも制作している。",
+    "sources": [
+      "https://svlt.art/",
+      "https://x.com/svltart"
+    ]
+  },
+  "handle": "svltart",
+  "workSources": [
+    "https://x.com/svltart/status/2126133043782201785"
+  ],
+  "avatar": "https://pbs.twimg.com/profile_images/1616607019519066112/-iRHdS6Y_400x400.jpg",
+  "creditSource": "https://www.pokemon-card.com/card-search/details.php/card/50892/regu/all",
+  "gallery": [],
+  "announcements": []
+}
