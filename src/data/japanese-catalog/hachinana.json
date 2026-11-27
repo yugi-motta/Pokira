@@ -1,0 +1,58 @@
+{
+  "artistId": "hachinana",
+  "source": "https://www.artofpkm.com/illustrators/hachinana",
+  "updatedAt": "2026-11-27T13:21:12.477Z",
+  "cards": [
+    {
+      "kind": "physical",
+      "source": "https://www.pokemon-card.com/card-search/details.php/card/50916/regu/all",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50916/regu/all",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050916_P_BUROROROMU.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M7/050916_P_BUROROROMU.jpg",
+      "width": 868,
+      "height": 1212,
+      "en": "Revavroom",
+      "ja": "ブロロローム",
+      "number": "061/078",
+      "setId": "M7",
+      "setCode": "M7",
+      "setName": "Aura Seeker",
+      "setJapaneseName": "拡張パック「ハドウシーカー」",
+      "releaseDate": "2026-11-27"
+    },
+    {
+      "kind": "physical",
+      "source": "https://www.pokemon-card.com/card-search/details.php/card/50435/regu/all",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50435/regu/all",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/MEZ/050435_P_CHIXYORONEKO.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/MEZ/050435_P_CHIXYORONEKO.jpg",
+      "width": 868,
+      "height": 1212,
+      "en": "Purrloin",
+      "ja": "チョロネコ",
+      "number": "004/019",
+      "setId": "MEZ",
+      "setCode": "MEZ",
+      "setName": "Starter Set ex Zorua & Zoroark ex",
+      "setJapaneseName": "スターターセットex ゾロア＆ゾロアークex",
+      "releaseDate": "2026-07-31"
+    },
+    {
+      "kind": "physical",
+      "source": "https://www.pokemon-card.com/card-search/details.php/card/50367/regu/all",
+      "imageSource": "https://www.pokemon-card.com/card-search/details.php/card/50367/regu/all",
+      "high": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050367_P_SURIPU.jpg",
+      "thumbnail": "https://www.pokemon-card.com/assets/images/card_images/large/M6/050367_P_SURIPU.jpg",
+      "width": 868,
+      "height": 1212,
+      "en": "Drowzee",
+      "ja": "スリープ",
+      "number": "029/076",
+      "setId": "M6",
+      "setCode": "M6",
+      "setName": "Storm Emeralda",
+      "setJapaneseName": "ストームエメラルダ",
+      "releaseDate": "2026-07-31"
+    }
+  ]
+}
